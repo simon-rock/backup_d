@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes" ?>
+<CodeBlocks_layout_file>
+	<ActiveTarget name="Debug" />
+	<File name="backup_main.cpp" open="1" top="1" tabpos="1">
+		<Cursor position="1032" topLine="0" />
+	</File>
+	<File name="backup_main.h" open="1" top="0" tabpos="4">
+		<Cursor position="547" topLine="0" />
+	</File>
+	<File name="brick_group.cpp" open="1" top="0" tabpos="2">
+		<Cursor position="330" topLine="0" />
+	</File>
+	<File name="brick_group.h" open="1" top="0" tabpos="3">
+		<Cursor position="379" topLine="0" />
+	</File>
+	<File name="main.cpp" open="1" top="0" tabpos="5">
+		<Cursor position="163" topLine="0" />
+	</File>
+</CodeBlocks_layout_file>

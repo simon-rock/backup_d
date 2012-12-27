@@ -1,0 +1,4 @@
+Log file created at: 2012/09/20 15:54:14
+Running on machine: PC7853-20120717
+Log line format: [IWEF]mmdd hh:mm:ss.uuuuuu threadid file:line] msg
+W0920 15:54:14.093750  2620 config.cpp:19] can't connect to mysql

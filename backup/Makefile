@@ -1,0 +1,50 @@
+#
+# Copyright (c) 2001-2012 by PDFTron Systems Inc. All Rights Reserved.
+#
+ROOT := .
+
+LINK	= g++
+CC	= g++ -c
+AR	= ar -cr
+RM	= rm -rf
+
+# Target
+TARGETS	= $(TARGETS1)
+TARGETS1= libbackup.a
+
+# OBJECT
+OBJS	= $(OBJ_T1)
+OBJ_T1	= backup.o backup_worker.o disk_container.o file_frame.o backup_master.o backup_task.o config.o msg_queue.o thread_pool.o sys_thread.o task_t.o db_exec.o
+
+# DIR
+BINDIR	= ../lib/
+
+# CFLAGS
+INCS	= -I ../include/
+LIBS	= 
+OPTIONS	= -ftemplate-depth-100 -O2 -finline-functions -Wno-inline -Wall 
+CFLAGS	= $(INCS) $(LIBS) $(OPTIONS)
+
+# libs depend
+LIBDIRS	= 
+
+all: $(TARGETS)
+
+$(TARGETS1): libs $(OBJ_T1) 
+	$(AR)  $(BINDIR)$(TARGETS1)  $(OBJ_T1)
+
+libs:
+	@$(foreach BIND, $(LIBDIRS), \
+            $(MAKE) -C $(BIND) --no-print-directory;)
+.cpp.o	:
+	$(CC)  $(INCS) $< 
+
+clean:
+	@$(foreach BIND, $(LIBDIRS), \
+            $(MAKE) -C $(BIND) clean --no-print-directory;)
+	@$(foreach T, $(TARGETS), \
+            $(RM) $(BINDIR)$(T);)
+	-$(RM) $(OBJS) *.o *core
+
+.PHONY: all clean dependents
+

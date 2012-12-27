@@ -10,4 +10,23 @@
 # Compiled Static libraries
 *.lai
 *.la
-*.a
+#*.a
+
+# MSVC
+*.ncb
+*.suo
+*.pdb
+*.exe
+*.ilk
+*.user
+*.manifest
+*.obj
+*.idb
+*.dmp
+*.dep
+*.pch
+*.idb 
+*.netmodule 
+*.aps
+*.dep
+*.htm

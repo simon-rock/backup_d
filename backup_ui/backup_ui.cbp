@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes" ?>
+<CodeBlocks_project_file>
+	<FileVersion major="1" minor="6" />
+	<Project>
+		<Option title="backup_ui" />
+		<Option pch_mode="2" />
+		<Option compiler="gcc" />
+		<Build>
+			<Target title="Debug">
+				<Option output="bin/Debug/backup_ui" prefix_auto="1" extension_auto="1" />
+				<Option object_output="obj/Debug/" />
+				<Option type="1" />
+				<Option compiler="gcc" />
+				<Compiler>
+					<Add option="-g" />
+					<Add option="-I /home/gaoyu/workspace/mysql/include" />
+				</Compiler>
+				<Linker>
+					<Add option="-L /home/gaoyu/workspace/mysql/lib" />
+					<Add option="-lbackup -lsystools -ldb_access -lsyslayer" />
+					<Add option="-L/usr/lib64/mysql/" />
+					<Add option="-lmysqlclient -lglog -lpthread" />
+				</Linker>
+			</Target>
+			<Target title="Release">
+				<Option output="bin/Release/backup_ui" prefix_auto="1" extension_auto="1" />
+				<Option object_output="obj/Release/" />
+				<Option type="0" />
+				<Option compiler="gcc" />
+				<Compiler>
+					<Add option="-O2" />
+				</Compiler>
+				<Linker>
+					<Add option="-s" />
+				</Linker>
+			</Target>
+		</Build>
+		<Compiler>
+			<Add option="`pkg-config gtk+-2.0 --cflags`" />
+			<Add option="-Wall" />
+		</Compiler>
+		<Linker>
+			<Add option="`pkg-config gtk+-2.0 --libs`" />
+		</Linker>
+		<Unit filename="backup_main.cpp" />
+		<Unit filename="backup_main.h" />
+		<Unit filename="backup_status.cpp" />
+		<Unit filename="backup_status.h" />
+		<Unit filename="brick_group.cpp" />
+		<Unit filename="brick_group.h" />
+		<Unit filename="deamon.cpp" />
+		<Unit filename="deamon.h" />
+		<Unit filename="main.cpp" />
+		<Extensions>
+			<code_completion />
+			<debugger>
+				<search_path add="/home/gaoyu/workspace/mysql/backup" />
+				<search_path add="/home/gaoyu/workspace/mysql/include" />
+			</debugger>
+		</Extensions>
+	</Project>
+</CodeBlocks_project_file>

@@ -1,0 +1,73 @@
+#
+# Copyright (c) 2001-2012 by PDFTron Systems Inc. All Rights Reserved.
+#
+ROOT := .
+
+LINK	= g++
+CC	= g++ -c -g -DDEBUG
+AR	= ar -cr
+RM	= rm -rf
+
+# Target
+TARGETS	= $(TARGETS1) $(TARGETS2) $(TARGETS3) $(TARGETS4) $(TARGETS5)
+TARGETS1= test_backup		
+TARGETS2= test_msg
+TARGETS3= test_master	# linux in win ok
+TARGETS4= test_thread	# linux in win ok
+TARGETS5= test_task_control
+# OBJECT
+OBJS	= $(OBJ_T1) $(OBJ_T2) $(OBJ_T3) $(OBJ_T4) $(OBJ_T5)
+OBJ_T1	= main.o
+OBJ_T2	= main_msg.o
+OBJ_T3	= main_test_master.o
+OBJ_T4	= main_thread.o
+OBJ_T5	= test_task_control.o
+# DIR
+BINDIR	= ../bin/
+
+# CFLAGS
+INCS	= -I ../include/
+#LIBS	= -L ../lib  -lsystools -ldb_access  -L/usr/lib64/mysql/ -lmysqlclient #depend error
+LIBS	= -L ../lib  -lbackup -lsystools -ldb_access -lsyslayer -L/usr/lib64/mysql/ -lmysqlclient -lglog -lpthread
+OPTIONS	= -ftemplate-depth-100 -O2 -finline-functions -Wno-inline -Wall 
+CFLAGS	= $(INCS) $(LIBS) $(OPTIONS)
+
+# libs depend
+LIBDIRS	= ../systools	\
+	  ./		\
+	  ../db_access	\
+	  ../syslayer
+
+all: $(TARGETS)
+
+$(TARGETS1): libs $(OBJ_T1) 
+	$(LINK) -o $(BINDIR)$(TARGETS1)  $(OBJ_T1) $(CFLAGS)
+#	$(AR)  $(BINDIR)$(TARGETS1)  $(OBJ_T1)
+$(TARGETS2): libs $(OBJ_T2) 
+	$(LINK) -o $(BINDIR)$(TARGETS2)  $(OBJ_T2) $(CFLAGS)
+#	$(AR)  $(BINDIR)$(TARGETS1)  $(OBJ_T1)
+$(TARGETS3): libs $(OBJ_T3) 
+	$(LINK) -o $(BINDIR)$(TARGETS3)  $(OBJ_T3) $(CFLAGS)
+#	$(AR)  $(BINDIR)$(TARGETS1)  $(OBJ_T1)
+$(TARGETS4): libs $(OBJ_T4) 
+	$(LINK) -o $(BINDIR)$(TARGETS4)  $(OBJ_T4) $(CFLAGS)
+#	$(AR)  $(BINDIR)$(TARGETS1)  $(OBJ_T1)
+$(TARGETS5): libs $(OBJ_T5) 
+	$(LINK) -o $(BINDIR)$(TARGETS5)  $(OBJ_T5) $(CFLAGS)
+#	$(AR)  $(BINDIR)$(TARGETS1)  $(OBJ_T1)
+
+libs:
+	@$(foreach BIND, $(LIBDIRS), \
+            $(MAKE) -C $(BIND) --no-print-directory;)
+.cpp.o	:
+	$(CC)  $(INCS) $(LIBS) $< 
+
+clean:
+	@$(foreach BIND, $(LIBDIRS), \
+            $(MAKE) -C $(BIND) clean --no-print-directory;)
+	@$(foreach T, $(TARGETS), \
+            $(RM) $(BINDIR)$(T);)
+	-$(RM) $(OBJS) *.o *core
+
+.PHONY: all clean dependents
+

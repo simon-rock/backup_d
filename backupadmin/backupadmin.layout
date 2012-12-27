@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes" ?>
+<CodeBlocks_layout_file>
+	<ActiveTarget name="Debug" />
+	<File name="BrickMaster.cpp" open="1" top="0" tabpos="3">
+		<Cursor position="1716" topLine="33" />
+	</File>
+	<File name="BrickMaster.h" open="0" top="0" tabpos="3">
+		<Cursor position="828" topLine="6" />
+	</File>
+	<File name="NASMaster.cpp" open="0" top="0" tabpos="4">
+		<Cursor position="5083" topLine="148" />
+	</File>
+	<File name="NASMaster.h" open="0" top="0" tabpos="6">
+		<Cursor position="173" topLine="11" />
+	</File>
+	<File name="QueryFrame.cpp" open="0" top="0" tabpos="0">
+		<Cursor position="24" topLine="0" />
+	</File>
+	<File name="QueryFrame.h" open="0" top="0" tabpos="0">
+		<Cursor position="197" topLine="0" />
+	</File>
+	<File name="db_config.cpp" open="1" top="0" tabpos="4">
+		<Cursor position="1493" topLine="51" />
+	</File>
+	<File name="db_config.h" open="1" top="0" tabpos="5">
+		<Cursor position="1047" topLine="20" />
+	</File>
+	<File name="main.cpp" open="1" top="0" tabpos="2">
+		<Cursor position="1413" topLine="40" />
+	</File>
+	<File name="masterwin.cpp" open="1" top="0" tabpos="1">
+		<Cursor position="243" topLine="9" />
+	</File>
+	<File name="masterwin.h" open="0" top="0" tabpos="5">
+		<Cursor position="578" topLine="0" />
+	</File>
+</CodeBlocks_layout_file>

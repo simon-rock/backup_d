@@ -1,0 +1,62 @@
+#
+# Copyright (c) 2001-2012 by PDFTron Systems Inc. All Rights Reserved.
+#
+ROOT := .
+
+LINK	= g++
+CC	= g++ -c 
+AR	= ar -cr
+RM	= rm -rf
+
+# Target
+TARGETS	= $(TARGETS1)
+TARGETS1= backupadmin		
+
+# OBJECT
+OBJS	= $(OBJ_T1)
+OBJ_T1	= main.o masterwin.o BrickMaster.o NASMaster.o QueryFrame.o db_config.o BrowseFolder.o
+# DIR
+BINDIR	= ../bin/
+
+# CFLAGS
+INCS	= -I ../include/ -I/usr/include/gtkmm-2.4 -I/usr/lib64/gtkmm-2.4/include -I/usr/include/atkmm-1.6 \
+		-I/usr/include/giomm-2.4 -I/usr/lib64/giomm-2.4/include -I/usr/include/pangomm-1.4 \
+		-I/usr/lib64/pangomm-1.4/include -I/usr/include/gtk-2.0 -I/usr/include/gtk-unix-print-2.0 \
+		-I/usr/include/gdkmm-2.4 -I/usr/lib64/gdkmm-2.4/include -I/usr/include/atk-1.0 -I/usr/include/glibmm-2.4 \
+		-I/usr/lib64/glibmm-2.4/include -I/usr/include/glib-2.0 -I/usr/lib64/glib-2.0/include -I/usr/include/sigc++-2.0 \
+		-I/usr/lib64/sigc++-2.0/include -I/usr/include/cairomm-1.0 -I/usr/lib64/cairomm-1.0/include \
+		-I/usr/include/pango-1.0 -I/usr/include/cairo -I/usr/include/pixman-1 -I/usr/include/freetype2 \
+		-I/usr/include/libpng15 -I/usr/lib64/gtk-2.0/include  -I/usr/include/gdk-pixbuf-2.0
+#LIBS	= -L ../lib  -lsystools -ldb_access  -L/usr/lib64/mysql/ -lmysqlclient #depend error
+LIBS	= -L ../lib -ldb_access -lsystools -L/usr/lib64/mysql/ -lmysqlclient -lglog -lpthread \
+		-lgtkmm-2.4 -latkmm-1.6 -lgdkmm-2.4 -lgiomm-2.4 -lpangomm-1.4 -lgtk-x11-2.0 -lglibmm-2.4 \
+		-lcairomm-1.0 -lsigc-2.0 -lgdk-x11-2.0 -latk-1.0 -lgio-2.0 -lpangoft2-1.0 -lpangocairo-1.0 \
+		-lgdk_pixbuf-2.0 -lcairo -lpango-1.0 -lfreetype -lfontconfig -lgobject-2.0 -lglib-2.0
+OPTIONS	= -ftemplate-depth-100 -O2 -finline-functions -Wno-inline -Wall 
+CFLAGS	= $(INCS) $(LIBS) $(OPTIONS)
+
+# libs depend
+LIBDIRS	= ../systools	\
+	  ../db_access
+
+all: $(TARGETS)
+
+$(TARGETS1): libs $(OBJ_T1) 
+	$(LINK) -o $(BINDIR)$(TARGETS1)  $(OBJ_T1) $(CFLAGS)
+#	$(AR)  $(BINDIR)$(TARGETS1)  $(OBJ_T1)
+
+libs:
+	@$(foreach BIND, $(LIBDIRS), \
+            $(MAKE) -C $(BIND) --no-print-directory;)
+.cpp.o	:
+	$(CC)  $(INCS) $(LIBS) $< 
+
+clean:
+	@$(foreach BIND, $(LIBDIRS), \
+            $(MAKE) -C $(BIND) clean --no-print-directory;)
+	@$(foreach T, $(TARGETS), \
+            $(RM) $(BINDIR)$(T);)
+	-$(RM) $(OBJS) *.o *core
+
+.PHONY: all clean dependents
+

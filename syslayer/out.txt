@@ -1,0 +1,59 @@
+proc on /proc type proc (rw,nosuid,nodev,noexec,relatime)
+sysfs on /sys type sysfs (rw,nosuid,nodev,noexec,relatime,seclabel)
+devtmpfs on /dev type devtmpfs (rw,nosuid,seclabel,size=1015120k,nr_inodes=253780,mode=755)
+devpts on /dev/pts type devpts (rw,nosuid,noexec,relatime,seclabel,gid=5,mode=620,ptmxmode=000)
+tmpfs on /dev/shm type tmpfs (rw,nosuid,nodev,seclabel)
+tmpfs on /run type tmpfs (rw,nosuid,nodev,seclabel,mode=755)
+/dev/mapper/vg_fedora--gaoyu-lv_root on / type ext4 (rw,relatime,seclabel,data=ordered)
+securityfs on /sys/kernel/security type securityfs (rw,nosuid,nodev,noexec,relatime)
+selinuxfs on /sys/fs/selinux type selinuxfs (rw,relatime)
+tmpfs on /sys/fs/cgroup type tmpfs (rw,nosuid,nodev,noexec,seclabel,mode=755)
+cgroup on /sys/fs/cgroup/systemd type cgroup (rw,nosuid,nodev,noexec,relatime,release_agent=/usr/lib/systemd/systemd-cgroups-agent,name=systemd)
+cgroup on /sys/fs/cgroup/cpuset type cgroup (rw,nosuid,nodev,noexec,relatime,cpuset)
+
+
+========================
+Disk /dev/sda: 320.1 GB, 320072933376 bytes
+255 heads, 63 sectors/track, 38913 cylinders
+Units = cylinders of 16065 * 512 = 8225280 bytes
+Sector size (logical/physical): 512 bytes / 512 bytes
+I/O size (minimum/optimal): 512 bytes / 512 bytes
+Disk identifier: 0xdcccdccc
+
+   Device Boot      Start         End      Blocks   Id  System
+/dev/sda1           38277       38913     5116702+  83  Linux
+/dev/sda2   *           1          64      512000   83  Linux
+Partition 2 does not end on cylinder boundary.
+/dev/sda3              64       38276   306938880   8e  Linux LVM
+
+Partition table entries are not in disk order
+
+Disk /dev/mapper/vg_centos-lv_root: 53.7 GB, 53687091200 bytes
+255 heads, 63 sectors/track, 6527 cylinders
+Units = cylinders of 16065 * 512 = 8225280 bytes
+Sector size (logical/physical): 512 bytes / 512 bytes
+I/O size (minimum/optimal): 512 bytes / 512 bytes
+Disk identifier: 0x00000000
+
+Disk /dev/mapper/vg_centos-lv_root doesn't contain a valid partition table
+
+Disk /dev/mapper/vg_centos-lv_swap: 4227 MB, 4227858432 bytes
+255 heads, 63 sectors/track, 514 cylinders
+Units = cylinders of 16065 * 512 = 8225280 bytes
+Sector size (logical/physical): 512 bytes / 512 bytes
+I/O size (minimum/optimal): 512 bytes / 512 bytes
+Disk identifier: 0x00000000
+
+Disk /dev/mapper/vg_centos-lv_swap doesn't contain a valid partition table
+
+Disk /dev/mapper/vg_centos-lv_home: 256.4 GB, 256389414912 bytes
+255 heads, 63 sectors/track, 31170 cylinders
+Units = cylinders of 16065 * 512 = 8225280 bytes
+Sector size (logical/physical): 512 bytes / 512 bytes
+I/O size (minimum/optimal): 512 bytes / 512 bytes
+Disk identifier: 0x00000000
+
+Disk /dev/mapper/vg_centos-lv_home doesn't contain a valid partition table
+
+
+

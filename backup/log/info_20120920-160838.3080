@@ -1,0 +1,17 @@
+Log file created at: 2012/09/20 16:08:38
+Running on machine: PC7853-20120717
+Log line format: [IWEF]mmdd hh:mm:ss.uuuuuu threadid file:line] msg
+I0920 16:08:38.125000  3272 sys_thread.cpp:26] [3704]
+I0920 16:08:38.125000  3272 sys_thread.cpp:26] [1968]
+I0920 16:08:38.125000  3272 sys_thread.cpp:26] [1340]
+I0920 16:08:38.125000  3272 sys_thread.cpp:26] [1052]
+I0920 16:08:38.234375  3704 backup_task.cpp:8] [brick_id]NAS-1-BRICK-1[mount_path]D:\datatest[backup_path]D:\datatest_target[last_filter_time]1344585483[last_filter_interval]86400
+I0920 16:08:38.234375  1968 backup_task.cpp:8] [brick_id]NAS-1-BRICK-2[mount_path]D:\datatest_2[backup_path]D:\datatest_target_2[last_filter_time]1343548683[last_filter_interval]86400
+I0920 16:08:38.234375  1052 backup_task.cpp:8] [brick_id]NAS-2-BRICK-2[mount_path]NAS-2-BRICK-2-mount-path[backup_path]NAS-2-BRICK-2--backup-path[last_filter_time]1343548683[last_filter_interval]86400
+I0920 16:08:38.234375  1340 backup_task.cpp:8] [brick_id]NAS-2-BRICK-1[mount_path]NAS-2-BRICK-1-mount-path[backup_path]NAS-2-BRICK-1--backup-path[last_filter_time]1343548683[last_filter_interval]86400
+I0920 16:08:38.234375  1968 backup_worker.cpp:60] [BRICK_ID]NAS-1-BRICK-2[BEGIN]1343548683[END]1343555883
+I0920 16:08:38.234375  1052 backup_worker.cpp:18] [acess m_src_path.c_str() error]NAS-2-BRICK-2-mount-path
+I0920 16:08:38.234375  1052 backup_task.cpp:56] [brick_id]NAS-2-BRICK-2[result]BK_INIT_ERR
+I0920 16:08:38.234375  1340 backup_worker.cpp:18] [acess m_src_path.c_str() error]NAS-2-BRICK-1-mount-path
+I0920 16:08:38.234375  3704 backup_worker.cpp:60] [BRICK_ID]NAS-1-BRICK-1[BEGIN]1344585483[END]1344592683
+I0920 16:08:38.234375  1340 backup_task.cpp:56] [brick_id]NAS-2-BRICK-1[result]BK_INIT_ERR
