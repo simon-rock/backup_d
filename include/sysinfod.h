@@ -93,7 +93,7 @@ private:
 	void init_disk_id();
 	void init_Partition_path();
     void init_sas_address();
-    bool mount_local_ext4();
+    bool mount_local_ext4(string const& _dev, string const & _mount_path);
 	map<string, string> m_disk_id, m_path_Partition;
 	//map<string, string> m_disk_path;
     vector<shared_ptr<disk_obj> >m_disk_pool;
