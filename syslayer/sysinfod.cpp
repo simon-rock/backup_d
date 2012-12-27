@@ -1,7 +1,11 @@
 #include "sysinfod.h"
 #include <cstdlib>
 #include <cstdio>
+#include <sys/mount.h> // mount fun
 #include "systools.h"
+#include <fstream>
+using std::ofstream;
+using std::ios;
 sysinfod sysinfod::m_instance;
 
 // 
@@ -406,7 +410,7 @@ bool sysinfod::mount_local_ext4(string const& _dev, string const & _mount_path)
         ofstream o("/etc/mtab", ios::app);
         if (o)
         {
-            o << _dev << " " << mount_path << " ext4 rw 0 0" << endl;
+            o << _dev << " " << _mount_path << " ext4 rw 0 0" << endl;
             return true;
         }
         else
