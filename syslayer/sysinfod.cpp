@@ -4,7 +4,10 @@
 #include <sys/mount.h> // mount fun
 #include "systools.h"
 #include <fstream>
+#include <sstream>
 using std::ofstream;
+using std::fstream;
+using std::stringstream;
 using std::ios;
 sysinfod sysinfod::m_instance;
 
@@ -417,6 +420,44 @@ bool sysinfod::mount_local_ext4(string const& _dev, string const & _mount_path)
         {
             return false;
         }
+    }
+    else
+    {
+        return false;
+    }
+}
+
+bool sysinfod::umount_local_path(string const& _path)
+{
+    fstream file("/etc/mtab", ios::in| ios::out);
+    if (!file)
+    {
+        return false;
+    }
+    
+    if (umount(_path.c_str())== 0)
+    {
+     
+        stringstream buf;
+        buf << file.rdbuf();
+
+        file.close();
+        ofstream out("/etc/mtab", ios::out);
+        if (!out)
+        {
+            cout << "write file error" << endl;
+            return true;
+        }
+
+        string line;
+        while(getline(buf, line))
+        {
+            if (line.find(_path + " ") == string::npos)
+            {
+                out << line << endl;
+            }
+        }
+        return true;
     }
     else
     {

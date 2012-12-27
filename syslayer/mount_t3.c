@@ -17,6 +17,19 @@
 using namespace std;
 int main (int argc, char *argv[]) {
 
+    if (argc > 1)
+    {
+        // umount
+        if (umount("/home/yu/mount_test") == 0)
+        {
+            printf ("umount sucess\n");
+        }
+        else
+        {
+            printf ("umount failed\n");
+        }
+        return 0;
+    }
 struct nfs2_fh estruc1={""};
 struct sockaddr_in estruc2; //={AF_INET,0};
 //estruc2.sin_family = AF_INET;
