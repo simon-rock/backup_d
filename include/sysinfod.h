@@ -36,7 +36,9 @@ class disk_obj
             sas_address(""),
             physics_index(-1),
             ctrl_sas_address(""),
-            ctrl_physics_index(-1)
+            ctrl_physics_index(-1),
+            ctrl_start_index(0),
+            asc_or_des(true)
             {}
             ~disk_obj(){}
   int get_pos()
@@ -47,7 +49,9 @@ class disk_obj
           return -1;
       }
       else
-          return ctrl_physics_index - physics_index;
+          return asc_or_des?
+              physics_index - ctrl_start_index + 1:
+              ctrl_start_index - physics_index + 1;
   }
  private:
   string id;              // disk id
@@ -57,6 +61,8 @@ class disk_obj
     int physics_index;
     string ctrl_sas_address;
     int ctrl_physics_index;
+    int ctrl_start_index; // start num of the jbod,  default 0
+    bool asc_or_des;      // disk order of the jbod, default asc
 
     friend class sysinfod;
 };
@@ -76,12 +82,31 @@ public:
 	{	
 		return &m_instance;			
 	}
-	void print();// for test
+
+    // jbod info
+    class jbod_info
+    {
+    public:
+        jbod_info():
+            _start_num(0),
+             asc_or_des(true){}
+        ~jbod_info(){}
+        string _sas_address;
+        unsigned int _start_num;
+        bool asc_or_des;        // ascending order or desending order
+    };
+    
+     // jbod info   
+    void set_jbod_info(vector<jbod_info> &_v);      // init jbod info from mysql(include sas_address, start num, ascordes)
+    void init_disk_info();     // init all disk info
+    void print();// for test
 	string get_diskid(string path, unsigned int pos_num); // get disk_id by backuppath
 	int check_brick_src(string const &_brick_path, string const & _src_path);
 	int connect_brick(string const &_brick_path, string const & _src_path);
 private:
-    void init_disk_info();
+
+    
+   
     
     string get_sas_address_by_disk(string const& p);
 	static sysinfod m_instance;
@@ -90,9 +115,9 @@ private:
 	sysinfod(const sysinfod&);
 	sysinfod& operator = (const sysinfod&);
 	// fun
-	void init_disk_id();
-	void init_Partition_path();
-    void init_sas_address();
+	void init_disk_id();        // init disk => id
+	void init_Partition_path(); // init partition => path
+    void init_sas_address();    // init all disk and ctrl sas address
     bool mount_local_ext4(string const& _dev, string const & _mount_path);
     bool umount_local_path(string const& _path);
 	map<string, string> m_disk_id, m_path_Partition;
@@ -102,5 +127,6 @@ private:
     map<string, int> m_sas_address_num;
     //vector<shared_ptr<sas_address_obj> > m_ctrl_sas_address_pool;
     map<string, string> m_ctrl_sas_address;
+    vector<jbod_info> m_vjbods;
 };
 #endif //_SYSINFOD_H_

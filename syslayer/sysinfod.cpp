@@ -20,10 +20,6 @@ sysinfod::sysinfod()
 	// pbuf = (char*)malloc(sizeof(char)*BUFF_MAX);
 	int size = BUFF_MAX;
 	pbuf = (char*)malloc(sizeof(char)* BUFF_MAX);
-    init_disk_info();
-	//init_disk_id();
-	//init_Partition_path();
-    //init_sas_address();
 }
 sysinfod::~sysinfod()
 {
@@ -260,7 +256,12 @@ void sysinfod::print()
         cout << (*item)->physics_index << endl;
         cout << (*item)->ctrl_sas_address << endl;
         cout << (*item)->ctrl_physics_index << endl;
+        cout << (*item)->ctrl_start_index << endl;
+        cout << (*item)->asc_or_des << endl;
+        cout << "pos : " << (*item)->get_pos() << endl;
     }
+
+    cout << "-----jbod_info-----" << endl;
 }
 
 string sysinfod::get_diskid(string path, unsigned int pos_num)
@@ -288,6 +289,23 @@ string sysinfod::get_diskid(string path, unsigned int pos_num)
 		return "";
 	}
 */
+    // check disk with pos_num
+    // umount path
+    // mount disk
+    // if sucess retunr disk_id
+    for(vector<shared_ptr<disk_obj> >::iterator item = m_disk_pool.begin();
+        item != m_disk_pool.end();
+        ++item)
+    {
+        if ((*item)->get_pos() == pos_num)
+        {
+            umount_local_path(path);
+            if (mount_local_ext4((*item)->path + "1", path))
+            {
+                return (*item)->id;   
+            }
+        }
+    }
     return "";
 }
 
@@ -374,6 +392,7 @@ void sysinfod::init_disk_info()
     m_ctrl_sas_address.clear();
     m_disk_pool.clear();
     //
+    
     init_disk_id();
     init_Partition_path();
     init_sas_address();
@@ -394,6 +413,17 @@ void sysinfod::init_disk_info()
             o->physics_index = m_sas_address_num[tmp];
             o->ctrl_sas_address = m_ctrl_sas_address[tmp.substr(0, 12)];
             o->ctrl_physics_index = m_sas_address_num[o->ctrl_sas_address];
+            for(vector<jbod_info>::iterator item = m_vjbods.begin();
+                item != m_vjbods.end();
+                ++item)
+            {
+                if (o->ctrl_sas_address == (*item)._sas_address)
+                {
+                    o->ctrl_start_index = (*item)._start_num;
+                    o->asc_or_des = (*item).asc_or_des;
+                    break;
+                }
+            }
         }
         if (o->physics_index != -1 &&
             o->ctrl_physics_index != -1)
@@ -463,4 +493,10 @@ bool sysinfod::umount_local_path(string const& _path)
     {
         return false;
     }
+}
+
+void sysinfod::set_jbod_info(vector<jbod_info>& _v)
+{
+    // init from mysql into m_vjbods
+    m_vjbods = _v;
 }

@@ -64,6 +64,14 @@ CREATE TABLE NAS_MASTER (
    FOREIGN KEY (DISK_ID) REFERENCES BRICK_DISK (DISK_ID)
  ) ENGINE=InnoDB ;
 
+-- JBOD 描述信息
+ CREATE TABLE JBOD_MASTER(
+   SAS_ADDR char(100) NOT NULL,
+   START_NUM int NOT NULL,
+   JBOD_ORDER int NOT NULL,			-- 1:ASC 0:DES
+   PRIMARY KEY  (SAS_ADDR)
+ ) ENGINE=InnoDB ;
+
 -- insert into NAS_MASTER values('NAS_ID_1');
 -- insert into BRICK_INDEX values(1);
 -- insert into BRICK_MASTER  values('BRICK_ID_1_1', '192.168.1.1');

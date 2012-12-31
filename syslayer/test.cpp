@@ -3,6 +3,14 @@
 using std::map;
 int main()
 {
+    vector<sysinfod::jbod_info> vj;
+    sysinfod::jbod_info ji;
+    ji._sas_address = "5003048001704e7d";
+    ji._start_num = 12;
+    ji.asc_or_des = true;
+    vj.push_back(ji);
+    sysinfod::getInstance()->set_jbod_info(vj);
+    sysinfod::getInstance()->init_disk_info();
 	sysinfod::getInstance()->print();
 /*
 	char buf[1024];
