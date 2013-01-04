@@ -264,6 +264,7 @@ void sysinfod::print()
     cout << "-----jbod_info-----" << endl;
 }
 
+// path without last "/"
 string sysinfod::get_diskid(string path, unsigned int pos_num)
 {
 	// 检测当前位置硬盘是否存在---通过联合disk_ctrl_info 信息
@@ -435,15 +436,16 @@ void sysinfod::init_disk_info()
 
 bool sysinfod::mount_local_ext4(string const& _dev, string const & _mount_path)
 {
+    cout << "mount " << _dev << " " << _mount_path << endl;
     if (mount(_dev.c_str(),
               _mount_path.c_str(),
               "ext4",
-              MS_MGC_VAL|MS_RDONLY, "") == 0)
+              MS_MGC_VAL, "") == 0)
     {
         ofstream o("/etc/mtab", ios::app);
         if (o)
         {
-            o << _dev << " " << _mount_path << " ext4 rw 0 0" << endl;
+            o << _dev << " " << _mount_path.c_str() << " ext4 rw 0 0" << endl;
             return true;
         }
         else

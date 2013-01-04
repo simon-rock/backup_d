@@ -2,6 +2,7 @@
 #include "msg_queue.h"
 #include "mysqlplus.h"
 #include "db_exec.h"
+#include "sysinfod.h"
 int config::login_db(const char *db_name, const char* ip, const char * user, const char* psw)
 {
 	if (db_name == NULL||
@@ -90,6 +91,31 @@ int config::login_db(const char *db_name, const char* ip, const char * user, con
 		// POSTMESSAGE
 		m_task.push_back(p);
 	}
+
+    // init syslayer info
+    vector<sysinfod::jbod_info> vj;
+    sysinfod::jbod_info ji;
+    sql_query_c query_jbod_info( &connection );
+    if(!query_jbod_info.execute("select *from JBOD_MASTER"))
+    {
+        LOG(WARNING) << " can't get JBOD_MASTER data";
+        return BK_ERROR;
+    }
+    sql_result = query_jbod_info.store();
+    n_rows = sql_result->n_rows();
+
+    for (int r_idx = 0; r_idx < n_rows; r_idx++)
+    {
+        sql_row_c sql_row = sql_result->fetch_row();
+        sql_row.allow_null(0);
+        
+        ji._sas_address = (char*) sql_row[0];
+        ji._start_num = (int)sql_row[1];
+        ji.asc_or_des = ((int)sql_row[2] == 1)? true:false;
+        vj.push_back(ji);
+    }
+    sysinfod::getInstance()->set_jbod_info(vj);
+    sysinfod::getInstance()->init_disk_info();
 	return BK_SUCESS;
 }
 

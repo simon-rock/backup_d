@@ -12,6 +12,7 @@ int main()
     sysinfod::getInstance()->set_jbod_info(vj);
     sysinfod::getInstance()->init_disk_info();
 	sysinfod::getInstance()->print();
+    cout << "test get_disk" << sysinfod::getInstance()->get_diskid("/home/yu/mount_test", 1) << endl;
 /*
 	char buf[1024];
 

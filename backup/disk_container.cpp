@@ -3,10 +3,12 @@
 #include "backup_task.h"
 #include "msg_queue.h"
 #include <fstream>
+#include <sstream>
 using std::ifstream;
 using std::ofstream;
 using std::ios_base;
 using std::ios;
+using std::stringstream;
 //#include <stat.h>
 void disk_container::setdir(string dir, string _brick_id, vector<unsigned int>& _pos)
 {
@@ -26,7 +28,7 @@ int disk_container::init()
 {
 	// 调用格式化， 处理硬盘
 	// 目录是否可达
-	if (access(m_dir.c_str(), 06) != 0)
+	if (access(m_dir.c_str(), R_OK | W_OK) != 0)
 	{
 		LOG(WARNING) << "[acess m_dir.c_str() error]" << m_dir.c_str();
 		FlushLogFiles(INFO);
@@ -55,6 +57,14 @@ int disk_container::init()
 		else
 		{
 			ret = BK_SUCESS;
+            m_curr_disk_id = *item;
+            // show msg for new disk
+            stringstream  show_msg;
+            show_msg <<  "current use disk pos: " << m_curr_disk_pos;
+            DEFINEMSGDATA(pmsg_data, BACKUP_BRICK_MSG);
+            COPYDATA(pmsg_data->BRICK_ID, m_curr_disk_id.c_str(), m_curr_disk_id.size());
+            COPYDATA(pmsg_data->MSG_SHOW, show_msg.str().c_str(), show_msg.str().size());
+            POSTMESSAGE(BACKUP_BRICK_MSG,pmsg_data);
 			break;
 		}
 	}
@@ -108,6 +118,16 @@ int disk_container::copy(const char *_srcfile, const char * _file)
 
 		if (try_ret != BK_SUCESS)
 		{
+            LOG(WARNING) << "*****task: " << m_curr_disk_id
+                         << " disk pos: " << m_curr_disk_pos
+                         << " is full*****";
+            if (init() == BK_SUCESS)
+            {
+                LOG(INFO) << "task: " << m_curr_disk_id
+                          << " new disk pos: " << m_curr_disk_pos;
+            }
+            else
+            {
 			/*
 			当前没有硬件检测
 			考虑此种情况 发送消息，停止备份
@@ -126,6 +146,7 @@ int disk_container::copy(const char *_srcfile, const char * _file)
 			POSTMESSAGE(BACKUP_BRICK_ERROR, perr_msg_data);
 			LOG(WARNING) << "[BRICK_ID]" << m_identity << "[DISK_ID]" << m_curr_disk_id << " : disk full";
 			return BK_BACKUP_FILE_ERR;
+            }
 			/*
 			do 
 			{
@@ -146,7 +167,10 @@ int disk_container::copy(const char *_srcfile, const char * _file)
 	if (access((m_dir+_file).c_str(),0)==0 &&
 		getfilesize(_srcfile) == getfilesize((m_dir+_file).c_str()))
 	{
-		m_db.add_file_log(m_curr_disk_id, _file);
+		if (m_db.add_file_log(m_curr_disk_id, _file) != BK_DB_SUCESS)
+        {
+            LOG(WARNING) << "[" << m_curr_disk_id << ":" << _file <<"]add file log failed";
+        }
 		return BK_SUCESS_FILE;
 	}
 
@@ -165,8 +189,12 @@ int disk_container::copy(const char *_srcfile, const char * _file)
 
 	is.open( _srcfile,ios::in | ios::binary); 
 	os.open( (m_dir+_file).c_str(), ios::out|ios::binary); 
-	if (!is||!os) 
-		return BK_BACKUP_FILE_ERR;
+	if (!is||!os)
+    {
+        LOG(WARNING) << "create folder [" << _srcfile << " ] failed";
+   		return BK_BACKUP_FILE_ERR;
+    }
+
 	try   { 
 		os   <<   is.rdbuf();
 	} 
@@ -176,6 +204,7 @@ int disk_container::copy(const char *_srcfile, const char * _file)
 		is.close();
 		// 删除文件
 		remove((m_dir+_file).c_str());
+        LOG(WARNING) << "create folder [" << _srcfile << " ] failed";
 		return BK_BACKUP_FILE_ERR;
 	} 
 
@@ -234,6 +263,7 @@ int disk_container::create_dir(const char *_folder)
 	{
 		if (MKDIR(a.c_str()))//如果不存在就用mkdir函数来创建
 		{
+            LOG(WARNING) << "create folder [" << _folder << " ] failed";
 			return BK_BACKUP_FOLDER_ERR;
 		}
 	}

@@ -15,7 +15,8 @@ class disk_container
 {
 public:
 	disk_container(string _dir):
-		m_dir(_dir), 
+		m_dir(_dir),
+            m_curr_disk_pos(-1),
 		m_target_space(0),
 		m_target_space_used(0),
 		m_work_level(SPACE_NORMAL),
@@ -35,7 +36,8 @@ private:
 	int check();				// 根据BRICK_ID请求硬件部分将下一块磁盘挂在至制定处，路径通过BRICK_ID
 	string m_dir;	// without dis
 	vector<unsigned int> m_pos;  // the hard disk which in specify pos
-
+   int m_curr_disk_pos;          // The current use of the hard disk 
+    
 	unsigned long long m_target_space;
 	unsigned long long m_target_space_used;
 	unsigned long long m_target_space_limit;
