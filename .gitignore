@@ -11,6 +11,12 @@
 *.lai
 *.la
 #*.a
+# g++ out
+libdb_access.a
+libsystools.a
+libbackup.a
+libsyslayer.a
+test_syslayer
 
 *.log
 # MSVC
