@@ -307,6 +307,7 @@ string sysinfod::get_diskid(string path, unsigned int pos_num)
             }
             else
             {
+                cout << "mount disk [" <<(*item)->path.c_str() << "][" << path << "]" << endl;
                 // mount disk failed
             }
         }

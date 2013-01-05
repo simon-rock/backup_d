@@ -51,6 +51,22 @@ int config::login_db(const char *db_name, const char* ip, const char * user, con
 		p->last_filter_time = (int)sql_row[4];
 		p->last_filter_interval = (int)sql_row[5];
 
+        // format path ,delete '/'
+        if (!(p->mount_path.empty()))
+        {
+            if (p->mount_path[p->mount_path.size() - 1] == '/')
+            {
+                p->mount_path = p->mount_path.substr(0, p->mount_path.size() - 1);
+            }
+        }
+        if (!(p->backup_path.empty()))
+        {
+            if (p->backup_path[p->backup_path.size() - 1] == '/')
+            {
+                p->backup_path = p->backup_path.substr(0, p->backup_path.size() - 1);
+            }
+        }
+            //     
 		if (!p->brick_id.empty())
 		{
 			string sql = "select DISK_POS from BRICK_DISK_POS where BRICK_ID = \"" + p->brick_id + "\";";
