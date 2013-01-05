@@ -57,10 +57,11 @@ int disk_container::init()
 		else
 		{
 			ret = BK_SUCESS;
-            m_curr_disk_id = *item;
+            m_curr_disk_pos = *item;
             // show msg for new disk
             stringstream  show_msg;
-            show_msg <<  "current use disk pos: " << m_curr_disk_pos;
+            show_msg << "[" << m_curr_disk_id << "]current use disk pos: " << m_curr_disk_pos;
+            LOG(INFO) << show_msg.str().c_str();
             DEFINEMSGDATA(pmsg_data, BACKUP_BRICK_MSG);
             COPYDATA(pmsg_data->BRICK_ID, m_curr_disk_id.c_str(), m_curr_disk_id.size());
             COPYDATA(pmsg_data->MSG_SHOW, show_msg.str().c_str(), show_msg.str().size());

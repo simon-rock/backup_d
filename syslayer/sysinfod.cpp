@@ -305,6 +305,10 @@ string sysinfod::get_diskid(string path, unsigned int pos_num)
             {
                 return (*item)->id;   
             }
+            else
+            {
+                // mount disk failed
+            }
         }
     }
     return "";

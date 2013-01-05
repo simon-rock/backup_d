@@ -117,7 +117,6 @@ void * BackupMain::dispose_msg(void* _pPara)
 				pMain->control_by_brick(CTR_ERR, ((MSG_DATA(BACKUP_BRICK_ERROR)*)para)->BRICK_ID, ((MSG_DATA(BACKUP_BRICK_ERROR)*)para)->MSG_SHOW);
 				break;
 			case MSG(BACKUP_BRICK_MSG):
-				cout << "[BRICK_ID] " << ((MSG_DATA(BACKUP_BRICK_MSG)*)para)->BRICK_ID<< " backup error;" << endl;
 				pMain->control_by_brick(CTR_MSG, ((MSG_DATA(BACKUP_BRICK_MSG)*)para)->BRICK_ID, ((MSG_DATA(BACKUP_BRICK_ERROR)*)para)->MSG_SHOW);
 				break;
 			default:
