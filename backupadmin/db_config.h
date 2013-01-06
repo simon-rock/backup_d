@@ -34,6 +34,9 @@ public:
     int query_index(vector<string> &_v);
     int query_brick_id(vector<string> &_v);
     int check_nas_index(const string& _nas, const string& _index);
+    int add_disk_pos_to_brick(string const& _brick_id, string const& _pos);
+    int del_disk_pos_to_brick(string const& _brick_id, string const& _pos);
+    int query_disk_pos_by_brick(string const& _brick_id, vector<string> &_v);
 private:
 
 	int exec(const string& _sql);

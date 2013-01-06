@@ -200,3 +200,43 @@ int db_config::check_nas_index(const string& _nas, const string& _index)
 		return BK_DB_NOEXIST;
 	}
 }
+
+int db_config::add_disk_pos_to_brick(string const& _brick_id, string const& _pos)
+{
+    m_sql << "insert into BRICK_DISK_POS values( \"" << _brick_id << "\"," << _pos << ");";
+    return exec(m_sql.str());
+}
+
+int db_config::del_disk_pos_to_brick(string const& _brick_id, string const& _pos)
+{
+    m_sql << "delete from BRICK_DISK_POS where BRICK_ID = \"" << _brick_id << "\" and DISK_POS = " << _pos << " ;";
+    return exec(m_sql.str());
+}
+
+int db_config::query_disk_pos_by_brick(string const& _brick_id, vector<string> &_v)
+{
+    m_sql << "select DISK_POS from BRICK_DISK_POS where BRICK_ID = \"" << _brick_id << "\";";
+    
+	if ( m_query.execute( m_sql.str().c_str() ))
+	{
+        sql_result_c *sql_result = m_query.store();
+        long long n_rows = sql_result->n_rows();
+        int n_fields = sql_result->n_fields();
+        for (int r_idx = 0; r_idx < n_rows; r_idx++)
+        {
+            sql_row_c sql_row = sql_result->fetch_row();
+            sql_row.allow_null(0);
+            for(int j = 0; j < n_fields; ++j)
+            {
+                _v.push_back((char*)sql_row[j]);
+            }
+        }
+	}
+	else
+	{
+	    // no data(0) or query error(-1)
+	}
+
+    m_sql.str("");
+    return BK_DB_SUCESS;    
+}

@@ -11,7 +11,9 @@ m_check_date("CHECK"),
 m_flush("FLUSH"),
 m_browse_mount_path("BROWSE"),
 m_browse_backup_path("BROWSE"),
-m_LPos("pos"),
+m_add_disk_pos("ADD POS"),      // add disk pos for brick_id
+m_del_disk_pos("DEL POS"),      // del disk pos for brick_id
+m_LPos("pos:"),
 m_LBrickId("brick id"),
 m_LPath("path"),
 m_LMountPath("mount path"),
@@ -29,26 +31,36 @@ pp(const_cast<MasterWin*>(_pp))
     m_flush.signal_clicked().connect(sigc::mem_fun(*this, &BrickMaster::on_flush));
     m_add.signal_clicked().connect(sigc::mem_fun(*this, &BrickMaster::on_add));
     m_del.signal_clicked().connect(sigc::mem_fun(*this, &BrickMaster::on_del));
+    m_add_disk_pos.signal_clicked().connect(sigc::mem_fun(*this, &BrickMaster::on_add_disk_pos));
+    m_del_disk_pos.signal_clicked().connect(sigc::mem_fun(*this, &BrickMaster::on_del_disk_pos));
     m_check_date.signal_clicked().connect(sigc::mem_fun(*this, &BrickMaster::on_check_date));
+    m_OptionBrickMenu.signal_changed().connect(sigc::mem_fun(*this, &BrickMaster::on_flush_pos));
     m_browse_mount_path.signal_clicked().connect(sigc::mem_fun(*this, &BrickMaster::on_select_mount_path));
     m_browse_backup_path.signal_clicked().connect(sigc::mem_fun(*this, &BrickMaster::on_select_backup_path));
+    //m_OptionBrickMenu.signal_
     on_flush();
-
     Gtk::Box* pbox_2 = Gtk::manage( new Gtk::HBox() );
     m_main.pack_start(*pbox_2 , Gtk::PACK_SHRINK, 5);
     m_OptionBrickMenu.set_menu(m_Brick_menu);
     pbox_2->pack_start(m_OptionBrickMenu , Gtk::PACK_SHRINK, 5);
     pbox_2->pack_start(m_del , Gtk::PACK_SHRINK, 5);
 
+    // disk pos
+    pbox_2->pack_start(m_LPos , Gtk::PACK_SHRINK, 5);
+    pbox_2->pack_start(m_EntryDiskPos , Gtk::PACK_SHRINK, 5);         // disk pos for brick
+    pbox_2->pack_start(m_add_disk_pos , Gtk::PACK_SHRINK, 5);
+    m_OptionDiskPosForBrickMenu.set_menu(m_Disk_pos_menu);
+    pbox_2->pack_start(m_OptionDiskPosForBrickMenu , Gtk::PACK_SHRINK, 5);
+    pbox_2->pack_start(m_del_disk_pos , Gtk::PACK_SHRINK, 5);
+    
     Gtk::Box* pbox_3 = Gtk::manage( new Gtk::HBox() );
     m_main.pack_start(*pbox_3 , Gtk::PACK_SHRINK, 5);
     m_OptionNASMenu.set_menu(m_NAS_menu);
     m_OptionIndexMenu.set_menu(m_Index_menu);
     pbox_3->pack_start(m_OptionNASMenu , Gtk::PACK_SHRINK, 5);
-    pbox_3->pack_start(m_OptionIndexMenu , Gtk::PACK_SHRINK, 5);
-    //pbox_3->pack_start(m_EntryDiskPos , Gtk::PACK_SHRINK, 5);         // disk pos for brick
-    pbox_3->pack_start(m_LPos , Gtk::PACK_SHRINK, 5);
+    pbox_3->pack_start(m_OptionIndexMenu , Gtk::PACK_SHRINK, 5);    
 
+    
     Gtk::Box* pbox_4 = Gtk::manage( new Gtk::HBox() );
     m_main.pack_start(*pbox_4 , Gtk::PACK_SHRINK, 5);
     Gtk::Box* pboxl_1 = Gtk::manage( new Gtk::VBox() );
@@ -185,6 +197,7 @@ void BrickMaster::on_flush()
             list_brickpos.push_back(MenuElem((*item).c_str()));
     }
     m_OptionBrickMenu.set_history(0);
+    on_flush_pos();
 }
 void BrickMaster::on_add()
 {
@@ -300,4 +313,65 @@ void BrickMaster::on_select_backup_path()
 	pDialog->run();
 	m_EntryBackPath.set_text(pDialog->get_selected());
 	delete pDialog;
+}
+
+void BrickMaster::on_add_disk_pos()
+{
+    if(m_curr_brick_v.size() == 0)
+    {
+        pp->showmsg("no brick", true);
+        return;
+    }
+    if(m_EntryDiskPos.get_text().size() == 0)
+    {
+        pp->showmsg("disk pos can not be empty", true);
+        return;
+    }
+    //    cout << "add disk pos:" >> 
+    //cout << "add disk pos:" << m_curr_pos_v[m_OptionBrickMenu.get_history()] << endl;
+    if (m_db.add_disk_pos_to_brick(m_curr_brick_v[m_OptionBrickMenu.get_history()], m_EntryDiskPos.get_text()) != BK_DB_SUCESS)
+    {
+        pp->showmsg("add disk pos to brick failed", true);
+    }
+    else
+    {
+        pp->showmsg("add sucess");
+        on_flush();
+    }
+}
+
+void BrickMaster::on_del_disk_pos()
+{
+    if(m_curr_brick_v.size() == 0 ||
+       m_curr_pos_v.size() == 0)
+    {
+        pp->showmsg("no index", true);
+        return;
+    }
+    if(m_db.del_disk_pos_to_brick(m_curr_brick_v[m_OptionBrickMenu.get_history()], m_curr_pos_v[m_OptionDiskPosForBrickMenu.get_history()]) != BK_DB_SUCESS)
+    {
+        pp->showmsg("delete index failed, please check no data dependent on it", true);
+    }
+    else
+    {
+        pp->showmsg("delete index sucess");
+        on_flush();
+    }
+}
+void BrickMaster::on_flush_pos()
+{
+    using namespace Gtk::Menu_Helpers;
+    MenuList& list_disk_pos_pos = m_Disk_pos_menu.items();
+    list_disk_pos_pos.clear();
+    m_curr_pos_v.clear();
+    if (m_curr_brick_v.size() == 0)
+    {
+        return;
+    }
+    m_db.query_disk_pos_by_brick(m_curr_brick_v[m_OptionBrickMenu.get_history()<0?0:m_OptionBrickMenu.get_history()], m_curr_pos_v);
+    for(vector<string>::iterator item = m_curr_pos_v.begin(); item != m_curr_pos_v.end(); ++item)
+    {
+        list_disk_pos_pos.push_back(MenuElem((*item).c_str()));
+    }
+    m_OptionDiskPosForBrickMenu.set_history(0);
 }
