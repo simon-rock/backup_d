@@ -16,7 +16,7 @@ void proc(task_data* data)
 		return;
 	}
 	backup_worker worker(_data->brick_id, _data->brick_path, _data->mount_path, _data->backup_path, _data->last_filter_time /*1344585483 - 60*60*24*30*4*//*1036800*/ /*1343548683*/, _data->last_filter_interval /*60*60*24*//*86400*/, _data->pos);
-
+#ifdef SYS_WINDOWS
 	//////////////////////////////////////////////////////////////////////////
 	//MSG_DATA(BACKUP_BRICK) *pmsg_data_b= new MSG_DATA(BACKUP_BRICK);
 	//memset(pmsg_data_b,0,sizeof(MSG_DATA(BACKUP_BRICK)));
@@ -32,6 +32,7 @@ void proc(task_data* data)
 	//memset(perr_msg_data,0,sizeof(MSG_DATA(BACKUP_BRICK_ERROR)));
 	//strncpy(perr_msg_data->BRICK_ID, _data->brick_id.c_str(), _data->brick_id.size() < sizeof(perr_msg_data->BRICK_ID) ?
 	//	_data->brick_id.size() : sizeof(perr_msg_data->BRICK_ID) - 1);
+#endif //SYS_WINDOWS
 	DEFINEMSGDATA(pmsg_data_b, BACKUP_BRICK);
 	COPYDATA(pmsg_data_b->BRICK_ID, _data->brick_id.c_str(), _data->brick_id.size());
 

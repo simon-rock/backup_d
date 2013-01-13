@@ -28,17 +28,13 @@ msg_queue::~msg_queue()
 void msg_queue::push_back(msg *tmp)
 {
 	lock l(&m_mutex);
-	//m_mutex.lock();
 	m_queue.push_back(tmp);
 	set_task();
-	//m_mutex.unlock();
 }
 
 msg*  msg_queue::pop_front()
 {
 	lock l(&m_mutex);
-	//m_mutex.lock();
-	//
 	msg* tmp = front();
 	//
 	m_queue.pop_front();
@@ -46,13 +42,11 @@ msg*  msg_queue::pop_front()
 	{
 		set_empty();
 	}
-	//m_mutex.unlock();
 	return tmp;
 }
 msg* msg_queue::front()
 {
 	lock l(&m_mutex);
-	//m_mutex.lock();
 	msg* tmp;
 	if (m_queue.size() > 0)
 	{
@@ -62,14 +56,11 @@ msg* msg_queue::front()
 	{
 		tmp = 0;
 	}
-
-	//m_mutex.unlock();
 	return tmp;
 }
 void msg_queue::clear()
 {
 	lock l(&m_mutex);
-	//m_mutex.lock();
 	m_queue.clear();
 	while (m_queue.size()>0)
 	{
@@ -77,14 +68,11 @@ void msg_queue::clear()
 		m_queue.pop_front();
 	}
 	set_empty();
-	//m_mutex.unlock();
 }
 int msg_queue::size()
 {
 	lock l(&m_mutex);
-	//m_mutex.lock();
 	int size =  m_queue.size();
-	//m_mutex.unlock();
 	return size;
 }
 bool msg_queue::wait_msg()

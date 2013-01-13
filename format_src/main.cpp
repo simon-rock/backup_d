@@ -91,15 +91,30 @@ int _filter (struct _finddata_t*  pfileinfo, const char * file_path, void* pdata
 			string(pfileinfo->name) != "glog-0.3.2" &&
 			string(pfileinfo->name) != "glog_project" &&
 			string(pfileinfo->name) != "test" &&
-			string(pfileinfo->name) != "sql_wrapper" )
+			string(pfileinfo->name) != "sql_wrapper" &&
+			string(pfileinfo->name) != "format_src" &&
+			string(pfileinfo->name) != "glog" &&
+			string(pfileinfo->name) != ".git" &&
+			string(pfileinfo->name) != "backup_ui_w" &&
+			string(pfileinfo->name) != "bk_console")
 		{
 			return FRAME_FILTER_IN;
 		}
 
 		char   ext[50]; 
 		_splitpath(pfileinfo->name, NULL, NULL, NULL, ext);
-		if (string(ext) == ".cpp" ||
-			string(ext) == ".h" )
+		if (string(pfileinfo->name) != "del_line.cpp" &&			// syslayer/
+			string(pfileinfo->name) != "mount_umount.cpp" &&        // syslayer/ mount umount disk
+			string(pfileinfo->name) != "sas_address.cpp" &&         // syslayer/ 
+			string(pfileinfo->name) != "test.cpp" &&                // test syslayer
+			string(pfileinfo->name) != "main_msg.cpp" &&			// backup/ test msg
+			string(pfileinfo->name) != "main_test_master.cpp" &&    // backup/ test backup_master
+			string(pfileinfo->name) != "main_thread.cpp" &&         // backup/ test thread pool
+			string(pfileinfo->name) != "test_backup_db.cpp" &&      // backup/ test db_exe
+			string(pfileinfo->name) != "test_main_backup.cpp" &&    // backup/ test backup system
+			string(pfileinfo->name) != "test_task_control.cpp" &&   // backup/ test control system
+			(string(ext) == ".cpp" ||
+			string(ext) == ".h") )
 		{
 			return FRAME_FILTER_IN;
 		}
@@ -193,14 +208,19 @@ int _filter2 (struct _finddata_t*  pfileinfo, const char * file_path, void* pdat
 			string(pfileinfo->name) != "glog-0.3.2" &&
 			string(pfileinfo->name) != "glog_project" &&
 			string(pfileinfo->name) != "test" &&
-			string(pfileinfo->name) != "sql_wrapper" )
+			string(pfileinfo->name) != "sql_wrapper" &&
+			string(pfileinfo->name) != "format_src" &&
+			string(pfileinfo->name) != "glog" &&
+			string(pfileinfo->name) != ".git" &&
+			string(pfileinfo->name) != "backup_ui_w" &&
+			string(pfileinfo->name) != "bk_console")
 		{
 			return FRAME_FILTER_IN;
 		}
 		char   ext[50]; 
 		_splitpath(pfileinfo->name, NULL, NULL, NULL, ext);
 		if (string(pfileinfo->name) == "Makefile" ||
-			string(pfileinfo->name) == "Makefile_test" )
+			string(ext) == ".sql")
 		{
 			return FRAME_FILTER_IN;
 		}

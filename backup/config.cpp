@@ -85,6 +85,7 @@ int config::login_db(const char *db_name, const char* ip, const char * user, con
 			}
 		}
 		// POSTMESSAGE
+		#ifdef SYS_WINDOWS
 		//MSG_DATA(CONFIG) * pmsg_data= new MSG_DATA(CONFIG);
 		//memset(pmsg_data,0,sizeof(MSG_DATA(CONFIG)));
 		//////int t = sizeof(pmsg_data->BRICK_ID);
@@ -98,6 +99,7 @@ int config::login_db(const char *db_name, const char* ip, const char * user, con
 		//strncpy(pmsg_data->BACKUP_PATH, p->backup_path.c_str(), p->backup_path.size() < sizeof(pmsg_data->BACKUP_PATH) ? 
 		//	p->backup_path.size() : sizeof(pmsg_data->BACKUP_PATH) - 1);
 		//POSTMESSAGE(MSG(CONFIG),pmsg_data,sizeof(MSG_DATA(CONFIG)));
+		#endif // SYS_WINDOWS
 		DEFINEMSGDATA(pmsg_data, CONFIG);
 		COPYDATA(pmsg_data->BRICK_ID, p->brick_id.c_str(), p->brick_id.size());
 		COPYDATA(pmsg_data->BRICK_PATH, p->brick_path.c_str(), p->brick_path.size());

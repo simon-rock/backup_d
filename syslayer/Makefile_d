@@ -4,7 +4,7 @@
 ROOT := .
 
 LINK	= g++ -o
-CC	= g++ -c -g -DDEBUG
+CC	= g++ -g -c -DDEBUG
 AR	= ar -cr
 RM	= rm -rf
 

@@ -200,6 +200,7 @@ int file_frame::search_by_folder(string path, string sourcepath)
 #endif // SYS_LINUX
 	return resl;
 }
+#ifdef SYS_WINDOWS
 //void file_frame::set_opt(void *_p, _functype type)
 //{
 //	switch (type)
@@ -221,7 +222,7 @@ int file_frame::search_by_folder(string path, string sourcepath)
 //		break;
 //	}
 //}
-
+#endif // SYS_WINDOWS
 void file_frame::set_opt(_functype type, ... )
 {
 	va_list arg;
@@ -259,6 +260,7 @@ void file_frame::add_dir(const char* src_path, const char* tar_path)
 	}
 	m_pref.push_back(tmp);
 }
+#ifdef SYS_WINDOWS
 // false =  del self
 //int file_frame::DeleteDir ( const char* pszDir, bool bDelSelf )
 //{
@@ -310,7 +312,7 @@ void file_frame::add_dir(const char* src_path, const char* tar_path)
 //	}
 //	return  ( bDelSelf ) ?_rmdir ( pszDir ) : 0;
 //}
-
+#endif // SYS_WINDOWS
 int file_frame::start()
 {
 //	cout << "-----------------------------" << endl;

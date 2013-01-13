@@ -38,10 +38,14 @@ public:
 	void set_opt(_functype type, ... );
 	void add_dir(const char* src_path, const char* tar_path = NULL);
 	bool init();
+#ifdef SYS_WINDOWS
 //	static int DeleteDir ( const char* pszDir, bool bDelSelf = false );// false 为不删除自己//与surdoc不同
+#endif // SYS_WINDOWS
 	int start();
 	int finish();
+#ifdef SYS_WINDOWS
 //	__int64 GetSleepTime(){return m_SleepTime;}
+#endif // SYS_WINDOWS
 private:
 	int search_by_folder(string path, string sourcepath); // 处理目标 文件夹
 
@@ -49,7 +53,9 @@ private:
 	{
 		string m_src_path;
 		string m_tar_path;
+#ifdef SYS_WINDOWS
 //		__int64 ElapsedTime;
+#endif // SYS_WINDOWS
 	}pref;
 	string m_src_path;
 	string m_DestinationPath;

@@ -43,3 +43,4 @@ systools.lib
 *.aps
 *.dep
 *.htm
+*.embed.manifest.res

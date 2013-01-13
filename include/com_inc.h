@@ -15,6 +15,10 @@
 #define usleep(x) Sleep(x/1000)
 #endif //usleep(x)
 
+#define F_OK	00
+#define R_OK	04
+#define W_OK	02
+#define X_OK	06
 #endif // SYS_WINDOWS
 
 #ifdef SYS_LINUX

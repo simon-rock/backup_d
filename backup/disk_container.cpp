@@ -260,7 +260,7 @@ int disk_container::create_dir(const char *_folder)
 		return BK_BACKUP_FOLDER_ERR;
 	}
 	string a = (m_dir+_folder).c_str();
-	if(access(a.c_str(),0)!=0)//access函数是查看文件是不是存在
+	if(access(a.c_str(), F_OK)!=0)//access函数是查看文件是不是存在
 	{
 		if (MKDIR(a.c_str()))//如果不存在就用mkdir函数来创建
 		{
