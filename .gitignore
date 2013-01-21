@@ -18,6 +18,8 @@ libbackup.a
 libsyslayer.a
 test_syslayer
 
+# folder
+bin/
 # msvc out
 bk_basic.lib
 db_access.lib
@@ -25,6 +27,7 @@ syslayer.lib
 systools.lib
 
 *.log
+
 # MSVC
 *.ncb
 *.suo

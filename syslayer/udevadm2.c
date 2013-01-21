@@ -22,10 +22,7 @@
 #define asmlinkage 
 #endif
 #define UDEV_MAX(a,b) ((a) > (b) ? (a) : (b))
-#define udev_list_entry_foreach(entry, first) /
-	for (entry = first; /
-	     entry != NULL; /
-	     entry = udev_list_entry_get_next(entry))
+#define udev_list_entry_foreach(entry, first) for (entry = first;entry != NULL; entry = udev_list_entry_get_next(entry))
 static int debug;
 static int udev_exit;
 static void asmlinkage sig_handler(int signum)
@@ -38,7 +35,7 @@ static void print_device(struct udev_device *device, const char *source, int env
 	struct timeval tv;
 	struct timezone tz;
 	gettimeofday(&tv, &tz);
-	printf("%-6s[%llu.%06u] %-8s %s (%s)/n",
+	printf("%-6s[%llu.%06u] %-8s %s (%s)\n",
 	       source,
 	       (unsigned long long) tv.tv_sec, (unsigned int) tv.tv_usec,
 	       udev_device_get_action(device),
@@ -47,10 +44,10 @@ static void print_device(struct udev_device *device, const char *source, int env
 	if (env) {
 		struct udev_list_entry *list_entry;
 		udev_list_entry_foreach(list_entry, udev_device_get_properties_list_entry(device))
-			printf("%s=%s/n",
+			printf("%s=%s\n",
 			       udev_list_entry_get_name(list_entry),
 			       udev_list_entry_get_value(list_entry));
-		printf("/n");
+		printf("\n");
 	}
 }
 int udevadm_monitor(struct udev *udev)
@@ -68,7 +65,7 @@ int udevadm_monitor(struct udev *udev)
 		print_udev =1;
 	}
 	if (getuid() != 0 && print_kernel) {
-		fprintf(stderr, "root privileges needed to subscribe to kernel events/n");
+		fprintf(stderr, "root privileges needed to subscribe to kernel events\n");
 		goto out;
 	}
 	/* set signal handlers */
@@ -78,7 +75,7 @@ int udevadm_monitor(struct udev *udev)
 	act.sa_flags = SA_RESTART;
 	sigaction(SIGINT, &act, NULL);
 	sigaction(SIGTERM, &act, NULL);
-	printf("monitor will print the received events for:/n");
+	printf("monitor will print the received events for:\n");
 	if (print_udev) {
 		udev_monitor = udev_monitor_new_from_socket(udev, "@/org/kernel/udev/monitor");
 		if (udev_monitor == NULL) {
@@ -89,24 +86,24 @@ int udevadm_monitor(struct udev *udev)
 			rc = 2;
 			goto out;
 		}
-		printf("UDEV the event which udev sends out after rule processing/n");
+		printf("UDEV the event which udev sends out after rule processing\n");
 	}
 	
 	if (print_kernel) {
 		kernel_monitor = udev_monitor_new_from_netlink(udev, "udev"); //这里的udev源码中没有"udev"这个参数，不加进去返回值就为NULL，所以要加这个
 		if (kernel_monitor == NULL) {
 			rc = 3;
-			printf("udev_monitor_new_from_netlink() error/n");
+			printf("udev_monitor_new_from_netlink() error\n");
 			goto out;
 		}
 		if (udev_monitor_enable_receiving(kernel_monitor) < 0) {
 			rc = 4;
 			goto out;
 		}
-		printf("UEVENT the kernel uevent/n");
+		printf("UEVENT the kernel uevent\n");
 	}
 	
-	printf("/n");
+	printf("\n");
 	while (!udev_exit) {
 		int fdcount;
 		FD_ZERO(&readfds);
@@ -118,7 +115,7 @@ int udevadm_monitor(struct udev *udev)
 				 &readfds, NULL, NULL, NULL);
 		if (fdcount < 0) {
 			if (errno != EINTR)
-				fprintf(stderr, "error receiving uevent message: %m/n");
+				fprintf(stderr, "error receiving uevent message: %m\n");
 			continue;
 		}
 		if ((kernel_monitor != NULL) && FD_ISSET(udev_monitor_get_fd(kernel_monitor), &readfds)) {
