@@ -62,7 +62,7 @@ int udevadm_monitor(struct udev *udev)
 	int rc = 0;
 	if (!print_kernel && !print_udev) {
 		print_kernel = 1;
-		print_udev =1;
+		print_udev =0;
 	}
 	if (getuid() != 0 && print_kernel) {
 		fprintf(stderr, "root privileges needed to subscribe to kernel events\n");
