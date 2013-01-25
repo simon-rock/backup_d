@@ -13,6 +13,10 @@ int main()
     sysinfod::getInstance()->init_disk_info();
 	sysinfod::getInstance()->print();
     cout << "test get_disk" << sysinfod::getInstance()->get_diskid("/home/yu/mount_test", 1) << endl;
+
+    usleep(60*1000000);
+    cout << "*****60sec time out" << endl;
+    sysinfod::getInstance()->stop_monitor();  
 /*
 	char buf[1024];
 

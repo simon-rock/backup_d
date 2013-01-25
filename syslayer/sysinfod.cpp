@@ -9,6 +9,32 @@ using std::ofstream;
 using std::fstream;
 using std::stringstream;
 using std::ios;
+
+// udev
+#ifdef __cplusplus
+extern "C" {
+#endif // __cplusplus
+#include <libudev.h>
+#ifdef __cplusplus
+}
+#endif // __cplusplus
+
+#undef asmlinkage
+#ifdef __i386__
+#define asmlinkage __attribute__((regparm(0)))
+#else
+#define asmlinkage 
+#endif
+#define UDEV_MAX(a,b) ((a) > (b) ? (a) : (b))
+// udev process
+int udevadm_monitor(struct udev *udev);
+static volatile int event_count = 0;
+static void print_device(struct udev_device *device, const char *source, int env)
+{
+    printf ("recive kernel event: %d\n", ++event_count);
+}
+static int udev_exit = 0;
+
 sysinfod sysinfod::m_instance;
 
 // 
@@ -16,6 +42,7 @@ static char* pbuf = 0;
 #define BUFF_MAX 1024
 
 sysinfod::sysinfod()
+    :bfirst(true)
 {
 	// pbuf = (char*)malloc(sizeof(char)*BUFF_MAX);
 	int size = BUFF_MAX;
@@ -267,12 +294,12 @@ void sysinfod::print()
 // path without last "/"
 string sysinfod::get_diskid(string path, unsigned int pos_num)
 {
-	// 检测当前位置硬盘是否存在---通过联合disk_ctrl_info 信息
-	// 是否格式化分区
-	// 否=》格式化分区
-	// 是否挂载
-	// 是否挂载（目录已挂在则卸载再挂载）
-	// 返回 disk_id, 发送消息显示当前使用的硬盘
+	// 录矛虏芒碌卤脟掳脦禄脰脙脫虏脜脤脢脟路帽麓忙脭脷---脥篓鹿媒脕陋潞脧disk_ctrl_info 脨脜脧垄
+	// 脢脟路帽赂帽脢陆禄炉路脰脟酶
+	// 路帽=隆路赂帽脢陆禄炉路脰脟酶
+	// 脢脟路帽鹿脪脭脴
+	// 脢脟路帽鹿脪脭脴拢篓脛驴脗录脪脩鹿脪脭脷脭貌脨露脭脴脭脵鹿脪脭脴拢漏
+	// 路碌禄脴 disk_id, 路垄脣脥脧没脧垄脧脭脢戮碌卤脟掳脢鹿脫脙碌脛脫虏脜脤
     /*
 	string tmp = m_path_Partition[path];
 	if (!tmp.empty())
@@ -317,10 +344,10 @@ string sysinfod::get_diskid(string path, unsigned int pos_num)
 
 int sysinfod::check_brick_src(string const &_brick_path, string const & _src_path)
 {
-	if(access(_src_path.c_str(),0)!=0)//access函数是查看文件是不是存在
+	if(access(_src_path.c_str(),0)!=0)//access潞炉脢媒脢脟虏茅驴麓脦脛录镁脢脟虏禄脢脟麓忙脭脷
 	{
-		// 迭代创建 yuyu
-		if (MKDIR(_src_path.c_str()))//如果不存在就用mkdir函数来创建
+		// 碌眉麓煤麓麓陆篓 yuyu
+		if (MKDIR(_src_path.c_str()))//脠莽鹿没虏禄麓忙脭脷戮脥脫脙mkdir潞炉脢媒脌麓麓麓陆篓
 		{
 			return BK_INIT_SRC_CREATE_ER;
 		}
@@ -357,7 +384,7 @@ int sysinfod::check_brick_src(string const &_brick_path, string const & _src_pat
 }
 int sysinfod::connect_brick(string const &_brick_path, string const & _src_path)
 {
-	// 确认 brick_ 是否 nfs 到本地 yuyu
+	// 脠路脠脧 brick_ 脢脟路帽 nfs 碌陆卤戮碌脴 yuyu
 	return BK_SUCESS;
 }
 
@@ -437,6 +464,25 @@ void sysinfod::init_disk_info()
             m_disk_pool.push_back(o);
         }
     }
+
+    // init monitor thread
+    if(bfirst)
+    {
+        if (pthread_create(&m_thread_monitor, 0, montior_dev, (void*)this) == -1)
+        {
+            // start monitor failed
+            cout << "start monitor failed" << endl;
+        }
+        
+        if (pthread_create(&m_thread_flush, 0, flush_info, (void*)this) == -1)
+        {
+            // start flush thread failed
+            cout << "start flush thread failed" << endl;
+        }
+        bfirst = false;
+    }
+    
+    
 }
 
 bool sysinfod::mount_local_ext4(string const& _dev, string const & _mount_path)
@@ -507,3 +553,107 @@ void sysinfod::set_jbod_info(vector<jbod_info>& _v)
     // init from mysql into m_vjbods
     m_vjbods = _v;
 }
+
+void * sysinfod::montior_dev(void* _pthis)
+{
+    // if recive signle from kernel, init disk info
+    struct udev *udev;
+	udev = udev_new();
+	if (udev == NULL)
+    {
+        udev_unref(udev);
+        printf("start system monitor failed\n");
+        return (void*)-1;
+    }
+	udevadm_monitor(udev);
+	udev_unref(udev);
+    printf("exit system monitor\n");
+    return (void*)0;
+}
+
+void * sysinfod::flush_info(void* _pThis)
+{
+    // flush disk info
+    int old_event_count = 0;
+    while (!udev_exit)
+    {
+        if (old_event_count != 0 &&
+            old_event_count == event_count)
+        {
+            old_event_count = event_count = 0;
+            sysinfod::getInstance()->init_disk_info();
+            sysinfod::getInstance()->print();
+        }
+        else
+        {
+            old_event_count = event_count;
+            sleep(4);
+        }
+    }
+}
+int udevadm_monitor(struct udev *udev)
+{
+	// struct sigaction act;
+	int env = 0;
+	int print_kernel = 0;
+	struct udev_monitor *kernel_monitor = NULL;
+    struct timeval timeout={3,0};
+	fd_set readfds;
+	int rc = 0;
+	if (!print_kernel) {
+		print_kernel = 1;
+	}
+    /*
+	if (getuid() != 0 && print_kernel) {
+		fprintf(stderr, "root privileges needed to subscribe to kernel events\n");
+		goto out;
+	}
+    */
+	if (print_kernel) {
+		kernel_monitor = udev_monitor_new_from_netlink(udev, "udev");
+		if (kernel_monitor == NULL) {
+			rc = 3;
+			printf("udev_monitor_new_from_netlink() error\n");
+			goto out;
+		}
+		if (udev_monitor_enable_receiving(kernel_monitor) < 0) {
+			rc = 4;
+			goto out;
+		}
+		printf("start the kernel uevent monitor\n");
+	}
+	
+	while (!udev_exit) {
+		int fdcount;
+		FD_ZERO(&readfds);
+		if (kernel_monitor != NULL)
+			FD_SET(udev_monitor_get_fd(kernel_monitor), &readfds);
+		fdcount = select(udev_monitor_get_fd(kernel_monitor)+1,
+				 &readfds, NULL, NULL, &timeout);
+		if (fdcount < 0) {
+			if (errno != EINTR)
+				fprintf(stderr, "error receiving uevent message: %m\n");
+			continue;
+		}
+		if ((kernel_monitor != NULL) && FD_ISSET(udev_monitor_get_fd(kernel_monitor), &readfds)) {
+			struct udev_device *device;
+			device = udev_monitor_receive_device(kernel_monitor);
+			if (device == NULL)
+				continue;
+			print_device(device, "UEVENT", env);
+			udev_device_unref(device);
+		}
+ 	}
+out:
+	udev_monitor_unref(kernel_monitor);
+	return rc;
+}
+
+void sysinfod::stop_monitor()       // stop sys monitor
+{
+    udev_exit = 1;
+    pthread_join(m_thread_monitor, NULL);
+}
+// user id check
+// async update disk info
+// close

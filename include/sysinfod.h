@@ -99,14 +99,14 @@ public:
      // jbod info   
     void set_jbod_info(vector<jbod_info> &_v);      // init jbod info from mysql(include sas_address, start num, ascordes)
     void init_disk_info();     // init all disk info
+    void stop_monitor();       // stop sys monitor
     void print();// for test
 	string get_diskid(string path, unsigned int pos_num); // get disk_id by backuppath
 	int check_brick_src(string const &_brick_path, string const & _src_path);
 	int connect_brick(string const &_brick_path, string const & _src_path);
 private:
-
-    
-   
+    static void * montior_dev(void* _pThis);
+    static void * flush_info(void* _pThis);
     
     string get_sas_address_by_disk(string const& p);
 	static sysinfod m_instance;
@@ -128,5 +128,10 @@ private:
     //vector<shared_ptr<sas_address_obj> > m_ctrl_sas_address_pool;
     map<string, string> m_ctrl_sas_address;
     vector<jbod_info> m_vjbods;
+
+    // monitor sys dev
+    pthread_t m_thread_monitor;
+    pthread_t m_thread_flush;
+    bool bfirst;    // first init diks info 
 };
 #endif //_SYSINFOD_H_

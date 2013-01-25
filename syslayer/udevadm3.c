@@ -42,7 +42,7 @@ static void asmlinkage sig_handler(int signum)
 int event_count = 0;
 static void print_device(struct udev_device *device, const char *source, int env)
 {
-    printf ("recive kernel event: %d\n", event_count);
+    printf ("recive kernel event: %d\n", ++event_count);
     /*
 	struct timeval tv;
 	struct timezone tz;
@@ -116,7 +116,7 @@ int udevadm_monitor(struct udev *udev)
 	}
 	
 	printf("\n");
-	while (!udev_exit) {
+	 while (!udev_exit) {
 		int fdcount;
 		FD_ZERO(&readfds);
 		if (kernel_monitor != NULL)
@@ -125,9 +125,14 @@ int udevadm_monitor(struct udev *udev)
         if (udev_monitor != NULL)
 			FD_SET(udev_monitor_get_fd(udev_monitor), &readfds);
         */
-		fdcount = select(UDEV_MAX(udev_monitor_get_fd(kernel_monitor), udev_monitor_get_fd(udev_monitor))+1,
-				 &readfds, NULL, NULL, NULL);
+		struct timeval timeout={3,0};
+		// fdcount = select(UDEV_MAX(udev_monitor_get_fd(kernel_monitor), udev_monitor_get_fd(udev_monitor))+1,
+		//		 &readfds, NULL, NULL, NULL);
+        fdcount = select(udev_monitor_get_fd(kernel_monitor)+1,
+				&readfds, NULL, NULL, &timeout);
+		printf("after select\n");
 		if (fdcount < 0) {
+			printf("fdcount < 0\n");
 			if (errno != EINTR)
 				fprintf(stderr, "error receiving uevent message: %m\n");
 			continue;
@@ -150,10 +155,12 @@ int udevadm_monitor(struct udev *udev)
 			udev_device_unref(device);
 		}
         */
+	printf("exit from while\n");
 	}
 out:
 	//udev_monitor_unref(udev_monitor);
 	udev_monitor_unref(kernel_monitor);
+    printf ("exit from monitor\n");
 	return rc;
 }
 int main(int argc, char *argv[])
@@ -168,5 +175,6 @@ int main(int argc, char *argv[])
 	rc = 2;
 out:
 	udev_unref(udev);
+    printf("exit from main\n");
 	return rc;
 }

@@ -9,6 +9,15 @@ int backup_master::init(const char *db_name, const char* ip, const char * user, 
 	SetLogDestination(INFO,"./log/info_");
 	SetLogDestination(WARNING,"./log/error_");
 	SetLogDestination(FATAL,"");
+
+    // check user id
+    if (getuid() != 0) {
+		fprintf(stderr, "erro root privileges needed \n");
+        LOG(WARNING) << "erro root privileges needed ";
+		FlushLogFiles(INFO);
+        return BK_ERROR;
+	}
+    
 	// init pref
 	if (m_pref.login_db(db_name, ip, user, psw) == BK_SUCESS &&
 		m_pref.check() == BK_SUCESS)

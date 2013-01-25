@@ -23,7 +23,7 @@ BINDIR	= ../lib/
 
 # CFLAGS
 INCS	= -I ../include/
-LIBS	= -L ../lib  -lsyslayer
+LIBS	= -L ../lib  -lsyslayer -ludev -lpthread
 OPTIONS	= -ftemplate-depth-100 -O2 -finline-functions -Wno-inline -Wall 
 CFLAGS	= $(INCS) $(LIBS) $(OPTIONS)
 
