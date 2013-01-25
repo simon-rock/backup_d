@@ -1,8 +1,27 @@
 #include "sysinfod.h"
 #include <map>
 using std::map;
+
+int udev_exit = 0;
+void sig_handler(int signum)
+{
+	if (signum == SIGINT || signum == SIGTERM)
+		udev_exit = 1;
+}
+
 int main()
 {
+    // 
+    struct sigaction act;
+    /* set signal handlers */
+	memset(&act, 0x00, sizeof(struct sigaction));
+	act.sa_handler = (void (*)(int)) sig_handler;
+	sigemptyset(&act.sa_mask);
+	act.sa_flags = SA_RESTART;
+	sigaction(SIGINT, &act, NULL);
+	sigaction(SIGTERM, &act, NULL);
+
+    
     vector<sysinfod::jbod_info> vj;
     sysinfod::jbod_info ji;
     ji._sas_address = "5003048001704e7d";
@@ -14,8 +33,12 @@ int main()
 	sysinfod::getInstance()->print();
     cout << "test get_disk" << sysinfod::getInstance()->get_diskid("/home/yu/mount_test", 1) << endl;
 
-    usleep(60*1000000);
-    cout << "*****60sec time out" << endl;
+    while(!udev_exit)
+    {
+        sleep(5);
+    }
+    
+    cout << "*****stop*****" << endl;
     sysinfod::getInstance()->stop_monitor();  
 /*
 	char buf[1024];
