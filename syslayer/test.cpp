@@ -1,4 +1,5 @@
 #include "sysinfod.h"
+#include <signal.h>
 #include <map>
 using std::map;
 
