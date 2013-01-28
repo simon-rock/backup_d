@@ -582,8 +582,7 @@ void * sysinfod::flush_info(void* _pThis)
         {
             old_event_count = event_count = 0;
             sysinfod::getInstance()->init_disk_info();
-            sysinfod::getInstance()->print();
-        }
+         }
         else
         {
             old_event_count = event_count;

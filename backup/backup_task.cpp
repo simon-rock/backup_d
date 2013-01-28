@@ -161,7 +161,7 @@ void task_control::set_sem(const string& _brick_id)
 			}
 			//}
 #endif //SYS_LINUX
-			LOG(WARNING) << "[BTICK_ID]" << _brick_id  << ": [set_sem]";
+			LOG(INFO) << "[BTICK_ID]" << _brick_id  << ": [set_sem]";
 			FlushLogFiles(INFO);
 			return;
 		} 

@@ -65,7 +65,7 @@ int main(int argc, char *argv[])
 		case 'l': t = CMD_VIEW; break;
 		case 256: if( arg[0] ) {t = CMD_START; strcmd += "0:";strcmd += arg;} break;
 		case 257: if (arg[0] ) {t = CMD_STOP; strcmd += "1:";strcmd += arg;} break;
-		case 258: if (arg[0] ) {t = CMD_STOP_SVRD; strcmd += "9:";} break;
+		case 258: {t = CMD_STOP_SVRD; strcmd += "9:";} break;
 		default : internal_error( "uncaught option" );
 		}
 	} 

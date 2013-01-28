@@ -1,23 +1,26 @@
 #
-# Copyright (c) 2001-2012 by PDFTron Systems Inc. All Rights Reserved.
+# Copyright (c) 2012 by gaoyu. All Rights Reserved.
 #
-ROOT := .
+#ROOT := .
+include ../Makefile_s
 
 LINK	= g++
-CC	= g++ -c 
+#CC	= g++ -g -c 
 AR	= ar -cr
 RM	= rm -rf
 
 # Target
-TARGETS	= $(TARGETS1)
-TARGETS1= backupadmin		
+TARGETS	= $(TARGETS1) $(TARGETS2)
+TARGETS1= backupd
+TARGETS2= backupctrl
 
 # OBJECT
-OBJS	= $(OBJ_T1)
-OBJ_T1	= main.o masterwin.o BrickMaster.o NASMaster.o QueryFrame.o db_config.o BrowseFolder.o
+OBJS	= $(OBJ_T1) $(OBJ_T2)
+OBJ_T1	= main.o backup_main.o brick_group.o deamon.o backup_status.o 
+OBJ_T2	= backupclient.o
 # DIR
-BINDIR	= ../bin/
-
+#BINDIR	= ../bin/
+#LIBDIR  = ../lib/
 # CFLAGS
 INCS	= -I ../include/ -I/usr/include/gtkmm-2.4 -I/usr/lib64/gtkmm-2.4/include -I/usr/include/atkmm-1.6 \
 		-I/usr/include/giomm-2.4 -I/usr/lib64/giomm-2.4/include -I/usr/include/pangomm-1.4 \
@@ -28,7 +31,7 @@ INCS	= -I ../include/ -I/usr/include/gtkmm-2.4 -I/usr/lib64/gtkmm-2.4/include -I
 		-I/usr/include/pango-1.0 -I/usr/include/cairo -I/usr/include/pixman-1 -I/usr/include/freetype2 \
 		-I/usr/include/libpng15 -I/usr/lib64/gtk-2.0/include  -I/usr/include/gdk-pixbuf-2.0
 #LIBS	= -L ../lib  -lsystools -ldb_access  -L/usr/lib64/mysql/ -lmysqlclient #depend error
-LIBS	= -L ../lib -ldb_access -lsystools -L/usr/lib64/mysql/ -lmysqlclient -lglog -lpthread \
+LIBS	= -L $(LIBDIR)  -lbackup -lsystools -ldb_access -lsyslayer -L/usr/lib64/mysql/ -lmysqlclient -lglog -lpthread -ludev \
 		-lgtkmm-2.4 -latkmm-1.6 -lgdkmm-2.4 -lgiomm-2.4 -lpangomm-1.4 -lgtk-x11-2.0 -lglibmm-2.4 \
 		-lcairomm-1.0 -lsigc-2.0 -lgdk-x11-2.0 -latk-1.0 -lgio-2.0 -lpangoft2-1.0 -lpangocairo-1.0 \
 		-lgdk_pixbuf-2.0 -lcairo -lpango-1.0 -lfreetype -lfontconfig -lgobject-2.0 -lglib-2.0
@@ -37,23 +40,26 @@ CFLAGS	= $(INCS) $(LIBS) $(OPTIONS)
 
 # libs depend
 LIBDIRS	= ../systools	\
-	  ../db_access
+	  ../backup	\
+	  ../db_access	\
+	  ../syslayer
 
 all: $(TARGETS)
 
 $(TARGETS1): libs $(OBJ_T1) 
 	$(LINK) -o $(BINDIR)$(TARGETS1)  $(OBJ_T1) $(CFLAGS)
 #	$(AR)  $(BINDIR)$(TARGETS1)  $(OBJ_T1)
-
+$(TARGETS2): libs $(OBJ_T2) 
+	$(LINK) -o $(BINDIR)$(TARGETS2)  $(OBJ_T2) $(CFLAGS)
 libs:
 	@$(foreach BIND, $(LIBDIRS), \
-            $(MAKE) -C $(BIND) --no-print-directory;)
+            $(MAKE) -C $(BIND) -f Makefile_s --no-print-directory;)
 .cpp.o	:
 	$(CC)  $(INCS) $(LIBS) $< 
 
 clean:
 	@$(foreach BIND, $(LIBDIRS), \
-            $(MAKE) -C $(BIND) clean --no-print-directory;)
+            $(MAKE) -C $(BIND) -f Makefile_s clean --no-print-directory;)
 	@$(foreach T, $(TARGETS), \
             $(RM) $(BINDIR)$(T);)
 	-$(RM) $(OBJS) *.o *core
