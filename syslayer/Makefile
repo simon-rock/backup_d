@@ -33,6 +33,8 @@ all: $(TARGETS)
 $(TARGETS1): libs $(OBJ_T1)
 	$(AR)  $(BINDIR)$(TARGETS1)  $(OBJ_T1)
 
+$(TARGETS2): libs $(OBJ_T2)
+        $(LINK)  $(TARGETS2)  $(OBJ_T2) $(CFLAGS)
 libs:
 	@$(foreach BIND, $(LIBDIRS), \
             $(MAKE) -C $(BIND) --no-print-directory;)
