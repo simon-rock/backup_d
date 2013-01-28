@@ -21,7 +21,7 @@ BINDIR	= ../lib/
 
 # CFLAGS
 INCS	= -I ../include/
-LIBS	= -L ../lib  -lsyslayer -ludev -lpthread
+LIBS	= -L ../lib  -lsyslayer
 OPTIONS	= -ftemplate-depth-100 -O2 -finline-functions -Wno-inline -Wall 
 CFLAGS	= $(INCS) $(LIBS) $(OPTIONS)
 
@@ -32,9 +32,6 @@ all: $(TARGETS)
 
 $(TARGETS1): libs $(OBJ_T1)
 	$(AR)  $(BINDIR)$(TARGETS1)  $(OBJ_T1)
-
-$(TARGETS2): libs $(OBJ_T2)
-        $(LINK)  $(TARGETS2)  $(OBJ_T2) $(CFLAGS)
 libs:
 	@$(foreach BIND, $(LIBDIRS), \
             $(MAKE) -C $(BIND) --no-print-directory;)

@@ -2,6 +2,7 @@
 #include "thread_pool.h"
 #include "backup_task.h"
 #include "msg_queue.h"
+#include "sysinfod.h"
 int backup_master::init(const char *db_name, const char* ip, const char * user, const char* psw)
 {
 	// glog
@@ -74,6 +75,7 @@ int backup_master::start_by_brick(string _brick_id)
 
 int backup_master::stop()
 {
+	sysinfod::getInstance()->stop_monitor();
 	task_control::Instance()->set_all();
 	thread_pool::getInstance()->shut_down();
 	//POSTMESSAGE(MSG(STOP),NULL,0);

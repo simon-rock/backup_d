@@ -30,7 +30,7 @@ INCS	= -I ../include/ -I/usr/include/gtkmm-2.4 -I/usr/lib64/gtkmm-2.4/include -I
 		-I/usr/include/pango-1.0 -I/usr/include/cairo -I/usr/include/pixman-1 -I/usr/include/freetype2 \
 		-I/usr/include/libpng15 -I/usr/lib64/gtk-2.0/include  -I/usr/include/gdk-pixbuf-2.0
 #LIBS	= -L ../lib  -lsystools -ldb_access  -L/usr/lib64/mysql/ -lmysqlclient #depend error
-LIBS	= -L ../lib  -lbackup -lsystools -ldb_access -lsyslayer -L/usr/lib64/mysql/ -lmysqlclient -lglog -lpthread \
+LIBS	= -L ../lib  -lbackup -lsystools -ldb_access -lsyslayer -L/usr/lib64/mysql/ -lmysqlclient -lglog -lpthread -ludev \
 		-lgtkmm-2.4 -latkmm-1.6 -lgdkmm-2.4 -lgiomm-2.4 -lpangomm-1.4 -lgtk-x11-2.0 -lglibmm-2.4 \
 		-lcairomm-1.0 -lsigc-2.0 -lgdk-x11-2.0 -latk-1.0 -lgio-2.0 -lpangoft2-1.0 -lpangocairo-1.0 \
 		-lgdk_pixbuf-2.0 -lcairo -lpango-1.0 -lfreetype -lfontconfig -lgobject-2.0 -lglib-2.0

@@ -34,6 +34,7 @@ BackupMain::BackupMain()
 	if (backup_init(db, ip, user, psw) != 0)
 	{
 		cout << "init backupd error "<< endl;
+        exit(-1);
 	}
 
     while(!m_init)

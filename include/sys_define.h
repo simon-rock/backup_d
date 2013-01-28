@@ -37,7 +37,7 @@
 #define  NOGDI
 #endif //SYS_WINDOWS
 
-#define VERSION "0.2"
+#define VERSION "1.0"
 #define FIFOVIEW "/tmp/backupview"
 #define FIFOCONTROL "/tmp/backupcontrol"
 
