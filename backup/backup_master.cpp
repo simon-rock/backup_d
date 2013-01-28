@@ -12,7 +12,7 @@ int backup_master::init(const char *db_name, const char* ip, const char * user, 
 
     // check user id
     if (getuid() != 0) {
-		fprintf(stderr, "erro root privileges needed \n");
+        std::cout <<  "erro root privileges needed" << std::endl;
         LOG(WARNING) << "erro root privileges needed ";
 		FlushLogFiles(INFO);
         return BK_ERROR;
