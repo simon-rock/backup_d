@@ -1,4 +1,4 @@
-#include "config.h"
+#include "sys_config.h"
 #include "msg_queue.h"
 #include "mysqlplus.h"
 #include "db_exec.h"

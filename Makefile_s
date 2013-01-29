@@ -2,7 +2,7 @@
 # Copyright (c) 2012 by gaoyu. All Rights Reserved.
 #
 
-ROOT = /backupd/
+ROOT = /backupd
 CC = g++ -g -c
-BINDIR = $(ROOT)bin/
-LIBDIR = $(ROOT)lib/
+BINDIR = $(ROOT)/bin/
+LIBDIR = $(ROOT)/lib/

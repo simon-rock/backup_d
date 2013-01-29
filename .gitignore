@@ -2,7 +2,7 @@
 *.slo
 *.lo
 *.o
-
+*.Po
 # Compiled Dynamic libraries
 *.so
 *.dylib
@@ -17,7 +17,9 @@ libsystools.a
 libbackup.a
 libsyslayer.a
 test_syslayer
-
+backupd
+backupadmin
+backupctrl
 # folder
 bin/
 # msvc out
