@@ -32,7 +32,7 @@ POST_INSTALL = :
 NORMAL_UNINSTALL = :
 PRE_UNINSTALL = :
 POST_UNINSTALL = :
-bin_PROGRAMS = backupadmin$(EXEEXT)
+bin_PROGRAMS = backupadminctrl$(EXEEXT)
 subdir = backupadmin
 DIST_COMMON = $(srcdir)/Makefile.am $(srcdir)/Makefile.in
 ACLOCAL_M4 = $(top_srcdir)/aclocal.m4
@@ -45,17 +45,17 @@ CONFIG_CLEAN_FILES =
 CONFIG_CLEAN_VPATH_FILES =
 am__installdirs = "$(DESTDIR)$(bindir)"
 PROGRAMS = $(bin_PROGRAMS)
-am_backupadmin_OBJECTS = backupadmin-main.$(OBJEXT) \
-	backupadmin-masterwin.$(OBJEXT) \
-	backupadmin-BrickMaster.$(OBJEXT) \
-	backupadmin-NASMaster.$(OBJEXT) \
-	backupadmin-QueryFrame.$(OBJEXT) \
-	backupadmin-db_config.$(OBJEXT) \
-	backupadmin-BrowseFolder.$(OBJEXT)
-backupadmin_OBJECTS = $(am_backupadmin_OBJECTS)
-backupadmin_LDADD = $(LDADD)
-backupadmin_LINK = $(CXXLD) $(AM_CXXFLAGS) $(CXXFLAGS) \
-	$(backupadmin_LDFLAGS) $(LDFLAGS) -o $@
+am_backupadminctrl_OBJECTS = backupadminctrl-main.$(OBJEXT) \
+	backupadminctrl-masterwin.$(OBJEXT) \
+	backupadminctrl-BrickMaster.$(OBJEXT) \
+	backupadminctrl-NASMaster.$(OBJEXT) \
+	backupadminctrl-QueryFrame.$(OBJEXT) \
+	backupadminctrl-db_config.$(OBJEXT) \
+	backupadminctrl-BrowseFolder.$(OBJEXT)
+backupadminctrl_OBJECTS = $(am_backupadminctrl_OBJECTS)
+backupadminctrl_LDADD = $(LDADD)
+backupadminctrl_LINK = $(CXXLD) $(AM_CXXFLAGS) $(CXXFLAGS) \
+	$(backupadminctrl_LDFLAGS) $(LDFLAGS) -o $@
 DEFAULT_INCLUDES = -I.@am__isrc@ -I$(top_builddir)
 depcomp = $(SHELL) $(top_srcdir)/depcomp
 am__depfiles_maybe = depfiles
@@ -65,8 +65,8 @@ CXXCOMPILE = $(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) \
 CXXLD = $(CXX)
 CXXLINK = $(CXXLD) $(AM_CXXFLAGS) $(CXXFLAGS) $(AM_LDFLAGS) $(LDFLAGS) \
 	-o $@
-SOURCES = $(backupadmin_SOURCES)
-DIST_SOURCES = $(backupadmin_SOURCES)
+SOURCES = $(backupadminctrl_SOURCES)
+DIST_SOURCES = $(backupadminctrl_SOURCES)
 ETAGS = etags
 CTAGS = ctags
 DISTFILES = $(DIST_COMMON) $(DIST_SOURCES) $(TEXINFOS) $(EXTRA_DIST)
@@ -160,11 +160,13 @@ target_alias = @target_alias@
 top_build_prefix = @top_build_prefix@
 top_builddir = @top_builddir@
 top_srcdir = @top_srcdir@
+
+#t
 AUTOMAKE_OPTIONS = foreign
-backupadmin_SOURCES = main.cpp masterwin.cpp BrickMaster.cpp NASMaster.cpp QueryFrame.cpp db_config.cpp BrowseFolder.cpp 
-backupadmin_CPPFLAGS = -I ../include/ `pkg-config --cflags gtkmm-2.4`
+backupadminctrl_SOURCES = main.cpp masterwin.cpp BrickMaster.cpp NASMaster.cpp QueryFrame.cpp db_config.cpp BrowseFolder.cpp 
+backupadminctrl_CPPFLAGS = -I ../include/ `pkg-config --cflags gtkmm-2.4`
 #backupd_LDADD = ../lib/libgsync.a #/home/yu/workspace/lib/boost_1_42_0/stage/lib/libboost_thread.a
-backupadmin_LDFLAGS = -L ../systools -L ../backup -L ../db_access -L ../syslayer  #-lsystools -ldb_access -L/usr/lib64/mysql/ -lmysqlclient -lglog -lpthread `pkg-config --libs gtkmm-2.4`
+backupadminctrl_LDFLAGS = -L ../systools -L ../backup -L ../db_access -L ../syslayer  #-lsystools -ldb_access -L/usr/lib64/mysql/ -lmysqlclient -lglog -lpthread `pkg-config --libs gtkmm-2.4`
 all: all-am
 
 .SUFFIXES:
@@ -236,9 +238,9 @@ uninstall-binPROGRAMS:
 
 clean-binPROGRAMS:
 	-test -z "$(bin_PROGRAMS)" || rm -f $(bin_PROGRAMS)
-backupadmin$(EXEEXT): $(backupadmin_OBJECTS) $(backupadmin_DEPENDENCIES) 
-	@rm -f backupadmin$(EXEEXT)
-	$(backupadmin_LINK) $(backupadmin_OBJECTS) $(backupadmin_LDADD) $(LIBS)
+backupadminctrl$(EXEEXT): $(backupadminctrl_OBJECTS) $(backupadminctrl_DEPENDENCIES) 
+	@rm -f backupadminctrl$(EXEEXT)
+	$(backupadminctrl_LINK) $(backupadminctrl_OBJECTS) $(backupadminctrl_LDADD) $(LIBS)
 
 mostlyclean-compile:
 	-rm -f *.$(OBJEXT)
@@ -246,13 +248,13 @@ mostlyclean-compile:
 distclean-compile:
 	-rm -f *.tab.c
 
-@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/backupadmin-BrickMaster.Po@am__quote@
-@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/backupadmin-BrowseFolder.Po@am__quote@
-@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/backupadmin-NASMaster.Po@am__quote@
-@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/backupadmin-QueryFrame.Po@am__quote@
-@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/backupadmin-db_config.Po@am__quote@
-@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/backupadmin-main.Po@am__quote@
-@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/backupadmin-masterwin.Po@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/backupadminctrl-BrickMaster.Po@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/backupadminctrl-BrowseFolder.Po@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/backupadminctrl-NASMaster.Po@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/backupadminctrl-QueryFrame.Po@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/backupadminctrl-db_config.Po@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/backupadminctrl-main.Po@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/backupadminctrl-masterwin.Po@am__quote@
 
 .cpp.o:
 @am__fastdepCXX_TRUE@	$(CXXCOMPILE) -MT $@ -MD -MP -MF $(DEPDIR)/$*.Tpo -c -o $@ $<
@@ -268,103 +270,103 @@ distclean-compile:
 @AMDEP_TRUE@@am__fastdepCXX_FALSE@	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) @AMDEPBACKSLASH@
 @am__fastdepCXX_FALSE@	$(CXXCOMPILE) -c -o $@ `$(CYGPATH_W) '$<'`
 
-backupadmin-main.o: main.cpp
-@am__fastdepCXX_TRUE@	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(backupadmin_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -MT backupadmin-main.o -MD -MP -MF $(DEPDIR)/backupadmin-main.Tpo -c -o backupadmin-main.o `test -f 'main.cpp' || echo '$(srcdir)/'`main.cpp
-@am__fastdepCXX_TRUE@	$(am__mv) $(DEPDIR)/backupadmin-main.Tpo $(DEPDIR)/backupadmin-main.Po
-@AMDEP_TRUE@@am__fastdepCXX_FALSE@	source='main.cpp' object='backupadmin-main.o' libtool=no @AMDEPBACKSLASH@
+backupadminctrl-main.o: main.cpp
+@am__fastdepCXX_TRUE@	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(backupadminctrl_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -MT backupadminctrl-main.o -MD -MP -MF $(DEPDIR)/backupadminctrl-main.Tpo -c -o backupadminctrl-main.o `test -f 'main.cpp' || echo '$(srcdir)/'`main.cpp
+@am__fastdepCXX_TRUE@	$(am__mv) $(DEPDIR)/backupadminctrl-main.Tpo $(DEPDIR)/backupadminctrl-main.Po
+@AMDEP_TRUE@@am__fastdepCXX_FALSE@	source='main.cpp' object='backupadminctrl-main.o' libtool=no @AMDEPBACKSLASH@
 @AMDEP_TRUE@@am__fastdepCXX_FALSE@	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) @AMDEPBACKSLASH@
-@am__fastdepCXX_FALSE@	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(backupadmin_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -c -o backupadmin-main.o `test -f 'main.cpp' || echo '$(srcdir)/'`main.cpp
+@am__fastdepCXX_FALSE@	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(backupadminctrl_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -c -o backupadminctrl-main.o `test -f 'main.cpp' || echo '$(srcdir)/'`main.cpp
 
-backupadmin-main.obj: main.cpp
-@am__fastdepCXX_TRUE@	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(backupadmin_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -MT backupadmin-main.obj -MD -MP -MF $(DEPDIR)/backupadmin-main.Tpo -c -o backupadmin-main.obj `if test -f 'main.cpp'; then $(CYGPATH_W) 'main.cpp'; else $(CYGPATH_W) '$(srcdir)/main.cpp'; fi`
-@am__fastdepCXX_TRUE@	$(am__mv) $(DEPDIR)/backupadmin-main.Tpo $(DEPDIR)/backupadmin-main.Po
-@AMDEP_TRUE@@am__fastdepCXX_FALSE@	source='main.cpp' object='backupadmin-main.obj' libtool=no @AMDEPBACKSLASH@
+backupadminctrl-main.obj: main.cpp
+@am__fastdepCXX_TRUE@	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(backupadminctrl_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -MT backupadminctrl-main.obj -MD -MP -MF $(DEPDIR)/backupadminctrl-main.Tpo -c -o backupadminctrl-main.obj `if test -f 'main.cpp'; then $(CYGPATH_W) 'main.cpp'; else $(CYGPATH_W) '$(srcdir)/main.cpp'; fi`
+@am__fastdepCXX_TRUE@	$(am__mv) $(DEPDIR)/backupadminctrl-main.Tpo $(DEPDIR)/backupadminctrl-main.Po
+@AMDEP_TRUE@@am__fastdepCXX_FALSE@	source='main.cpp' object='backupadminctrl-main.obj' libtool=no @AMDEPBACKSLASH@
 @AMDEP_TRUE@@am__fastdepCXX_FALSE@	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) @AMDEPBACKSLASH@
-@am__fastdepCXX_FALSE@	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(backupadmin_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -c -o backupadmin-main.obj `if test -f 'main.cpp'; then $(CYGPATH_W) 'main.cpp'; else $(CYGPATH_W) '$(srcdir)/main.cpp'; fi`
+@am__fastdepCXX_FALSE@	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(backupadminctrl_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -c -o backupadminctrl-main.obj `if test -f 'main.cpp'; then $(CYGPATH_W) 'main.cpp'; else $(CYGPATH_W) '$(srcdir)/main.cpp'; fi`
 
-backupadmin-masterwin.o: masterwin.cpp
-@am__fastdepCXX_TRUE@	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(backupadmin_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -MT backupadmin-masterwin.o -MD -MP -MF $(DEPDIR)/backupadmin-masterwin.Tpo -c -o backupadmin-masterwin.o `test -f 'masterwin.cpp' || echo '$(srcdir)/'`masterwin.cpp
-@am__fastdepCXX_TRUE@	$(am__mv) $(DEPDIR)/backupadmin-masterwin.Tpo $(DEPDIR)/backupadmin-masterwin.Po
-@AMDEP_TRUE@@am__fastdepCXX_FALSE@	source='masterwin.cpp' object='backupadmin-masterwin.o' libtool=no @AMDEPBACKSLASH@
+backupadminctrl-masterwin.o: masterwin.cpp
+@am__fastdepCXX_TRUE@	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(backupadminctrl_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -MT backupadminctrl-masterwin.o -MD -MP -MF $(DEPDIR)/backupadminctrl-masterwin.Tpo -c -o backupadminctrl-masterwin.o `test -f 'masterwin.cpp' || echo '$(srcdir)/'`masterwin.cpp
+@am__fastdepCXX_TRUE@	$(am__mv) $(DEPDIR)/backupadminctrl-masterwin.Tpo $(DEPDIR)/backupadminctrl-masterwin.Po
+@AMDEP_TRUE@@am__fastdepCXX_FALSE@	source='masterwin.cpp' object='backupadminctrl-masterwin.o' libtool=no @AMDEPBACKSLASH@
 @AMDEP_TRUE@@am__fastdepCXX_FALSE@	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) @AMDEPBACKSLASH@
-@am__fastdepCXX_FALSE@	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(backupadmin_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -c -o backupadmin-masterwin.o `test -f 'masterwin.cpp' || echo '$(srcdir)/'`masterwin.cpp
+@am__fastdepCXX_FALSE@	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(backupadminctrl_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -c -o backupadminctrl-masterwin.o `test -f 'masterwin.cpp' || echo '$(srcdir)/'`masterwin.cpp
 
-backupadmin-masterwin.obj: masterwin.cpp
-@am__fastdepCXX_TRUE@	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(backupadmin_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -MT backupadmin-masterwin.obj -MD -MP -MF $(DEPDIR)/backupadmin-masterwin.Tpo -c -o backupadmin-masterwin.obj `if test -f 'masterwin.cpp'; then $(CYGPATH_W) 'masterwin.cpp'; else $(CYGPATH_W) '$(srcdir)/masterwin.cpp'; fi`
-@am__fastdepCXX_TRUE@	$(am__mv) $(DEPDIR)/backupadmin-masterwin.Tpo $(DEPDIR)/backupadmin-masterwin.Po
-@AMDEP_TRUE@@am__fastdepCXX_FALSE@	source='masterwin.cpp' object='backupadmin-masterwin.obj' libtool=no @AMDEPBACKSLASH@
+backupadminctrl-masterwin.obj: masterwin.cpp
+@am__fastdepCXX_TRUE@	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(backupadminctrl_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -MT backupadminctrl-masterwin.obj -MD -MP -MF $(DEPDIR)/backupadminctrl-masterwin.Tpo -c -o backupadminctrl-masterwin.obj `if test -f 'masterwin.cpp'; then $(CYGPATH_W) 'masterwin.cpp'; else $(CYGPATH_W) '$(srcdir)/masterwin.cpp'; fi`
+@am__fastdepCXX_TRUE@	$(am__mv) $(DEPDIR)/backupadminctrl-masterwin.Tpo $(DEPDIR)/backupadminctrl-masterwin.Po
+@AMDEP_TRUE@@am__fastdepCXX_FALSE@	source='masterwin.cpp' object='backupadminctrl-masterwin.obj' libtool=no @AMDEPBACKSLASH@
 @AMDEP_TRUE@@am__fastdepCXX_FALSE@	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) @AMDEPBACKSLASH@
-@am__fastdepCXX_FALSE@	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(backupadmin_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -c -o backupadmin-masterwin.obj `if test -f 'masterwin.cpp'; then $(CYGPATH_W) 'masterwin.cpp'; else $(CYGPATH_W) '$(srcdir)/masterwin.cpp'; fi`
+@am__fastdepCXX_FALSE@	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(backupadminctrl_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -c -o backupadminctrl-masterwin.obj `if test -f 'masterwin.cpp'; then $(CYGPATH_W) 'masterwin.cpp'; else $(CYGPATH_W) '$(srcdir)/masterwin.cpp'; fi`
 
-backupadmin-BrickMaster.o: BrickMaster.cpp
-@am__fastdepCXX_TRUE@	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(backupadmin_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -MT backupadmin-BrickMaster.o -MD -MP -MF $(DEPDIR)/backupadmin-BrickMaster.Tpo -c -o backupadmin-BrickMaster.o `test -f 'BrickMaster.cpp' || echo '$(srcdir)/'`BrickMaster.cpp
-@am__fastdepCXX_TRUE@	$(am__mv) $(DEPDIR)/backupadmin-BrickMaster.Tpo $(DEPDIR)/backupadmin-BrickMaster.Po
-@AMDEP_TRUE@@am__fastdepCXX_FALSE@	source='BrickMaster.cpp' object='backupadmin-BrickMaster.o' libtool=no @AMDEPBACKSLASH@
+backupadminctrl-BrickMaster.o: BrickMaster.cpp
+@am__fastdepCXX_TRUE@	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(backupadminctrl_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -MT backupadminctrl-BrickMaster.o -MD -MP -MF $(DEPDIR)/backupadminctrl-BrickMaster.Tpo -c -o backupadminctrl-BrickMaster.o `test -f 'BrickMaster.cpp' || echo '$(srcdir)/'`BrickMaster.cpp
+@am__fastdepCXX_TRUE@	$(am__mv) $(DEPDIR)/backupadminctrl-BrickMaster.Tpo $(DEPDIR)/backupadminctrl-BrickMaster.Po
+@AMDEP_TRUE@@am__fastdepCXX_FALSE@	source='BrickMaster.cpp' object='backupadminctrl-BrickMaster.o' libtool=no @AMDEPBACKSLASH@
 @AMDEP_TRUE@@am__fastdepCXX_FALSE@	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) @AMDEPBACKSLASH@
-@am__fastdepCXX_FALSE@	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(backupadmin_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -c -o backupadmin-BrickMaster.o `test -f 'BrickMaster.cpp' || echo '$(srcdir)/'`BrickMaster.cpp
+@am__fastdepCXX_FALSE@	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(backupadminctrl_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -c -o backupadminctrl-BrickMaster.o `test -f 'BrickMaster.cpp' || echo '$(srcdir)/'`BrickMaster.cpp
 
-backupadmin-BrickMaster.obj: BrickMaster.cpp
-@am__fastdepCXX_TRUE@	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(backupadmin_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -MT backupadmin-BrickMaster.obj -MD -MP -MF $(DEPDIR)/backupadmin-BrickMaster.Tpo -c -o backupadmin-BrickMaster.obj `if test -f 'BrickMaster.cpp'; then $(CYGPATH_W) 'BrickMaster.cpp'; else $(CYGPATH_W) '$(srcdir)/BrickMaster.cpp'; fi`
-@am__fastdepCXX_TRUE@	$(am__mv) $(DEPDIR)/backupadmin-BrickMaster.Tpo $(DEPDIR)/backupadmin-BrickMaster.Po
-@AMDEP_TRUE@@am__fastdepCXX_FALSE@	source='BrickMaster.cpp' object='backupadmin-BrickMaster.obj' libtool=no @AMDEPBACKSLASH@
+backupadminctrl-BrickMaster.obj: BrickMaster.cpp
+@am__fastdepCXX_TRUE@	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(backupadminctrl_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -MT backupadminctrl-BrickMaster.obj -MD -MP -MF $(DEPDIR)/backupadminctrl-BrickMaster.Tpo -c -o backupadminctrl-BrickMaster.obj `if test -f 'BrickMaster.cpp'; then $(CYGPATH_W) 'BrickMaster.cpp'; else $(CYGPATH_W) '$(srcdir)/BrickMaster.cpp'; fi`
+@am__fastdepCXX_TRUE@	$(am__mv) $(DEPDIR)/backupadminctrl-BrickMaster.Tpo $(DEPDIR)/backupadminctrl-BrickMaster.Po
+@AMDEP_TRUE@@am__fastdepCXX_FALSE@	source='BrickMaster.cpp' object='backupadminctrl-BrickMaster.obj' libtool=no @AMDEPBACKSLASH@
 @AMDEP_TRUE@@am__fastdepCXX_FALSE@	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) @AMDEPBACKSLASH@
-@am__fastdepCXX_FALSE@	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(backupadmin_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -c -o backupadmin-BrickMaster.obj `if test -f 'BrickMaster.cpp'; then $(CYGPATH_W) 'BrickMaster.cpp'; else $(CYGPATH_W) '$(srcdir)/BrickMaster.cpp'; fi`
+@am__fastdepCXX_FALSE@	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(backupadminctrl_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -c -o backupadminctrl-BrickMaster.obj `if test -f 'BrickMaster.cpp'; then $(CYGPATH_W) 'BrickMaster.cpp'; else $(CYGPATH_W) '$(srcdir)/BrickMaster.cpp'; fi`
 
-backupadmin-NASMaster.o: NASMaster.cpp
-@am__fastdepCXX_TRUE@	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(backupadmin_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -MT backupadmin-NASMaster.o -MD -MP -MF $(DEPDIR)/backupadmin-NASMaster.Tpo -c -o backupadmin-NASMaster.o `test -f 'NASMaster.cpp' || echo '$(srcdir)/'`NASMaster.cpp
-@am__fastdepCXX_TRUE@	$(am__mv) $(DEPDIR)/backupadmin-NASMaster.Tpo $(DEPDIR)/backupadmin-NASMaster.Po
-@AMDEP_TRUE@@am__fastdepCXX_FALSE@	source='NASMaster.cpp' object='backupadmin-NASMaster.o' libtool=no @AMDEPBACKSLASH@
+backupadminctrl-NASMaster.o: NASMaster.cpp
+@am__fastdepCXX_TRUE@	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(backupadminctrl_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -MT backupadminctrl-NASMaster.o -MD -MP -MF $(DEPDIR)/backupadminctrl-NASMaster.Tpo -c -o backupadminctrl-NASMaster.o `test -f 'NASMaster.cpp' || echo '$(srcdir)/'`NASMaster.cpp
+@am__fastdepCXX_TRUE@	$(am__mv) $(DEPDIR)/backupadminctrl-NASMaster.Tpo $(DEPDIR)/backupadminctrl-NASMaster.Po
+@AMDEP_TRUE@@am__fastdepCXX_FALSE@	source='NASMaster.cpp' object='backupadminctrl-NASMaster.o' libtool=no @AMDEPBACKSLASH@
 @AMDEP_TRUE@@am__fastdepCXX_FALSE@	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) @AMDEPBACKSLASH@
-@am__fastdepCXX_FALSE@	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(backupadmin_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -c -o backupadmin-NASMaster.o `test -f 'NASMaster.cpp' || echo '$(srcdir)/'`NASMaster.cpp
+@am__fastdepCXX_FALSE@	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(backupadminctrl_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -c -o backupadminctrl-NASMaster.o `test -f 'NASMaster.cpp' || echo '$(srcdir)/'`NASMaster.cpp
 
-backupadmin-NASMaster.obj: NASMaster.cpp
-@am__fastdepCXX_TRUE@	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(backupadmin_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -MT backupadmin-NASMaster.obj -MD -MP -MF $(DEPDIR)/backupadmin-NASMaster.Tpo -c -o backupadmin-NASMaster.obj `if test -f 'NASMaster.cpp'; then $(CYGPATH_W) 'NASMaster.cpp'; else $(CYGPATH_W) '$(srcdir)/NASMaster.cpp'; fi`
-@am__fastdepCXX_TRUE@	$(am__mv) $(DEPDIR)/backupadmin-NASMaster.Tpo $(DEPDIR)/backupadmin-NASMaster.Po
-@AMDEP_TRUE@@am__fastdepCXX_FALSE@	source='NASMaster.cpp' object='backupadmin-NASMaster.obj' libtool=no @AMDEPBACKSLASH@
+backupadminctrl-NASMaster.obj: NASMaster.cpp
+@am__fastdepCXX_TRUE@	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(backupadminctrl_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -MT backupadminctrl-NASMaster.obj -MD -MP -MF $(DEPDIR)/backupadminctrl-NASMaster.Tpo -c -o backupadminctrl-NASMaster.obj `if test -f 'NASMaster.cpp'; then $(CYGPATH_W) 'NASMaster.cpp'; else $(CYGPATH_W) '$(srcdir)/NASMaster.cpp'; fi`
+@am__fastdepCXX_TRUE@	$(am__mv) $(DEPDIR)/backupadminctrl-NASMaster.Tpo $(DEPDIR)/backupadminctrl-NASMaster.Po
+@AMDEP_TRUE@@am__fastdepCXX_FALSE@	source='NASMaster.cpp' object='backupadminctrl-NASMaster.obj' libtool=no @AMDEPBACKSLASH@
 @AMDEP_TRUE@@am__fastdepCXX_FALSE@	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) @AMDEPBACKSLASH@
-@am__fastdepCXX_FALSE@	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(backupadmin_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -c -o backupadmin-NASMaster.obj `if test -f 'NASMaster.cpp'; then $(CYGPATH_W) 'NASMaster.cpp'; else $(CYGPATH_W) '$(srcdir)/NASMaster.cpp'; fi`
+@am__fastdepCXX_FALSE@	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(backupadminctrl_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -c -o backupadminctrl-NASMaster.obj `if test -f 'NASMaster.cpp'; then $(CYGPATH_W) 'NASMaster.cpp'; else $(CYGPATH_W) '$(srcdir)/NASMaster.cpp'; fi`
 
-backupadmin-QueryFrame.o: QueryFrame.cpp
-@am__fastdepCXX_TRUE@	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(backupadmin_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -MT backupadmin-QueryFrame.o -MD -MP -MF $(DEPDIR)/backupadmin-QueryFrame.Tpo -c -o backupadmin-QueryFrame.o `test -f 'QueryFrame.cpp' || echo '$(srcdir)/'`QueryFrame.cpp
-@am__fastdepCXX_TRUE@	$(am__mv) $(DEPDIR)/backupadmin-QueryFrame.Tpo $(DEPDIR)/backupadmin-QueryFrame.Po
-@AMDEP_TRUE@@am__fastdepCXX_FALSE@	source='QueryFrame.cpp' object='backupadmin-QueryFrame.o' libtool=no @AMDEPBACKSLASH@
+backupadminctrl-QueryFrame.o: QueryFrame.cpp
+@am__fastdepCXX_TRUE@	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(backupadminctrl_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -MT backupadminctrl-QueryFrame.o -MD -MP -MF $(DEPDIR)/backupadminctrl-QueryFrame.Tpo -c -o backupadminctrl-QueryFrame.o `test -f 'QueryFrame.cpp' || echo '$(srcdir)/'`QueryFrame.cpp
+@am__fastdepCXX_TRUE@	$(am__mv) $(DEPDIR)/backupadminctrl-QueryFrame.Tpo $(DEPDIR)/backupadminctrl-QueryFrame.Po
+@AMDEP_TRUE@@am__fastdepCXX_FALSE@	source='QueryFrame.cpp' object='backupadminctrl-QueryFrame.o' libtool=no @AMDEPBACKSLASH@
 @AMDEP_TRUE@@am__fastdepCXX_FALSE@	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) @AMDEPBACKSLASH@
-@am__fastdepCXX_FALSE@	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(backupadmin_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -c -o backupadmin-QueryFrame.o `test -f 'QueryFrame.cpp' || echo '$(srcdir)/'`QueryFrame.cpp
+@am__fastdepCXX_FALSE@	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(backupadminctrl_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -c -o backupadminctrl-QueryFrame.o `test -f 'QueryFrame.cpp' || echo '$(srcdir)/'`QueryFrame.cpp
 
-backupadmin-QueryFrame.obj: QueryFrame.cpp
-@am__fastdepCXX_TRUE@	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(backupadmin_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -MT backupadmin-QueryFrame.obj -MD -MP -MF $(DEPDIR)/backupadmin-QueryFrame.Tpo -c -o backupadmin-QueryFrame.obj `if test -f 'QueryFrame.cpp'; then $(CYGPATH_W) 'QueryFrame.cpp'; else $(CYGPATH_W) '$(srcdir)/QueryFrame.cpp'; fi`
-@am__fastdepCXX_TRUE@	$(am__mv) $(DEPDIR)/backupadmin-QueryFrame.Tpo $(DEPDIR)/backupadmin-QueryFrame.Po
-@AMDEP_TRUE@@am__fastdepCXX_FALSE@	source='QueryFrame.cpp' object='backupadmin-QueryFrame.obj' libtool=no @AMDEPBACKSLASH@
+backupadminctrl-QueryFrame.obj: QueryFrame.cpp
+@am__fastdepCXX_TRUE@	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(backupadminctrl_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -MT backupadminctrl-QueryFrame.obj -MD -MP -MF $(DEPDIR)/backupadminctrl-QueryFrame.Tpo -c -o backupadminctrl-QueryFrame.obj `if test -f 'QueryFrame.cpp'; then $(CYGPATH_W) 'QueryFrame.cpp'; else $(CYGPATH_W) '$(srcdir)/QueryFrame.cpp'; fi`
+@am__fastdepCXX_TRUE@	$(am__mv) $(DEPDIR)/backupadminctrl-QueryFrame.Tpo $(DEPDIR)/backupadminctrl-QueryFrame.Po
+@AMDEP_TRUE@@am__fastdepCXX_FALSE@	source='QueryFrame.cpp' object='backupadminctrl-QueryFrame.obj' libtool=no @AMDEPBACKSLASH@
 @AMDEP_TRUE@@am__fastdepCXX_FALSE@	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) @AMDEPBACKSLASH@
-@am__fastdepCXX_FALSE@	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(backupadmin_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -c -o backupadmin-QueryFrame.obj `if test -f 'QueryFrame.cpp'; then $(CYGPATH_W) 'QueryFrame.cpp'; else $(CYGPATH_W) '$(srcdir)/QueryFrame.cpp'; fi`
+@am__fastdepCXX_FALSE@	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(backupadminctrl_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -c -o backupadminctrl-QueryFrame.obj `if test -f 'QueryFrame.cpp'; then $(CYGPATH_W) 'QueryFrame.cpp'; else $(CYGPATH_W) '$(srcdir)/QueryFrame.cpp'; fi`
 
-backupadmin-db_config.o: db_config.cpp
-@am__fastdepCXX_TRUE@	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(backupadmin_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -MT backupadmin-db_config.o -MD -MP -MF $(DEPDIR)/backupadmin-db_config.Tpo -c -o backupadmin-db_config.o `test -f 'db_config.cpp' || echo '$(srcdir)/'`db_config.cpp
-@am__fastdepCXX_TRUE@	$(am__mv) $(DEPDIR)/backupadmin-db_config.Tpo $(DEPDIR)/backupadmin-db_config.Po
-@AMDEP_TRUE@@am__fastdepCXX_FALSE@	source='db_config.cpp' object='backupadmin-db_config.o' libtool=no @AMDEPBACKSLASH@
+backupadminctrl-db_config.o: db_config.cpp
+@am__fastdepCXX_TRUE@	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(backupadminctrl_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -MT backupadminctrl-db_config.o -MD -MP -MF $(DEPDIR)/backupadminctrl-db_config.Tpo -c -o backupadminctrl-db_config.o `test -f 'db_config.cpp' || echo '$(srcdir)/'`db_config.cpp
+@am__fastdepCXX_TRUE@	$(am__mv) $(DEPDIR)/backupadminctrl-db_config.Tpo $(DEPDIR)/backupadminctrl-db_config.Po
+@AMDEP_TRUE@@am__fastdepCXX_FALSE@	source='db_config.cpp' object='backupadminctrl-db_config.o' libtool=no @AMDEPBACKSLASH@
 @AMDEP_TRUE@@am__fastdepCXX_FALSE@	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) @AMDEPBACKSLASH@
-@am__fastdepCXX_FALSE@	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(backupadmin_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -c -o backupadmin-db_config.o `test -f 'db_config.cpp' || echo '$(srcdir)/'`db_config.cpp
+@am__fastdepCXX_FALSE@	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(backupadminctrl_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -c -o backupadminctrl-db_config.o `test -f 'db_config.cpp' || echo '$(srcdir)/'`db_config.cpp
 
-backupadmin-db_config.obj: db_config.cpp
-@am__fastdepCXX_TRUE@	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(backupadmin_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -MT backupadmin-db_config.obj -MD -MP -MF $(DEPDIR)/backupadmin-db_config.Tpo -c -o backupadmin-db_config.obj `if test -f 'db_config.cpp'; then $(CYGPATH_W) 'db_config.cpp'; else $(CYGPATH_W) '$(srcdir)/db_config.cpp'; fi`
-@am__fastdepCXX_TRUE@	$(am__mv) $(DEPDIR)/backupadmin-db_config.Tpo $(DEPDIR)/backupadmin-db_config.Po
-@AMDEP_TRUE@@am__fastdepCXX_FALSE@	source='db_config.cpp' object='backupadmin-db_config.obj' libtool=no @AMDEPBACKSLASH@
+backupadminctrl-db_config.obj: db_config.cpp
+@am__fastdepCXX_TRUE@	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(backupadminctrl_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -MT backupadminctrl-db_config.obj -MD -MP -MF $(DEPDIR)/backupadminctrl-db_config.Tpo -c -o backupadminctrl-db_config.obj `if test -f 'db_config.cpp'; then $(CYGPATH_W) 'db_config.cpp'; else $(CYGPATH_W) '$(srcdir)/db_config.cpp'; fi`
+@am__fastdepCXX_TRUE@	$(am__mv) $(DEPDIR)/backupadminctrl-db_config.Tpo $(DEPDIR)/backupadminctrl-db_config.Po
+@AMDEP_TRUE@@am__fastdepCXX_FALSE@	source='db_config.cpp' object='backupadminctrl-db_config.obj' libtool=no @AMDEPBACKSLASH@
 @AMDEP_TRUE@@am__fastdepCXX_FALSE@	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) @AMDEPBACKSLASH@
-@am__fastdepCXX_FALSE@	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(backupadmin_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -c -o backupadmin-db_config.obj `if test -f 'db_config.cpp'; then $(CYGPATH_W) 'db_config.cpp'; else $(CYGPATH_W) '$(srcdir)/db_config.cpp'; fi`
+@am__fastdepCXX_FALSE@	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(backupadminctrl_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -c -o backupadminctrl-db_config.obj `if test -f 'db_config.cpp'; then $(CYGPATH_W) 'db_config.cpp'; else $(CYGPATH_W) '$(srcdir)/db_config.cpp'; fi`
 
-backupadmin-BrowseFolder.o: BrowseFolder.cpp
-@am__fastdepCXX_TRUE@	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(backupadmin_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -MT backupadmin-BrowseFolder.o -MD -MP -MF $(DEPDIR)/backupadmin-BrowseFolder.Tpo -c -o backupadmin-BrowseFolder.o `test -f 'BrowseFolder.cpp' || echo '$(srcdir)/'`BrowseFolder.cpp
-@am__fastdepCXX_TRUE@	$(am__mv) $(DEPDIR)/backupadmin-BrowseFolder.Tpo $(DEPDIR)/backupadmin-BrowseFolder.Po
-@AMDEP_TRUE@@am__fastdepCXX_FALSE@	source='BrowseFolder.cpp' object='backupadmin-BrowseFolder.o' libtool=no @AMDEPBACKSLASH@
+backupadminctrl-BrowseFolder.o: BrowseFolder.cpp
+@am__fastdepCXX_TRUE@	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(backupadminctrl_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -MT backupadminctrl-BrowseFolder.o -MD -MP -MF $(DEPDIR)/backupadminctrl-BrowseFolder.Tpo -c -o backupadminctrl-BrowseFolder.o `test -f 'BrowseFolder.cpp' || echo '$(srcdir)/'`BrowseFolder.cpp
+@am__fastdepCXX_TRUE@	$(am__mv) $(DEPDIR)/backupadminctrl-BrowseFolder.Tpo $(DEPDIR)/backupadminctrl-BrowseFolder.Po
+@AMDEP_TRUE@@am__fastdepCXX_FALSE@	source='BrowseFolder.cpp' object='backupadminctrl-BrowseFolder.o' libtool=no @AMDEPBACKSLASH@
 @AMDEP_TRUE@@am__fastdepCXX_FALSE@	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) @AMDEPBACKSLASH@
-@am__fastdepCXX_FALSE@	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(backupadmin_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -c -o backupadmin-BrowseFolder.o `test -f 'BrowseFolder.cpp' || echo '$(srcdir)/'`BrowseFolder.cpp
+@am__fastdepCXX_FALSE@	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(backupadminctrl_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -c -o backupadminctrl-BrowseFolder.o `test -f 'BrowseFolder.cpp' || echo '$(srcdir)/'`BrowseFolder.cpp
 
-backupadmin-BrowseFolder.obj: BrowseFolder.cpp
-@am__fastdepCXX_TRUE@	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(backupadmin_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -MT backupadmin-BrowseFolder.obj -MD -MP -MF $(DEPDIR)/backupadmin-BrowseFolder.Tpo -c -o backupadmin-BrowseFolder.obj `if test -f 'BrowseFolder.cpp'; then $(CYGPATH_W) 'BrowseFolder.cpp'; else $(CYGPATH_W) '$(srcdir)/BrowseFolder.cpp'; fi`
-@am__fastdepCXX_TRUE@	$(am__mv) $(DEPDIR)/backupadmin-BrowseFolder.Tpo $(DEPDIR)/backupadmin-BrowseFolder.Po
-@AMDEP_TRUE@@am__fastdepCXX_FALSE@	source='BrowseFolder.cpp' object='backupadmin-BrowseFolder.obj' libtool=no @AMDEPBACKSLASH@
+backupadminctrl-BrowseFolder.obj: BrowseFolder.cpp
+@am__fastdepCXX_TRUE@	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(backupadminctrl_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -MT backupadminctrl-BrowseFolder.obj -MD -MP -MF $(DEPDIR)/backupadminctrl-BrowseFolder.Tpo -c -o backupadminctrl-BrowseFolder.obj `if test -f 'BrowseFolder.cpp'; then $(CYGPATH_W) 'BrowseFolder.cpp'; else $(CYGPATH_W) '$(srcdir)/BrowseFolder.cpp'; fi`
+@am__fastdepCXX_TRUE@	$(am__mv) $(DEPDIR)/backupadminctrl-BrowseFolder.Tpo $(DEPDIR)/backupadminctrl-BrowseFolder.Po
+@AMDEP_TRUE@@am__fastdepCXX_FALSE@	source='BrowseFolder.cpp' object='backupadminctrl-BrowseFolder.obj' libtool=no @AMDEPBACKSLASH@
 @AMDEP_TRUE@@am__fastdepCXX_FALSE@	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) @AMDEPBACKSLASH@
-@am__fastdepCXX_FALSE@	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(backupadmin_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -c -o backupadmin-BrowseFolder.obj `if test -f 'BrowseFolder.cpp'; then $(CYGPATH_W) 'BrowseFolder.cpp'; else $(CYGPATH_W) '$(srcdir)/BrowseFolder.cpp'; fi`
+@am__fastdepCXX_FALSE@	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(backupadminctrl_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -c -o backupadminctrl-BrowseFolder.obj `if test -f 'BrowseFolder.cpp'; then $(CYGPATH_W) 'BrowseFolder.cpp'; else $(CYGPATH_W) '$(srcdir)/BrowseFolder.cpp'; fi`
 
 ID: $(HEADERS) $(SOURCES) $(LISP) $(TAGS_FILES)
 	list='$(SOURCES) $(HEADERS) $(LISP) $(TAGS_FILES)'; \
