@@ -18,7 +18,7 @@ libbackup.a
 libsyslayer.a
 test_syslayer
 backupd
-backupadmin
+backupadminctrl
 backupctrl
 # folder
 bin/
