@@ -85,23 +85,33 @@ int _filter (struct _finddata_t*  pfileinfo, const char * file_path, void* pdata
 #if defined(SYS_WINDOWS)
 	if (pfileinfo != NULL)
 	{
-		if ((pfileinfo->attrib & _A_SUBDIR) == _A_SUBDIR&&
-			string(pfileinfo->name) != "Pre-built.2" &&
-			string(pfileinfo->name) != "Debug" &&
-			string(pfileinfo->name) != "Release" &&
-			string(pfileinfo->name) != "glog-0.3.2" &&
-			string(pfileinfo->name) != "glog_project" &&
-			string(pfileinfo->name) != "test" &&
-			string(pfileinfo->name) != "sql_wrapper" &&
-			string(pfileinfo->name) != "format_src" &&
-			string(pfileinfo->name) != "glog" &&
-			string(pfileinfo->name) != ".git" &&
-			string(pfileinfo->name) != "backup_ui_w" &&
-			string(pfileinfo->name) != "bk_console")
+		if ((pfileinfo->attrib & _A_SUBDIR) == _A_SUBDIR)
 		{
-			return FRAME_FILTER_IN;
+			if (string(pfileinfo->name) != "Pre-built.2" &&
+				string(pfileinfo->name) != "Debug" &&
+				string(pfileinfo->name) != "Release" &&
+				string(pfileinfo->name) != "glog-0.3.2" &&
+				string(pfileinfo->name) != "glog_project" &&
+				string(pfileinfo->name) != "test" &&
+				string(pfileinfo->name) != "sql_wrapper" &&
+				string(pfileinfo->name) != "format_src" &&
+				string(pfileinfo->name) != "glog" &&
+				string(pfileinfo->name) != ".git" &&
+				string(pfileinfo->name) != "backup_ui_w" &&
+				string(pfileinfo->name) != "bk_console" &&
+				string(pfileinfo->name) != "lib" &&
+				string(pfileinfo->name) != "log" &&
+				string(pfileinfo->name) != "obj" &&
+				string(pfileinfo->name) != "bin")
+			{
+				return FRAME_FILTER_IN;
+			}else
+			{
+				return FRAME_FILTER_E;
+			}
+			
 		}
-
+		
 		char   ext[50]; 
 		_splitpath(pfileinfo->name, NULL, NULL, NULL, ext);
 		if (string(pfileinfo->name) != "del_line.cpp" &&			// syslayer/
@@ -202,26 +212,59 @@ int _filter2 (struct _finddata_t*  pfileinfo, const char * file_path, void* pdat
 {
 	if (pfileinfo != NULL)
 	{
-		if ((pfileinfo->attrib & _A_SUBDIR) == _A_SUBDIR &&
-			string(pfileinfo->name) != "Pre-built.2" &&
-			string(pfileinfo->name) != "Debug" &&
-			string(pfileinfo->name) != "Release" &&
-			string(pfileinfo->name) != "glog-0.3.2" &&
-			string(pfileinfo->name) != "glog_project" &&
-			string(pfileinfo->name) != "test" &&
-			string(pfileinfo->name) != "sql_wrapper" &&
-			string(pfileinfo->name) != "format_src" &&
-			string(pfileinfo->name) != "glog" &&
-			string(pfileinfo->name) != ".git" &&
-			string(pfileinfo->name) != "backup_ui_w" &&
-			string(pfileinfo->name) != "bk_console")
+		if ((pfileinfo->attrib & _A_SUBDIR) == _A_SUBDIR)
 		{
-			return FRAME_FILTER_IN;
+			if (string(pfileinfo->name) != "Pre-built.2" &&
+				string(pfileinfo->name) != "Debug" &&
+				string(pfileinfo->name) != "Release" &&
+				string(pfileinfo->name) != "glog-0.3.2" &&
+				string(pfileinfo->name) != "glog_project" &&
+				string(pfileinfo->name) != "test" &&
+				string(pfileinfo->name) != "sql_wrapper" &&
+				string(pfileinfo->name) != "format_src" &&
+				string(pfileinfo->name) != "glog" &&
+				string(pfileinfo->name) != ".git" &&
+				string(pfileinfo->name) != "backup_ui_w" &&
+				string(pfileinfo->name) != "bk_console" &&
+				string(pfileinfo->name) != "lib" &&
+				string(pfileinfo->name) != "log" &&
+				string(pfileinfo->name) != "obj" &&
+				string(pfileinfo->name) != "bin")
+			{
+				return FRAME_FILTER_IN;
+			}else
+			{
+				return FRAME_FILTER_E;
+			}
 		}
+		
+
 		char   ext[50]; 
 		_splitpath(pfileinfo->name, NULL, NULL, NULL, ext);
-		if (string(pfileinfo->name) == "Makefile" ||
-			string(ext) == ".sql")
+		//if (string(pfileinfo->name) == "Makefile" ||
+		//	string(ext) == ".sql")
+		if (string(pfileinfo->name) != "Makefile_s" &&
+			string(pfileinfo->name) != "Makefile_d" &&
+			string(pfileinfo->name) != "Makefile_test" &&
+			string(pfileinfo->name) != "Makefile_bak" &&
+			string(pfileinfo->name) != ".gitignore" &&
+			string(pfileinfo->name) != ".gitignore" &&
+			string(pfileinfo->name) != "cmd" &&
+			string(pfileinfo->name) != "Makefile" &&
+			string(ext) != ".cpp" &&
+			string(ext) != ".h" &&
+			string(ext) != ".suo" &&
+			string(ext) != ".sln" &&
+			string(ext) != ".ncb" &&
+			string(ext) != ".user" &&
+			string(ext) != ".vcproj"&&
+			string(ext) != ".txt" &&
+			string(ext) != ".c" &&
+			string(ext) != ".layout" &&
+			string(ext) != ".cbp" &&
+			string(ext) != ".o" &&
+			string(ext) != ".depend"
+			)
 		{
 			return FRAME_FILTER_IN;
 		}
