@@ -82,6 +82,7 @@ int _show (void* pdata)
 }
 int _filter (struct _finddata_t*  pfileinfo, const char * file_path, void* pdata)
 {
+#if defined(SYS_WINDOWS)
 	if (pfileinfo != NULL)
 	{
 		if ((pfileinfo->attrib & _A_SUBDIR) == _A_SUBDIR&&
