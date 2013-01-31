@@ -22,6 +22,7 @@ backupadminctrl
 backupctrl
 # folder
 bin/
+.deps/
 # msvc out
 bk_basic.lib
 db_access.lib

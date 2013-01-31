@@ -1,6 +1,4 @@
-///////////////////////////////////////////////////////////////////////////////////////
-//// mysqlplus.cpp
-///////////////////////////////////////////////////////////////////////////////////////
+// mysqlplus.cpp
 #include "mysqlplus.h"
 
 #include <stdio.h>
@@ -9,9 +7,7 @@
 
 #include "systools.h"
 
-///////////////////////////////////////////////////////////////////////////////////////
-//// sql_connection_c
-
+// sql_connection_c
 sql_connection_c::sql_connection_c()
 {
    host = user = password = database = 0;
@@ -72,7 +68,6 @@ sql_connection_c::~sql_connection_c()
    }
 }
 
-///////////////////////////////////////////////////////////////////////////////////////
 
 void sql_connection_c::connect( const char *__database, const char *__host, const char *__user, const char *__password )
 {
@@ -93,10 +88,9 @@ void sql_connection_c::connect( const char *__database, const char *__host, cons
    database = new char[ strlen( __database ) + 1 ];
    strcpy( database, __database );
 
-   freedb( grabdb() ); //// open one connection
+   freedb( grabdb() ); // open one connection
 }
 
-///////////////////////////////////////////////////////////////////////////////////////
 
 OPENDB *sql_connection_c::grabdb()
 {
@@ -117,7 +111,8 @@ OPENDB *sql_connection_c::grabdb()
 		   //fprintf( stderr, "mysql_init() failed\n" );
 		   errc = 1;
 	   }
-	   //if ( !mysql_connect( &odb->mysql, host, user, password ) )						// for change mysql 5.5
+       // before mysql 5.5
+	   //if ( !mysql_connect( &odb->mysql, host, user, password ) )						  // mysql 5.5
 	   if( mysql_real_connect( &odb->mysql, host, user, password, database, 0, NULL, 0 ) )
 	   {
 		   //fprintf( stderr, "mysql_connect(%s,%s,***) failed\n", host, user );
@@ -151,8 +146,7 @@ short sql_connection_c::errcode()
    return errc;
 }
 
-///////////////////////////////////////////////////////////////////////////////////////
-//// sql_query_c
+// sql_query_c
 
 sql_query_c::sql_query_c()
 {
@@ -205,7 +199,6 @@ sql_query_c::~sql_query_c()
    }
 }
 
-///////////////////////////////////////////////////////////////////////////////////////
 
 int sql_query_c::try_execute( const char *sql )
 {
@@ -253,7 +246,7 @@ sql_result_c *sql_query_c::store()
    sql_result_c *p = new sql_result_c( this, res );
    results.add( p );
 
-   res = 0; //// prevent someone else from freeing this block
+   res = 0; // prevent someone else from freeing this block
 
    return p;
 }
@@ -282,7 +275,6 @@ void sql_query_c::free_result()
    }
 }
 
-///////////////////////////////////////////////////////////////////////////////////////
 
 long long sql_query_c::insert_id()
 {
@@ -294,7 +286,6 @@ long long sql_query_c::insert_id()
    return -1;
 }
 
-///////////////////////////////////////////////////////////////////////////////////////
 
 MYSQL_FIELD *sql_query_c::fetch_field()
 {
@@ -318,7 +309,6 @@ const char *sql_query_c::fetch_fieldname()
    return field ? field->name : "";
 }
 
-///////////////////////////////////////////////////////////////////////////////////////
 
 int sql_query_c::ping()
 {
@@ -330,8 +320,7 @@ int sql_query_c::ping()
    return -1;
 }
 
-///////////////////////////////////////////////////////////////////////////////////////
-//// sql_var_c
+// sql_var_c
 
 sql_var_c::sql_var_c()
 {
@@ -367,7 +356,6 @@ sql_var_c::~sql_var_c()
    release();
 }
 
-///////////////////////////////////////////////////////////////////////////////////////
 
 sql_var_c::operator int ()
 {
@@ -399,7 +387,6 @@ sql_var_c::operator const char * ()
    return value;
 }
 
-///////////////////////////////////////////////////////////////////////////////////////
 
 void sql_var_c::operator = ( int i )
 {
@@ -430,7 +417,6 @@ void sql_var_c::operator = ( const char *s )
    *this = (char *)s;
 }
 
-///////////////////////////////////////////////////////////////////////////////////////
 
 void sql_var_c::release()
 {
@@ -441,37 +427,33 @@ void sql_var_c::release()
    }
 }
 
-///////////////////////////////////////////////////////////////////////////////////////
-//// sql_row_c
+// sql_row_c
 
 sql_row_c::sql_row_c()
 {
    row = 0;
-   __allow_null = 1; //// by default, return null values
+   __allow_null = 1; // by default, return null values
 }
 
 sql_row_c::sql_row_c( MYSQL_ROW __row )
 {
    row = __row;
-   __allow_null = 1; //// by default, return null values
+   __allow_null = 1; // by default, return null values
 }
 
-///////////////////////////////////////////////////////////////////////////////////////
 
 void sql_row_c::allow_null( int allow )
 {
    __allow_null = allow;
 }
 
-///////////////////////////////////////////////////////////////////////////////////////
 
 sql_var_c sql_row_c::operator [] ( int idx )
 {
    return sql_var_c( __allow_null ? ( row[ idx ] ) : ( row[ idx ] ? row[ idx ] : "" ) );
 }
 
-///////////////////////////////////////////////////////////////////////////////////////
-//// sql_field_c
+// sql_field_c
 
 sql_field_c::sql_field_c()
 {
@@ -483,7 +465,6 @@ sql_field_c::sql_field_c( MYSQL_FIELD *__field )
    field = __field;
 }
 
-///////////////////////////////////////////////////////////////////////////////////////
 
 char *sql_field_c::get_name()
 {
@@ -505,8 +486,7 @@ unsigned int sql_field_c::get_max_length()
    return field->max_length;
 }
 
-///////////////////////////////////////////////////////////////////////////////////////
-//// sql_result_c
+// sql_result_c
 
 sql_result_c::sql_result_c()
 {
@@ -528,7 +508,6 @@ sql_result_c::~sql_result_c()
    }
 }
 
-///////////////////////////////////////////////////////////////////////////////////////
 
 long long sql_result_c::n_rows()
 {
@@ -547,7 +526,6 @@ sql_row_c sql_result_c::fetch_row()
    return sql_row_c( row );
 }
 
-///////////////////////////////////////////////////////////////////////////////////////
 
 unsigned int sql_result_c::n_fields()
 {

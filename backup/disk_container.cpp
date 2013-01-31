@@ -26,16 +26,14 @@ void disk_container::setdir(string dir, string _brick_id, vector<unsigned int>& 
 
 int disk_container::init()
 {
-	// 调用格式化， 处理硬盘
-	// 目录是否可达
+    // check target dir
 	if (access(m_dir.c_str(), R_OK | W_OK) != 0)
 	{
 		LOG(WARNING) << "[acess m_dir.c_str() error]" << m_dir.c_str();
 		FlushLogFiles(INFO);
 		return BK_INIT_ERR;
 	}
-	// no test yuyu
-	// 通过路径和和brick_id 检测并获得disk_id
+	// get disk id, if empty failed
 	int ret = 0;
 	for (vector<unsigned int>::iterator item = m_pos.begin(); item != m_pos.end(); ++item)
 	{
@@ -74,7 +72,7 @@ int disk_container::init()
 		return ret;
 	}
 	//
-	// 确定磁盘空间
+	// check disk free space
 	unsigned long long target_free = 0;
 	unsigned long long target_total_free = 0;
 	if (getdiskspaceinfo(m_dir.c_str(), target_free, m_target_space, target_total_free) != 0)
@@ -83,7 +81,7 @@ int disk_container::init()
 	}
 	if (target_free < (m_target_space*(1 - DISK_USED_LIMIT)))
 	{
-		return BK_INIT_NEED_DEL;  // 可能删除文件
+		return BK_INIT_NEED_DEL;  // disk have too much file
 	}
 	m_target_space_used = m_target_space - target_free;
 	m_target_space_limit = static_cast<unsigned long long>(m_target_space*DISK_USED_LINE);
@@ -129,12 +127,8 @@ int disk_container::copy(const char *_srcfile, const char * _file)
             }
             else
             {
-			/*
-			当前没有硬件检测
-			考虑此种情况 发送消息，停止备份
-			*/
+                // get new disk failed
 			task_control::Instance()->set_sem(m_identity);
-			  // yuyu
 			//MSG_DATA(BACKUP_BRICK_ERROR) *perr_msg_data= new MSG_DATA(BACKUP_BRICK_ERROR);
 			//memset(perr_msg_data,0,sizeof(MSG_DATA(BACKUP_BRICK_ERROR)));
 			//strncpy(perr_msg_data->BRICK_ID, m_identity.c_str(), m_identity.size() < sizeof(perr_msg_data->BRICK_ID) ?
@@ -148,13 +142,6 @@ int disk_container::copy(const char *_srcfile, const char * _file)
 			LOG(WARNING) << "[BRICK_ID]" << m_identity << "[DISK_ID]" << m_curr_disk_id << " : disk full";
 			return BK_BACKUP_FILE_ERR;
             }
-			/*
-			do 
-			{
-				check();
-			} while (init() != BK_SUCESS);
-			m_work_level = SPACE_NORMAL;
-			*/
 		}
 	}
 

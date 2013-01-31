@@ -12,9 +12,10 @@ int _proc(string SourcePath, string DestinationPath, string path, bool folder, v
 {
 	string src_path = (SourcePath + path).c_str();
 	string tar_path = (DestinationPath + path).c_str();
+    cout << src_path << endl;
 	if (folder)
 	{
-		mkdir(tar_path.c_str());
+		MKDIR(tar_path.c_str());
 		return 0;
 	}
 	char buf[1024] = {0};
@@ -62,7 +63,7 @@ int _proc(string SourcePath, string DestinationPath, string path, bool folder, v
 		os.flush();
 		os.close();
 		is.close();
-		remove(tar_path.c_str());
+        remove(tar_path.c_str());
 		cout << "[" << src_path << "]" << "error" << endl;
 		return -1;
 	} 
@@ -82,7 +83,7 @@ int _show (void* pdata)
 }
 int _filter (struct _finddata_t*  pfileinfo, const char * file_path, void* pdata)
 {
-#if defined(SYS_WINDOWS)
+#ifdef SYS_WINDOWS
 	if (pfileinfo != NULL)
 	{
 		if ((pfileinfo->attrib & _A_SUBDIR) == _A_SUBDIR)
@@ -130,21 +131,65 @@ int _filter (struct _finddata_t*  pfileinfo, const char * file_path, void* pdata
 			return FRAME_FILTER_IN;
 		}
 	}
-	/*else if (file_path != NULL)
-	{
-		if (isfolder(file_path))
+#endif // SYS_WINDOWS
+#ifdef SYS_LINUX
+    if (file_path != NULL)
+    {
+        string path = file_path;
+        string filename, ext;
+        string::size_type index;
+        if ((index = path.rfind('/')) != string::npos)
+        {
+            filename = path.substr(index + 1);
+            if ((index = filename.rfind('.')) != string::npos)
+            {
+                ext = filename.substr(index);
+            }
+        }
+        
+        if (isfolder(file_path))
+		{
+			if (filename != "Pre-built.2" &&
+				filename != "Debug" &&
+				filename != "Release" &&
+				filename != "glog-0.3.2" &&
+                filename != "glog_project" &&
+				filename != "test" &&
+				filename != "sql_wrapper" &&
+				filename != "format_src" &&
+				filename != "glog" &&
+				filename != ".git" &&
+				filename != "backup_ui_w" &&
+				filename != "bk_console" &&
+				filename != "lib" &&
+				filename != "log" &&
+				filename != "obj" &&
+				filename != "bin" &&
+                filename != ".deps")
+			{
+				return FRAME_FILTER_IN;
+			}else
+			{
+				return FRAME_FILTER_E;
+			}
+		}
+		if (filename != "del_line.cpp" &&			// syslayer/
+			filename != "mount_umount.cpp" &&        // syslayer/ mount umount disk
+			filename != "sas_address.cpp" &&         // syslayer/ 
+			filename != "test.cpp" &&                // test syslayer
+			filename != "main_msg.cpp" &&			// backup/ test msg
+			filename != "main_test_master.cpp" &&    // backup/ test backup_master
+			filename != "main_thread.cpp" &&         // backup/ test thread pool
+			filename != "test_backup_db.cpp" &&      // backup/ test db_exe
+			filename != "test_main_backup.cpp" &&    // backup/ test backup system
+			filename != "test_task_control.cpp" &&   // backup/ test control system
+			(ext == ".cpp" ||
+			ext == ".h") )
 		{
 			return FRAME_FILTER_IN;
 		}
-		long long mtime = getfile_mtime(file_path);
-		LOG(INFO) << "[file_path]" << file_path << "[mtime]" << mtime << "[time_apce]" << p->m_lastbackup_time << " - " << p->m_end_time;
-		if (mtime >= p->m_lastbackup_time 
-			&& mtime < p->m_end_time )
-		{
-			LOG(INFO) << "[file_path]" << file_path << "[FRAME_FILTER_IN]";
-			return FRAME_FILTER_IN;
-		}
-	}*/
+    }
+#endif // SYS_LINUX
 	return FRAME_FILTER_E;
 }
 
@@ -155,7 +200,7 @@ int _proc2(string SourcePath, string DestinationPath, string path, bool folder, 
 	string tar_path = (DestinationPath + path).c_str();
 	if (folder)
 	{
-		mkdir(tar_path.c_str());
+		MKDIR(tar_path.c_str());
 		return 0;
 	}
 	char buf[1024] = {0};
@@ -210,6 +255,7 @@ int _proc2(string SourcePath, string DestinationPath, string path, bool folder, 
 
 int _filter2 (struct _finddata_t*  pfileinfo, const char * file_path, void* pdata)
 {
+#ifdef SYS_WINDOWS
 	if (pfileinfo != NULL)
 	{
 		if ((pfileinfo->attrib & _A_SUBDIR) == _A_SUBDIR)
@@ -229,7 +275,7 @@ int _filter2 (struct _finddata_t*  pfileinfo, const char * file_path, void* pdat
 				string(pfileinfo->name) != "lib" &&
 				string(pfileinfo->name) != "log" &&
 				string(pfileinfo->name) != "obj" &&
-				string(pfileinfo->name) != "bin")
+				string(pfileinfo->name) != "bin" )
 			{
 				return FRAME_FILTER_IN;
 			}else
@@ -269,21 +315,78 @@ int _filter2 (struct _finddata_t*  pfileinfo, const char * file_path, void* pdat
 			return FRAME_FILTER_IN;
 		}
 	}
-	/*else if (file_path != NULL)
-	{
-		if (isfolder(file_path))
+#endif // SYS_WINDOWS
+#ifdef SYS_LINUX
+    if (file_path != NULL)
+    {
+        string path = file_path;
+        string filename, ext;
+        string::size_type index;
+        if ((index = path.rfind('/')) != string::npos)
+        {
+            filename = path.substr(index + 1);
+            if ((index = filename.rfind('.')) != string::npos)
+            {
+                ext = filename.substr(index);
+            }
+        }
+        
+        if (isfolder(file_path))
+        {
+            if (filename != "Pre-built.2" &&
+				filename != "Debug" &&
+				filename != "Release" &&
+				filename != "glog-0.3.2" &&
+				filename != "glog_project" &&
+				filename != "test" &&
+				filename != "sql_wrapper" &&
+				filename != "format_src" &&
+				filename != "glog" &&
+				filename != ".git" &&
+				filename != "backup_ui_w" &&
+				filename != "bk_console" &&
+				filename != "lib" &&
+				filename != "log" &&
+				filename != "obj" &&
+				filename != "bin" &&
+                filename != ".deps")
+			{
+				return FRAME_FILTER_IN;
+			}else
+			{
+				return FRAME_FILTER_E;
+			}
+        }
+
+        if (filename != "Makefile_s" &&
+			filename != "Makefile_d" &&
+			filename != "Makefile_test" &&
+			filename != "Makefile_bak" &&
+		    filename != ".gitignore" &&
+			filename != ".gitignore" &&
+			filename != "cmd" &&
+			filename != "Makefile" &&
+			filename != "test_syslayer" &&            
+			ext != ".cpp" &&
+			ext != ".h" &&
+			ext != ".suo" &&
+			ext != ".sln" &&
+			ext != ".ncb" &&
+			ext != ".user" &&
+			ext != ".vcproj"&&
+			ext != ".txt" &&
+			ext != ".c" &&
+			ext != ".layout" &&
+			ext != ".cbp" &&
+			ext != ".o" &&
+			ext != ".depend" &&
+            ext != ".a"
+			)
 		{
 			return FRAME_FILTER_IN;
 		}
-		long long mtime = getfile_mtime(file_path);
-		LOG(INFO) << "[file_path]" << file_path << "[mtime]" << mtime << "[time_apce]" << p->m_lastbackup_time << " - " << p->m_end_time;
-		if (mtime >= p->m_lastbackup_time 
-			&& mtime < p->m_end_time )
-		{
-			LOG(INFO) << "[file_path]" << file_path << "[FRAME_FILTER_IN]";
-			return FRAME_FILTER_IN;
-		}
-	}*/
+    }
+#endif // SYS_LINUX
 	return FRAME_FILTER_E;
 
 }
@@ -294,7 +397,7 @@ int _proc3(string SourcePath, string DestinationPath, string path, bool folder, 
 	string tar_path = (DestinationPath + path).c_str();
 	if (folder)
 	{
-		mkdir(tar_path.c_str());
+		MKDIR(tar_path.c_str());
 		return 0;
 	}
 	char buf[1024] = {0};
@@ -376,6 +479,7 @@ int main(int argc, char ** argv)
 			return 0;
 		}
 	}
+    cout << "-----first-----" << endl;
 	file_frame ins("1");
 	ins.set_opt( file_frame::process, _proc);
 	ins.set_opt( file_frame::filter, _filter);
@@ -384,7 +488,7 @@ int main(int argc, char ** argv)
 	ins.set_opt( file_frame::data, NULL);
 	ins.add_dir(src_path.c_str(), tar_path.c_str());
 	ins.start();
-
+    cout << "-----second-----" << endl;
 	file_frame ins2("1");
 	ins2.set_opt( file_frame::process, _proc2);
 	ins2.set_opt( file_frame::filter, _filter2);
@@ -393,7 +497,7 @@ int main(int argc, char ** argv)
 	ins2.set_opt( file_frame::data, NULL);
 	ins2.add_dir(src_path.c_str(), rel_path.c_str());
 	ins2.start();
-
+    cout << "-----third-----" << endl;
 	file_frame ins3("1");
 	ins3.set_opt( file_frame::process, _proc3);
 	ins3.set_opt( file_frame::filter, _filter);

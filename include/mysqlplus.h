@@ -1,6 +1,4 @@
-///////////////////////////////////////////////////////////////////////////////////////
-//// mysqlplus.h
-///////////////////////////////////////////////////////////////////////////////////////
+// mysqlplus.h
 
 #ifndef __MYSQLPLUS_H__
 #define __MYSQLPLUS_H__
@@ -19,8 +17,7 @@
 
 #include "vector.h"
 
-///////////////////////////////////////////////////////////////////////////////////////
-//// opendbstruct - database connection handle
+// opendbstruct - database connection handle
 
 typedef struct opendbstruct
 {
@@ -30,8 +27,7 @@ typedef struct opendbstruct
 }OPENDB;
 
 
-///////////////////////////////////////////////////////////////////////////////////////
-//// sql_connection_c
+// sql_connection_c
 
 class sql_connection_c
 {
@@ -55,8 +51,7 @@ class sql_connection_c
       short errc;
 };
 
-///////////////////////////////////////////////////////////////////////////////////////
-//// sql_query_c
+// sql_query_c
 
 class sql_result_c;
 class sql_query_c
@@ -74,12 +69,10 @@ class sql_query_c
       void free_result( sql_result_c *sql_result );
       void free_result();
 
-//      __int64 insert_id();    // for linux
 	  long long insert_id();
 
       MYSQL_FIELD *fetch_field();
-      //char *fetch_fieldname();
-	  const char *fetch_fieldname();	// for linux
+	  const char *fetch_fieldname();
 
       int ping();
 
@@ -94,8 +87,7 @@ class sql_query_c
       vector_c <sql_result_c *> results;
 };
 
-///////////////////////////////////////////////////////////////////////////////////////
-//// sql_var_c
+// sql_var_c
 
 class sql_var_c
 {
@@ -123,8 +115,7 @@ class sql_var_c
       void release();
 };
 
-///////////////////////////////////////////////////////////////////////////////////////
-//// sql_row_c
+// sql_row_c
 
 class sql_row_c
 {
@@ -132,7 +123,7 @@ class sql_row_c
       sql_row_c();
       sql_row_c( MYSQL_ROW row );
 
-      void allow_null( int allow = 1 ); //// return null values as empty strings ( "" ) if allow == 0
+      void allow_null( int allow = 1 ); // return null values as empty strings ( "" ) if allow == 0
 
       sql_var_c operator [] ( int idx );
 
@@ -141,8 +132,7 @@ class sql_row_c
       int __allow_null;
 };
 
-///////////////////////////////////////////////////////////////////////////////////////
-//// sql_field_c
+// sql_field_c
 
 class sql_field_c
 {
@@ -159,8 +149,7 @@ class sql_field_c
       MYSQL_FIELD *field;
 };
 
-///////////////////////////////////////////////////////////////////////////////////////
-//// sql_result_c
+// sql_result_c
 
 class sql_result_c
 {
