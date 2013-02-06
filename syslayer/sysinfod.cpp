@@ -249,6 +249,7 @@ void sysinfod::init_sas_address()
     */
     pclose(stream);
 }
+#ifdef SYS_WINDOWS
 void sysinfod::print()
 {
 	map<string, string>::iterator item;
@@ -290,7 +291,7 @@ void sysinfod::print()
 
     cout << "-----jbod_info-----" << endl;
 }
-
+#endif // SYS_WINDOWS
 // path without last "/"
 string sysinfod::get_diskid(string path, unsigned int pos_num)
 {

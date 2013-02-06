@@ -100,7 +100,9 @@ public:
     void set_jbod_info(vector<jbod_info> &_v);      // init jbod info from mysql(include sas_address, start num, ascordes)
     void init_disk_info();     // init all disk info
     void stop_monitor();       // stop sys monitor
+#ifdef SYS_WINDOWS
     void print();// for test
+#endif // SYS_WINDOWS
 	string get_diskid(string path, unsigned int pos_num); // get disk_id by backuppath
 	int check_brick_src(string const &_brick_path, string const & _src_path);
 	int connect_brick(string const &_brick_path, string const & _src_path);
