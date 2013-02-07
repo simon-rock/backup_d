@@ -134,40 +134,6 @@ BrickMaster::~BrickMaster()
 void BrickMaster::on_flush()
 {
     using namespace Gtk::Menu_Helpers;
-    /*
-    MenuList& list_naspos = m_NAS_menu.items();
-    list_naspos.clear();
-    m_curr_nas_v.clear();
-    list_naspos.push_back(
-        MenuElem("NAS-1"));
-    list_naspos.push_back(
-        MenuElem("NAS-2"));
-    m_OptionNASMenu.set_history(0);
-    m_curr_nas_v.push_back("NAS-1");
-    m_curr_nas_v.push_back("NAS-2");
-    // query index info
-    MenuList& list_indexpos = m_Index_menu.items();
-    list_indexpos.clear();
-    m_curr_index_v.clear();
-    list_indexpos.push_back(
-        MenuElem("3"));
-    list_indexpos.push_back(
-        MenuElem("4"));
-    m_curr_index_v.push_back("3");
-    m_curr_index_v.push_back("4");
-    m_OptionIndexMenu.set_history(0);
-
-    MenuList& list_brickpos = m_Brick_menu.items();
-    list_brickpos.clear();
-    m_curr_brick_v.clear();
-    list_brickpos.push_back(
-        MenuElem("brick-1"));
-    list_brickpos.push_back(
-        MenuElem("brick-2"));
-    m_curr_brick_v.push_back("brick-1");
-    m_curr_brick_v.push_back("brick-2");
-    m_OptionBrickMenu.set_history(0);
-*/
     MenuList& list_naspos = m_NAS_menu.items();
     list_naspos.clear();
     m_curr_nas_v.clear();

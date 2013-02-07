@@ -5,15 +5,10 @@
 class backup_master
 {
 public:
-	//static backup_master* instance()
-	//{
-	//	static backup_master ins;
-	//	return &ins;
-	//}
 	backup_master(void){};
 	~backup_master(void){};
-	int init(const char *db_name, const char* ip, const char * user, const char* psw);		// 初始化所有配置
-	int start();		// 根据数据库配置 开始backup
+	int init(const char *db_name, const char* ip, const char * user, const char* psw);		// init all config for backup
+	int start();		// start backup
 	int stop();			// 
 	int start_by_brick(string _brick_id);
 	int uninit();	

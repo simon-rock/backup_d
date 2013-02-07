@@ -23,18 +23,16 @@ int backup_master::init(const char *db_name, const char* ip, const char * user, 
 	if (m_pref.login_db(db_name, ip, user, psw) == BK_SUCESS &&
 		m_pref.check() == BK_SUCESS)
 	{
-		//POSTMESSAGE(MSG(CONFIG_COMPLETE),NULL,0);
 		POSTMESSAGENODATA(CONFIG_COMPLETE);
 		return BK_SUCESS;
 	}
-	//POSTMESSAGE(MSG(CONFIG_COMPLETE),NULL,0);
 	POSTMESSAGENODATA(CONFIG_COMPLETE);
 	return BK_ERROR;
 }
 
 int backup_master::start()
 {
-	// 根据配置信息启动任务
+	// start backup task depend on config
 
 	thread_pool* pool = thread_pool::getInstance();
 	pool->initialize(m_pref.m_task.size(), m_pref.m_task.size());
@@ -43,12 +41,8 @@ int backup_master::start()
 		backup_task* data = new backup_task(**item);
 		pool->add_task(proc, data);
 	}
-	// 开始任务
+	// start backup
 	pool->process();
-	//usleep(1000*60*3);
-	//task_control::Instance()->set_sem(string("NAS-1-BRICK-1"));
-	//pool->shut_down();
-	//POSTMESSAGE(MSG(START),NULL,0);
 	POSTMESSAGENODATA(START);
 	return BK_SUCESS;
 }
@@ -78,7 +72,6 @@ int backup_master::stop()
 	sysinfod::getInstance()->stop_monitor();
 	task_control::Instance()->set_all();
 	thread_pool::getInstance()->shut_down();
-	//POSTMESSAGE(MSG(STOP),NULL,0);
 	POSTMESSAGENODATA(STOP);
 	return BK_SUCESS;
 }

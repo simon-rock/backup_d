@@ -62,7 +62,6 @@ int BackupMain::add_backup(string _brick_id, string _brick_backup_path)
     m_VBox.pack_start(*Gtk::manage(
                           new Brick_Ctrl(true, _brick_id.c_str(), _brick_backup_path.c_str(), 0,
                                   Gtk::BUTTONBOX_START)),
-                      //Gtk::PACK_EXPAND_WIDGET, 5);
                       Gtk::PACK_SHRINK, 5);
     return 0;
 }

@@ -2,12 +2,6 @@
 #include "masterwin.h"
 #include <iostream>
 using namespace std;
-/*
-Gtk::Menu NASMaster::m_NAS_menu;
-Gtk::Menu NASMaster::m_Index_menu;
-vector<string> NASMaster::m_curr_nas_v;
-vector<string> NASMaster::m_curr_index_v;
-*/
 NASMaster::NASMaster(const MasterWin* _pp):
 m_nas_add("ADD"),
 m_nas_del("DEL"),
@@ -71,29 +65,6 @@ void NASMaster::on_flush()
 {
     // query nas
     using namespace Gtk::Menu_Helpers;
-    /*
-    MenuList& list_naspos = m_NAS_menu.items();
-    list_naspos.clear();
-    m_curr_nas_v.clear();
-    list_naspos.push_back(
-        MenuElem("NAS-1"));
-    list_naspos.push_back(
-        MenuElem("NAS-2"));
-    m_OptionNASMenu.set_history(0);
-    m_curr_nas_v.push_back("NAS-1");
-    m_curr_nas_v.push_back("NAS-2");
-    // query index info
-    MenuList& list_indexpos = m_Index_menu.items();
-    list_indexpos.clear();
-    m_curr_index_v.clear();
-    list_indexpos.push_back(
-        MenuElem("3"));
-    list_indexpos.push_back(
-        MenuElem("4"));
-    m_curr_index_v.push_back("3");
-    m_curr_index_v.push_back("4");
-    m_OptionIndexMenu.set_history(0);
-*/
     MenuList& list_naspos = m_NAS_menu.items();
     list_naspos.clear();
     m_curr_nas_v.clear();
@@ -184,10 +155,6 @@ void NASMaster::on_del_index()
         pp->showmsg("delete index sucess");
         on_flush();
     }
-//using namespace Gtk::Menu_Helpers;
-//    MenuList& list_indexpos = m_Index_menu.items();
-//    MenuElem tmp = list_indexpos[m_OptionIndexMenu.get_history()];
-//    cout << tmp.c_str()<< endl;
 }
 
 

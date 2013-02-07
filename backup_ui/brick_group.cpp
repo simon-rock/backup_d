@@ -34,13 +34,6 @@ Brick_Ctrl::Brick_Ctrl(bool horizontal,
 //    bbox->set_child_min_width(100);
     add(*pbox);
     /* Set the appearance of the Button Box */
-/*    pbox->set_layout(layout);
-    pbox->set_spacing(spacing);
-    pbox->add(m_bn_ctrl);
-    pbox->add(m_lbrick_id);
-    pbox->add(m_lbrick_backup_path);
-    pbox->add(m_msg);
-    */
     pbox->set_spacing(spacing);
     //pbox->pack_start(m_bn_ctrl, Gtk::PACK_SHRINK, 1);
     pbox->pack_start(m_bn_ctrl, Gtk::PACK_SHRINK, 5);

@@ -44,7 +44,6 @@ static char* pbuf = 0;
 sysinfod::sysinfod()
     :bfirst(true)
 {
-	// pbuf = (char*)malloc(sizeof(char)*BUFF_MAX);
 	int size = BUFF_MAX;
 	pbuf = (char*)malloc(sizeof(char)* BUFF_MAX);
 }
@@ -85,18 +84,6 @@ void sysinfod::init_disk_id()
 		}
 	}
 
-    // add disk info to pool
-    /*
-    for(map<string, string>::iterator item = m_disk_id.begin();
-        item != m_disk_id.end();++item)
-    {
-        shared_ptr<disk_obj> o(new disk_obj);
-        o->path = item->first;
-        o->id = item->second;
-        m_disk_pool.push_back(o);
-    }
-    */
-
 //	fread( pbuf, sizeof(char), BUFF_MAX, stream);
 	pclose( stream );
 }
@@ -134,14 +121,6 @@ void sysinfod::init_Partition_path()
 			}
 		}
 	}
-    /*
-    // add mount path info to disk pool
-    for(vector<shared_ptr<disk_obj> >::iterator item = m_disk_pool.begin();
-        item != m_disk_pool.end(); ++item)
-    {
-        (*item)->mount_path = m_path_Partition[(*item)->path + "1"];
-    }
-    */
 //	fread( pbuf, sizeof(char), BUFF_MAX, stream);
 	pclose( stream );
 }
@@ -149,14 +128,10 @@ void sysinfod::init_Partition_path()
 void sysinfod::init_sas_address()
 {
    FILE *stream;
-   //   pbuf = (char *)malloc(sizeof(char)* BUFF_MAX);
     memset(pbuf, '\0', sizeof(char)*BUFF_MAX);
     stream = popen("./lsiutil.x86_64 -s", "r");
 
     string sbuf;
-    // ctrl
-    //map<string, shared_ptr<ctrl_info> > ctrl_pool;
-    // disk
     string sas_address;
     int num = 0;
     while(fgets(pbuf, 1024, stream) != NULL)
@@ -164,12 +139,9 @@ void sysinfod::init_sas_address()
         sbuf = pbuf;
         if (sbuf.find("EnclServ") != string::npos)
         {
-            //            shared_ptr<sas_address_obj> o(new sas_address_obj);
             string::size_type index = sbuf.rfind(' ');
             if (index != string::npos)
             {
-                //string tmp = sbuf.substr(index);
-                //num = atoi(tmp.c_str());
                 num = atoi(sbuf.substr(index).c_str());
                 sbuf = sbuf.substr(0, index);
                 if((index = sbuf.find_last_not_of(' ')) != string::npos)
@@ -199,8 +171,6 @@ void sysinfod::init_sas_address()
                 m_ctrl_sas_address[sas_address.substr(0, 12)] = sas_address;
                 m_sas_address_num[sas_address] = num;
             }
-            //m_ctrl_sas_address_pool.push_back(o);
-            //cout << sas_address << ":" << num << endl;
             sas_address = "";
             num = 0;
         }
@@ -238,15 +208,6 @@ void sysinfod::init_sas_address()
             num = 0;
         }
     }
-    /*
-    for(map<string, shared_ptr<ctrl_info> >::iterator item = ctrl_pool.begin();
-    item != ctrl_pool.end(); ++item)
-    {
-        cout << item->first << " : "
-             << item->second->_sas_address << " : "
-             << item->second->_num << endl;   
-    }
-    */
     pclose(stream);
 }
 #ifdef SYS_WINDOWS
@@ -345,10 +306,9 @@ string sysinfod::get_diskid(string path, unsigned int pos_num)
 
 int sysinfod::check_brick_src(string const &_brick_path, string const & _src_path)
 {
-	if(access(_src_path.c_str(),0)!=0)//accessº¯ÊýÊÇ²é¿´ÎÄ¼þÊÇ²»ÊÇ´æÔÚ
+	if(access(_src_path.c_str(),0)!=0)//access file exist
 	{
-		// µü´ú´´½¨ yuyu
-		if (MKDIR(_src_path.c_str()))//Èç¹û²»´æÔÚ¾ÍÓÃmkdirº¯ÊýÀ´´´½¨
+		if (MKDIR(_src_path.c_str()))// create folder
 		{
 			return BK_INIT_SRC_CREATE_ER;
 		}
