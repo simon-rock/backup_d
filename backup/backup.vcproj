@@ -187,10 +187,6 @@
 				>
 			</File>
 			<File
-				RelativePath="..\include\config.h"
-				>
-			</File>
-			<File
 				RelativePath="..\include\db_exec.h"
 				>
 			</File>
@@ -208,6 +204,10 @@
 			</File>
 			<File
 				RelativePath="..\include\msg_queue.h"
+				>
+			</File>
+			<File
+				RelativePath="..\include\sys_config.h"
 				>
 			</File>
 			<File
