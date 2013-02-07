@@ -98,7 +98,7 @@ bool msg_queue::wait_msg()
 	int ret = sem_wait(&m_htask);
 	if ( 0 != ret )
 	{
-//		cout<<"CEventImpl::WaitImpl sem_wait failed"<<endl; 
+        // wait failed
 	}
 	sem_post(&m_htask);
 	return true;
@@ -117,7 +117,7 @@ void msg_queue::set_task()
 	int ret = sem_post(&m_htask);
 	if ( 0 != ret )
 	{
-//		cout<<"cannot signal event"<<endl;
+//	   cannot signal event
 	}
 	//}
 #endif //SYS_LINUX

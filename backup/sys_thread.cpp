@@ -7,7 +7,7 @@ m_dwexit(0),
 m_ptask(NULL),
 
 m_brunning(false),
-m_bpaused(true),			// 初始停止线程
+m_bpaused(true),			// stop thread when sys start
 m_uithreadID(0)
 {
 	/*
@@ -15,11 +15,6 @@ m_uithreadID(0)
 	m_hthread = NULL;
 	m_dwexit = 0;
 #endif // SYS_WINDOWS
-	m_ptask = NULL;
-
-	m_brunning = false;
-	m_bpaused = true;			// 初始停止线程
-	m_uithreadID = 0;
 	*/
 }
 
