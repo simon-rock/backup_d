@@ -2,7 +2,7 @@
 # Process this file with autoconf to produce a configure script.
 
 AC_PREREQ([2.63])
-AC_INIT(backupd, 1.0, gaoyu@sursen.net)
+AC_INIT(backupd, 1.0, )
 AC_CONFIG_SRCDIR([backup_ui/main.cpp])
 AC_CONFIG_HEADERS([config.h])
 AM_INIT_AUTOMAKE([foreign -Wall -Werror])

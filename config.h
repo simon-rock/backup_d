@@ -138,7 +138,7 @@
 #define PACKAGE "backupd"
 
 /* Define to the address where bug reports for this package should be sent. */
-#define PACKAGE_BUGREPORT "gaoyu@sursen.net"
+#define PACKAGE_BUGREPORT ""
 
 /* Define to the full name of this package. */
 #define PACKAGE_NAME "backupd"
