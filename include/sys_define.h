@@ -37,10 +37,10 @@
 #define  NOGDI
 #endif //SYS_WINDOWS
 
-#define VERSION "1.0"
+#define VERSION "1.1"
 #define FIFOVIEW "/tmp/backupview"
 #define FIFOCONTROL "/tmp/backupcontrol"
-
+#define CONFIGFILE "backup_config"        // backup config file
 // error define 
 #define BK_SUCESS				0x00000000
 #define BK_STOP					0x00000001

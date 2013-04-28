@@ -31,4 +31,7 @@ int getdiskspaceinfo(const char *dir, unsigned long long& freebycall, unsigned l
 long long getfilesize(const char *dir);
 long long getfile_mtime(const char *dir);
 int isfolder(const char *dir);
+
+// get mysql config
+int get_dbconfig(string& db_name, string& host, string& user, string& psw);
 #endif // _SYS_TOOLS_H_

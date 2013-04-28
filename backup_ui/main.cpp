@@ -1,6 +1,7 @@
 #include <gtkmm/main.h>
 #include "backup_main.h"
 #include "deamon.h"
+#include "systools.h"
 ////////////////////////////////////////////////////////////////////////////////////////////////
 // arg analysis
 #include "arg_parser.h"
@@ -42,7 +43,10 @@ int main(int argc, char *argv[])
     if(bdeamon)
     {
         setdeamon();
-        if (backup_init("backup", "127.0.0.1", "root", "root") != 0)
+        string db, ip, user, psw;
+        get_dbconfig(db, ip, user, psw);
+        if (backup_init(db.c_str(), ip.c_str(), user.c_str(), psw.c_str()) != 0)
+        //if (backup_init("backup", "127.0.0.1", "root", "root") != 0)
         {
             cout << "init backupd error "<< endl;
             return 0;
