@@ -1,16 +1,3 @@
-# Compiled Object files
-*.slo
-*.lo
-*.o
-*.Po
-# Compiled Dynamic libraries
-*.so
-*.dylib
-
-# Compiled Static libraries
-*.lai
-*.la
-#*.a
 # g++ out
 libdb_access.a
 libsystools.a
@@ -20,16 +7,36 @@ test_syslayer
 backupd
 backupadminctrl
 backupctrl
-# folder
-bin/
-.deps/
 # msvc out
 bk_basic.lib
 db_access.lib
 syslayer.lib
 systools.lib
 
+# Compiled Object files
+*.slo
+*.lo
+*.o
+*.Po
+
+# Compiled Dynamic libraries
+*.so
+*.dylib
+
+# Compiled Static libraries
+*.lai
+*.la
+#*.a
+
+# folder
+bin/
+.deps/
+
+#log file
 *.log
+
+# automake
+config.status
 
 # MSVC
 *.ncb
