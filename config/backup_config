@@ -1,0 +1,6 @@
+# mysql ip, default 127.0.0.1
+HOST=127.0.0.1
+# user name, default root
+USER=root
+# password, default root
+PSW =root
