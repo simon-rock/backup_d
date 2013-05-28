@@ -22,11 +22,11 @@
 #endif // WIN32
 
 
-#define DISK_USED_LINE		0.95		// ʹ�ô���95%ʱ����
-#define DISK_USED_LIMIT		0.50		// Ŀ��Ŀ¼���ÿռ䲻��50% ʱ����
-#define FIRSTBACKUPSPACEBEFCURR		60*60*24	// �״α��ݽ���ʱ�䣬�൱ǰ
-#define BACKUPSPACE			60*60*10	// ���ݿ��
-#define MINBACKUPSPACE		60*60*1		// ��С���ݿ��
+#define DISK_USED_LINE		0.95		// 使用大于95%时报警
+#define DISK_USED_LIMIT		0.50		// 目标目录可用空间不足50% 时报警
+#define FIRSTBACKUPSPACEBEFCURR		60*60*24	// 首次备份结束时间，距当前
+#define BACKUPSPACE			60*60*10	// 备份跨度
+#define MINBACKUPSPACE		60*60*1		// 最小备份跨度
 //		 glog
 //#define GOOGLE_STRIP_LOG 1
 //#define GLOG_NO_ABBREVIATED_SEVERITIES

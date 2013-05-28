@@ -19,12 +19,12 @@ private:
 #ifdef SYS_LINUX
 	pthread_t	m_hthread;
 #endif // SYS_LINUX
-	lock_t	m_lock;					// 当设置任务时 先锁住线程，然后设置任务，不过此处当没有任务是，线程会死循环
+	lock_t	m_lock;					// 褰撹缃换鍔℃椂 鍏堥攣浣忕嚎绋嬶紝鐒跺悗璁剧疆浠诲姟锛屼笉杩囨澶勫綋娌℃湁浠诲姟鏄紝绾跨▼浼氭寰幆
 	task_t*	m_ptask;
 
 	bool	m_brunning;
-	bool	m_bpaused;				// 当线程被锁住设置任务后，置标志，开启线程，完成任务后线程会重置标志停止线程
-	unsigned int	m_uithreadID;	// 现成ID
+	bool	m_bpaused;				// 褰撶嚎绋嬭閿佷綇璁剧疆浠诲姟鍚庯紝缃爣蹇楋紝寮�鍚嚎绋嬶紝瀹屾垚浠诲姟鍚庣嚎绋嬩細閲嶇疆鏍囧織鍋滄绾跨▼
+	unsigned int	m_uithreadID;	// 鐜版垚ID
 #ifdef SYS_WINDOWS
 	DWORD	m_dwexit;
 #endif // SYS_WINDOWS

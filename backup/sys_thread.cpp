@@ -65,7 +65,7 @@ void sys_thread::end()
 	if( m_hthread != NULL )
 	{
 		m_brunning = false;
-		WaitForSingleObject( m_hthread, INFINITE );			// µÈ´ı×Ô¶¯ÍË³ö
+		WaitForSingleObject( m_hthread, INFINITE );			// ç­‰å¾…è‡ªåŠ¨é€€å‡º
 		DWORD ExitCode;
 		GetExitCodeThread( m_hthread, &ExitCode );
 		m_dwexit = ExitCode;
@@ -82,7 +82,7 @@ void sys_thread::end()
 
 int sys_thread::ThreadProc()
 {
-//	m_ptask = NULL;  // ´´½¨Ïß³ÌÔËĞĞ set_task
+//	m_ptask = NULL;  // åˆ›å»ºçº¿ç¨‹è¿è¡Œ set_task
 	int i = 0;
 
 	while(m_brunning)

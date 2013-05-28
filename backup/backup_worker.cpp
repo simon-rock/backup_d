@@ -49,7 +49,7 @@ int backup_worker::start()
 	bool bfirstrun = true;
 	while (1)
 	{
-		// ÐÞÕý±¸·Ý end time
+		// ä¿®æ­£å¤‡ä»½ end time
 		time_t curr;
 		time(&curr);
 		// BACKUPSPACE h every time

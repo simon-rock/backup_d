@@ -3,7 +3,7 @@
 
 class awov {
 	public:
-	virtual ~awov() = 0; // ÉùÃ÷Ò»¸ö´¿ĞéÎö¹¹º¯Êı
+	virtual ~awov() = 0; // å£°æ˜ä¸€ä¸ªçº¯è™šææ„å‡½æ•°
 	};
 awov::~awov(){}
 class B : public awov

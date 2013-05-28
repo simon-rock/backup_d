@@ -7,7 +7,7 @@ int main()
 	sql_query_c query( &connection );
 	sql_result_c *sql_result = 0;
 
-	// ÅĞ¶ÏÊÇ·ñÄÜÁ¬½ÓÊı¾İ¿â
+	// åˆ¤æ–­æ˜¯å¦èƒ½è¿æ¥æ•°æ®åº“
 	int a = query.ping();
 	if (query.ping())
 	{
@@ -15,7 +15,7 @@ int main()
 		return -1;
 	}
 
-	// ²éÑ¯Ê§°Ü ·µ»Ø0£¬ ²éÑ¯0½á¹ûÊÇ ²»·µ»Ø0
+	// æŸ¥è¯¢å¤±è´¥ è¿”å›0ï¼Œ æŸ¥è¯¢0ç»“æœæ˜¯ ä¸è¿”å›0
 	if ( !query.execute( "select * from BRICK_MASTER1;" ) )
 	{
 		printf( "oops... didn't execute!!\n" );
@@ -27,7 +27,7 @@ int main()
 		printf( "oops... didn't execute!!\n" );
 		return -1;
 	}
-	sql_result = query.store();		// ²éÑ¯ºó±ØĞëÈ¥³ı½á¹û£¬ ·ñÔòÏÂ´ÎµÄ½á¹ûÎŞ·¨»ñµÃ !!!!
+	sql_result = query.store();		// æŸ¥è¯¢åå¿…é¡»å»é™¤ç»“æœï¼Œ å¦åˆ™ä¸‹æ¬¡çš„ç»“æœæ— æ³•è·å¾— !!!!
 	if ( !query.execute( "select * from BRICK_INDEX" ) )
 	{
 		printf( "oops... didn't execute!!\n" );

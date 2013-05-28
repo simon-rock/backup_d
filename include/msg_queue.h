@@ -44,9 +44,9 @@ private:
 	void set_task();
 };
 
-// _x	: 消息类型
-// _p	: 消息参数 (void*) 类型 (注消息参数中不能含有指针)
-// _pl	: 消息参数长度
+// _x	: 娑堟伅绫诲瀷
+// _p	: 娑堟伅鍙傛暟 (void*) 绫诲瀷 (娉ㄦ秷鎭弬鏁颁腑涓嶈兘鍚湁鎸囬拡)
+// _pl	: 娑堟伅鍙傛暟闀垮害
 #define POSTMESSAGEORA(_m, _p, _pl) {msg* m = new msg();m->msg_num = _m;m->para = _p;m->para_length = _pl;msg_queue::instance()->push_back(m);}
 #define POSTMESSAGENODATA(_type) {msg* m = new msg();m->msg_num = MSG(_type);m->para = NULL;m->para_length = 0;msg_queue::instance()->push_back(m);}
 #define POSTMESSAGE(_type, _p) {msg* m = new msg();m->msg_num = MSG(_type);m->para = _p;if(_p == NULL)m->para_length = 0; else m->para_length = sizeof(MSG_DATA(_type));msg_queue::instance()->push_back(m);}

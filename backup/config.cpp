@@ -139,6 +139,6 @@ int config::login_db(const char *db_name, const char* ip, const char * user, con
 
 int config::check()
 {
-	// ¼ìÑéÊı¾İ
+	// æ£€éªŒæ•°æ®
 	return BK_SUCESS;
 }

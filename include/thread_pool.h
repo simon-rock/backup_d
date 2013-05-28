@@ -19,8 +19,8 @@ class thread_pool
 private:
 	queue<task_t*>		m_qtaskList;			// 
 	vector<sys_thread*>	m_vthreads;				//
-	unsigned int		m_nactive;				// »î¶¯ÏÖ³ÉÊı
-	unsigned int		m_ndormant;				// µÈ´ıÈÎÎñµÄÏÖ³ÉÊı
+	unsigned int		m_nactive;				// æ´»åŠ¨ç°æˆæ•°
+	unsigned int		m_ndormant;				// ç­‰å¾…ä»»åŠ¡çš„ç°æˆæ•°
 
 	static thread_pool m_instance;
 	thread_pool()
@@ -57,7 +57,7 @@ public:
 	void shut_down();
 	void add_task(task_fun task, task_data* data);
 
-	void process();							// ¸øÏß³ÌÉèÖÃÈÎÎñ
+	void process();							// ç»™çº¿ç¨‹è®¾ç½®ä»»åŠ¡
 
 protected:
 };

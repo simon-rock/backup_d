@@ -20,7 +20,7 @@ public:
 	long long last_filter_time;     // last backup time
 	long long last_filter_interval; // distance from current time
 
-	// Ó²¼þÓÃ
+	// ç¡¬ä»¶ç”¨
 	string brick_path;              // brick new path
 	vector<unsigned int> pos;       // sp. disk
 
@@ -37,7 +37,7 @@ public:
 		last_filter_time = _o.last_filter_time;
 		last_filter_interval = _o.last_filter_interval;
 
-		// Ó²¼þÓÃ
+		// ç¡¬ä»¶ç”¨
 		brick_path = _o.brick_path;
 		pos = _o.pos;
 	}

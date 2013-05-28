@@ -19,10 +19,10 @@ int main()
 {
 	string tmp = "bbb";
 	fun(tmp);
-	//fun("aaaa");			// error ÁÙÊ±¶ÔÏó´«µİ¸ønon-const reference ²ÎÊıÊÇ²»ÔÊĞíµÄ
-	//fun(string("aaaa"));	// error ÁÙÊ±¶ÔÏó´«µİ¸ønon-const reference ²ÎÊıÊÇ²»ÔÊĞíµÄ
+	//fun("aaaa");			// error ä¸´æ—¶å¯¹è±¡ä¼ é€’ç»™non-const reference å‚æ•°æ˜¯ä¸å…è®¸çš„
+	//fun(string("aaaa"));	// error ä¸´æ—¶å¯¹è±¡ä¼ é€’ç»™non-const reference å‚æ•°æ˜¯ä¸å…è®¸çš„
 	char t[] = "aaaa";
-	//fun(t);					// error ÁÙÊ±¶ÔÏó´«µİ¸ønon-const reference ²ÎÊıÊÇ²»ÔÊĞíµÄ
+	//fun(t);					// error ä¸´æ—¶å¯¹è±¡ä¼ é€’ç»™non-const reference å‚æ•°æ˜¯ä¸å…è®¸çš„
 	fun2(t);
 	fun2("aaaa");
 	fun2(string("aaaa"));

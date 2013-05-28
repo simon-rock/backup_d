@@ -18,10 +18,10 @@ public:
 		}
 		
 	};
-	int login_db(const char *db_name, const char* ip, const char * user, const char* psw);  // 登陆db 获取数据
-	int check();		// 效验数据完整 回显 配置
+	int login_db(const char *db_name, const char* ip, const char * user, const char* psw);  // 鐧婚檰db 鑾峰彇鏁版嵁
+	int check();		// 鏁堥獙鏁版嵁瀹屾暣 鍥炴樉 閰嶇疆
 
-	vector<backup_task*> m_task;										// 所有brick 对应 backup 任务
+	vector<backup_task*> m_task;										// 鎵�鏈塨rick 瀵瑰簲 backup 浠诲姟
 
 	inline const string& get_db_name(){return m_db_name;}
 	inline const string& get_ip(){return m_ip;}

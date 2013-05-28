@@ -13,9 +13,9 @@ int main(int argc, char **argv)
 		return -1;
 	}
 	ins.start();
-	//task_control::Instance()->set_sem(); Í£Ö¹µ¥¶ÀÈÎÎñ
+	//task_control::Instance()->set_sem(); åœæ­¢å•ç‹¬ä»»åŠ¡
 	usleep(1000000*60*2);
-	ins.stop();								// Í£Ö¹
+	ins.stop();								// åœæ­¢
 	//while(1)
 	//{
 	//	Sleep(1000);

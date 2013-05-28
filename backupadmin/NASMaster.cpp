@@ -9,7 +9,7 @@ m_index_add("ADD"),
 m_index_del("DEL"),
 m_flush("FLUSH"),
 m_nas_remake("nas name"),
-m_index_remake("mast be numeric"),
+m_index_remake("max brick number(must be numeric)"),
 pp(const_cast<MasterWin*>(_pp))
 {
     add(m_main);

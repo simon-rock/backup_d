@@ -15,8 +15,8 @@ m_add_disk_pos("ADD POS"),      // add disk pos for brick_id
 m_del_disk_pos("DEL POS"),      // del disk pos for brick_id
 m_LPos("pos:"),
 m_LBrickId("brick id"),
-m_LPath("path"),
-m_LMountPath("mount path"),
+m_LPath("nfs path"),
+m_LMountPath("source mount path"),
 m_LBackPath("backup to"),
 m_LBeginDate("start time(e.g. 1344585483)"),
 m_LInterval("Interval:default 3600(1 hour)"),

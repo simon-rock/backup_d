@@ -7,7 +7,7 @@ using namespace std;
 
 #include "file_frame.h"
 #include "systools.h"
-//////////////////////makefile ´¦Àí--del SYS_WINDOWS////////////////////////////////////////////////////
+//////////////////////makefile å¤„ç†--del SYS_WINDOWS////////////////////////////////////////////////////
 int _proc(string SourcePath, string DestinationPath, string path, bool folder, void* pdata)
 {
 	string src_path = (SourcePath + path).c_str();
@@ -193,7 +193,7 @@ int _filter (struct _finddata_t*  pfileinfo, const char * file_path, void* pdata
 	return FRAME_FILTER_E;
 }
 
-//////////////////////makefile ´¦Àí--copy////////////////////////////////////////////////////
+//////////////////////makefile å¤„ç†--copy////////////////////////////////////////////////////
 int _proc2(string SourcePath, string DestinationPath, string path, bool folder, void* pdata)
 {
 	string src_path = (SourcePath + path).c_str();
@@ -390,7 +390,7 @@ int _filter2 (struct _finddata_t*  pfileinfo, const char * file_path, void* pdat
 	return FRAME_FILTER_E;
 
 }
-//////////////////////src ´¦Àí--del SYS_LINUX////////////////////////////////////////////////////
+//////////////////////src å¤„ç†--del SYS_LINUX////////////////////////////////////////////////////
 int _proc3(string SourcePath, string DestinationPath, string path, bool folder, void* pdata)
 {
 	string src_path = (SourcePath + path).c_str();
@@ -463,17 +463,17 @@ int main(int argc, char ** argv)
 	string tar_path = src_path  + "_format";
 	string rel_path = src_path  + "_release";
 	// perpare
-	if(access(tar_path.c_str(),0)!=0)//accessº¯ÊıÊÇ²é¿´ÎÄ¼şÊÇ²»ÊÇ´æÔÚ
+	if(access(tar_path.c_str(),0)!=0)//accesså‡½æ•°æ˜¯æŸ¥çœ‹æ–‡ä»¶æ˜¯ä¸æ˜¯å­˜åœ¨
 	{
-		if (MKDIR(tar_path .c_str()))//Èç¹û²»´æÔÚ¾ÍÓÃmkdirº¯ÊıÀ´´´½¨
+		if (MKDIR(tar_path .c_str()))//å¦‚æœä¸å­˜åœ¨å°±ç”¨mkdirå‡½æ•°æ¥åˆ›å»º
 		{
 			cout << "create folder[" << tar_path.c_str() <<"]" << " error" << endl;
 			return 0;
 		}
 	}
-	if(access(rel_path.c_str(),0)!=0)//accessº¯ÊıÊÇ²é¿´ÎÄ¼şÊÇ²»ÊÇ´æÔÚ
+	if(access(rel_path.c_str(),0)!=0)//accesså‡½æ•°æ˜¯æŸ¥çœ‹æ–‡ä»¶æ˜¯ä¸æ˜¯å­˜åœ¨
 	{
-		if (MKDIR(rel_path .c_str()))//Èç¹û²»´æÔÚ¾ÍÓÃmkdirº¯ÊıÀ´´´½¨
+		if (MKDIR(rel_path .c_str()))//å¦‚æœä¸å­˜åœ¨å°±ç”¨mkdirå‡½æ•°æ¥åˆ›å»º
 		{
 			cout << "create folder[" << rel_path.c_str() <<"]" << " error" << endl;
 			return 0;

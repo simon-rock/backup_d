@@ -51,20 +51,20 @@ int file_frame::search_by_folder(string path, string sourcepath)
 	m_src_path = sourcepath;
 #ifdef SYS_WINDOWS
 	long handle;
-	// ÎÄ¼şĞÅÏ¢
+	// æ–‡ä»¶ä¿¡æ¯
 	struct _finddata_t fileinfo;
 
-	// ²éÕÒÎÄ¼ş¼ĞÏÂÎÄ¼ş
+	// æŸ¥æ‰¾æ–‡ä»¶å¤¹ä¸‹æ–‡ä»¶
 	handle = _findfirst(string(m_src_path + path + strfind).c_str(), &fileinfo);
 
-	// »ñµÃ²éÕÒ ¾ä±ú
+	// è·å¾—æŸ¥æ‰¾ å¥æŸ„
 	if (-1 == handle) 
 	{
 //		cout << "findfirst failed" << endl;
 		return FRAME_ERR;
 	}
 
-	// Èç¹û²»ÊÇ ".",".."ÌØÊâÄ¿Â¼	Ôò´òÓ¡ÕıÔÚ´¦ÀíµÄÎÄ¼ş¼Ğ»òÎÄ¼ş
+	// å¦‚æœä¸æ˜¯ ".",".."ç‰¹æ®Šç›®å½•	åˆ™æ‰“å°æ­£åœ¨å¤„ç†çš„æ–‡ä»¶å¤¹æˆ–æ–‡ä»¶
 	if (strcmp(fileinfo.name, ".")
 		&&strcmp(fileinfo.name, ".."))
 	{
@@ -110,10 +110,10 @@ int file_frame::search_by_folder(string path, string sourcepath)
 		}
 		else
 		{
-			// ÎÄ¼ş¹ıÂË
+			// æ–‡ä»¶è¿‡æ»¤
 			if (pflter(&fileinfo, NULL, pdata) == FRAME_FILTER_IN)
 			{
-				// ´òÓ¡´¦ÀíµÄÎÄ¼şÃû
+				// æ‰“å°å¤„ç†çš„æ–‡ä»¶å
 //				cout << "num "<< total << ": "<< fileinfo.name << endl;
 				ret = pprocess(m_src_path, m_DestinationPath, path + dis + fileinfo.name, false, pdata);
 			}
@@ -155,12 +155,12 @@ int file_frame::search_by_folder(string path, string sourcepath)
 		if (!strcmp(pDirent->d_name, ".")||!strcmp(pDirent->d_name, ".."))
 			continue;
 //		printf("d_type:%d,d_name: %s\n",pDirent->d_type,pDirent->d_name);
-		if (pDirent->d_type == DT_REG)//ÆÕÍ¨ÎÄ¼ş
+		if (pDirent->d_type == DT_REG)//æ™®é€šæ–‡ä»¶
 		{
-			// ÎÄ¼ş¹ıÂË
+			// æ–‡ä»¶è¿‡æ»¤
 			if (pflter(NULL, (m_src_path + path + dis + pDirent->d_name).c_str(), pdata) == FRAME_FILTER_IN)
 			{
-				// ´òÓ¡´¦ÀíµÄÎÄ¼şÃû
+				// æ‰“å°å¤„ç†çš„æ–‡ä»¶å
 //				cout << "num "<< total << ": "<< pDirent->d_name << endl;
 				ret = pprocess(m_src_path, m_DestinationPath, path + dis + pDirent->d_name, false, pdata);
 			}
@@ -325,11 +325,11 @@ int file_frame::start()
 	//{
 	//	list<pref>::iterator pref_item = m_pref.begin();
 		col.push_back("");
-		// ´¦Àí
+		// å¤„ç†
 		list<string>::iterator item = col.begin();
 		while(col.size() != list <int>::size_type(0))
 		{
-			// Õ»¶¥ÖĞ»ñÈ¡ µ¯³öÄ¿Â¼
+			// æ ˆé¡¶ä¸­è·å– å¼¹å‡ºç›®å½•
 			list<string>::iterator item = col.begin();
 			
 			m_DestinationPath = (*pref_item).m_tar_path; // for other fun
@@ -343,7 +343,7 @@ int file_frame::start()
 			{
 				return FRAME_STOP;
 			}
-			// Õ»¶¥ÖĞµ¯³öÄ¿Â¼
+			// æ ˆé¡¶ä¸­å¼¹å‡ºç›®å½•
 			col.pop_front();
 		}
 

@@ -25,15 +25,15 @@ int main(int argc, char **argv)
 		}
 		break;
 	case BK_INIT_ERR:
-		// 失败
+		// 澶辫触
 		break;
 	case BK_INIT_NEED_DEL:
-		// 插入盘不是空 以用空间超过50%
+		// 鎻掑叆鐩樹笉鏄┖ 浠ョ敤绌洪棿瓒呰繃50%
 		break;
 	default:
 		break;
 	}
 
-	// ins.stop(); 变为私有 用于backup_worker 内部停止
+	// ins.stop(); 鍙樹负绉佹湁 鐢ㄤ簬backup_worker 鍐呴儴鍋滄
 	return 0;
 }

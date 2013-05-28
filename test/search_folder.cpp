@@ -31,7 +31,7 @@ void GetUserList(char *file, char* folder)
     struct dirent *pDirent;
     while((pDirent = readdir(pDir)) != NULL)
     {
-        if (pDirent->d_type == DT_REG)//ÆÕÍ¨ÎÄ¼þ
+        if (pDirent->d_type == DT_REG)//æ™®é€šæ–‡ä»¶
         {    
         }
 		else if (pDirent->d_type == DT_DIR)

@@ -4,14 +4,14 @@
 #define MSG(X) WM_MSG_##X
 #define MSG_DATA(X) STRCT_MSG_##X
 
-#define  WM_MSG_START				1000		//±¸·İÆô¶¯
-#define  WM_MSG_STOP				1001		//±¸·İÍ£Ö¹
-#define  WM_MSG_CONFIG              1002		//ÅäÖÃĞÅÏ¢
-#define  WM_MSG_CONFIG_COMPLETE     1003		//ÅäÖÃĞÅÏ¢
-#define  WM_MSG_BACKUP_BRICK	    1004		//Æô¶¯±¸·İ brick ID
-#define  WM_MSG_BACKUP_BRICK_STOP	1005		//ÒÑÍ£Ö¹±¸·İ brick ID
-#define  WM_MSG_BACKUP_BRICK_ERROR	1006		//±¸·İ brick ID ·¢Éú´íÎó
-#define  WM_MSG_BACKUP_BRICK_MSG	1007		//±¸·İ brick ID ·¢Éú´íÎó
+#define  WM_MSG_START				1000		//å¤‡ä»½å¯åŠ¨
+#define  WM_MSG_STOP				1001		//å¤‡ä»½åœæ­¢
+#define  WM_MSG_CONFIG              1002		//é…ç½®ä¿¡æ¯
+#define  WM_MSG_CONFIG_COMPLETE     1003		//é…ç½®ä¿¡æ¯
+#define  WM_MSG_BACKUP_BRICK	    1004		//å¯åŠ¨å¤‡ä»½ brick ID
+#define  WM_MSG_BACKUP_BRICK_STOP	1005		//å·²åœæ­¢å¤‡ä»½ brick ID
+#define  WM_MSG_BACKUP_BRICK_ERROR	1006		//å¤‡ä»½ brick ID å‘ç”Ÿé”™è¯¯
+#define  WM_MSG_BACKUP_BRICK_MSG	1007		//å¤‡ä»½ brick ID å‘ç”Ÿé”™è¯¯
 
 typedef struct 
 {

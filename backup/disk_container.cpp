@@ -129,12 +129,6 @@ int disk_container::copy(const char *_srcfile, const char * _file)
             {
                 // get new disk failed
 			task_control::Instance()->set_sem(m_identity);
-			//MSG_DATA(BACKUP_BRICK_ERROR) *perr_msg_data= new MSG_DATA(BACKUP_BRICK_ERROR);
-			//memset(perr_msg_data,0,sizeof(MSG_DATA(BACKUP_BRICK_ERROR)));
-			//strncpy(perr_msg_data->BRICK_ID, m_identity.c_str(), m_identity.size() < sizeof(perr_msg_data->BRICK_ID) ?
-			//	m_identity.size() : sizeof(perr_msg_data->BRICK_ID) - 1);
-			//strcpy(perr_msg_data->MSG_SHOW, "DISK FULL");
-			//POSTMESSAGE(MSG(BACKUP_BRICK_ERROR),perr_msg_data,sizeof(MSG_DATA(BACKUP_BRICK_ERROR)));
 			DEFINEMSGDATA(perr_msg_data, BACKUP_BRICK_ERROR);
 			COPYDATA(perr_msg_data->BRICK_ID, m_identity.c_str(), m_identity.size());
 			COPYDATA(perr_msg_data->MSG_SHOW, "DISK FULL", sizeof("DISK FULL"));
@@ -190,7 +184,7 @@ int disk_container::copy(const char *_srcfile, const char * _file)
 		os.flush();
 		os.close();
 		is.close();
-		// É¾³ýÎÄ¼þ
+		// åˆ é™¤æ–‡ä»¶
 		remove((m_dir+_file).c_str());
         LOG(WARNING) << "create folder [" << _srcfile << " ] failed";
 		return BK_BACKUP_FILE_ERR;
@@ -200,10 +194,10 @@ int disk_container::copy(const char *_srcfile, const char * _file)
 	os.close();
 	is.close();
 
-	// ÐÞ¸ÄÎÄ¼þÈ¨ÏÞ
+	// ä¿®æ”¹æ–‡ä»¶æƒé™
 	CHMOD(_srcfile, (m_dir+_file).c_str());
 
-	// ¸ü¸Ä¿ÉÓÃ¿Õ¼ä
+	// æ›´æ”¹å¯ç”¨ç©ºé—´
 	m_target_space_used += getfilesize((m_dir+_file).c_str());
 
 	// insert file info to db
@@ -234,8 +228,8 @@ int disk_container::copy_try(const char *_srcfile)
 int disk_container::check()
 {
 	//****************************** 
-	// ÒÔÂß¼­Ó²ÅÌÎª±êÊ¾£¬ ²éÑ¯Ó²ÅÌÊÇ·ñ×¼±¸ºÃ
-	// ·ñÔò×èÈû
+	// ä»¥é€»è¾‘ç¡¬ç›˜ä¸ºæ ‡ç¤ºï¼Œ æŸ¥è¯¢ç¡¬ç›˜æ˜¯å¦å‡†å¤‡å¥½
+	// å¦åˆ™é˜»å¡ž
 	//******************************
 	return 0;
 }
@@ -247,9 +241,9 @@ int disk_container::create_dir(const char *_folder)
 		return BK_BACKUP_FOLDER_ERR;
 	}
 	string a = (m_dir+_folder).c_str();
-	if(access(a.c_str(), F_OK)!=0)//accessº¯ÊýÊÇ²é¿´ÎÄ¼þÊÇ²»ÊÇ´æÔÚ
+	if(access(a.c_str(), F_OK)!=0)//accesså‡½æ•°æ˜¯æŸ¥çœ‹æ–‡ä»¶æ˜¯ä¸æ˜¯å­˜åœ¨
 	{
-		if (MKDIR(a.c_str()))//Èç¹û²»´æÔÚ¾ÍÓÃmkdirº¯ÊýÀ´´´½¨
+		if (MKDIR(a.c_str()))//å¦‚æžœä¸å­˜åœ¨å°±ç”¨mkdirå‡½æ•°æ¥åˆ›å»º
 		{
             LOG(WARNING) << "create folder [" << _folder << " ] failed";
 			return BK_BACKUP_FOLDER_ERR;

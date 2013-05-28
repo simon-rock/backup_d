@@ -63,23 +63,23 @@ void proc(task_data* data)
 		//POSTMESSAGE(MSG(BACKUP_BRICK_STOP),pmsg_data_e,sizeof(MSG_DATA(BACKUP_BRICK_STOP)));
 		POSTMESSAGE(BACKUP_BRICK_STOP,pmsg_data_e);
 		break;
-	case BK_INIT_ERR:		// й╖╟э
+	case BK_INIT_ERR:		// Е╓╠Х╢╔
 		LOG(WARNING) << "[brick_id]" << _data->brick_id << "[result]" << "BK_INIT_ERR" ;
 		strcpy(perr_msg_data->MSG_SHOW, "BK_INIT_ERR");
 		break;
-	case BK_INIT_NEED_DEL:	// ╡ЕхКел╡╩йг©у рясц©у╪ДЁ╛╧Щ50%
+	case BK_INIT_NEED_DEL:	// Ф▐▓Е┘╔Г⌡≤Д╦█Ф≤╞Г╘╨ Е╥╡Г■╗Г╘╨И≈╢Х╤┘Х©┤50%
 		LOG(WARNING) << "[brick_id]" << _data->brick_id << "[result]" << "BK_INIT_NEED_DEL";
 		strcpy(perr_msg_data->MSG_SHOW, "BK_INIT_NEED_DEL");
 		break;
-	case BK_INIT_NO_DISK_MOUNT:	// ц╩спс╡ел╧ртз╣╫╠╦╥щд©б╪
+	case BK_INIT_NO_DISK_MOUNT:	// Ф╡║Ф°┴Г║╛Г⌡≤Ф▄┌Е°╗Е┬╟Е╓┤Д╩╫Г⌡╝Е╫∙
 		LOG(WARNING) << "[brick_id]" << _data->brick_id << "[result]" << "BK_INIT_NO_DISK_MOUNT";
 		strcpy(perr_msg_data->MSG_SHOW, "BK_INIT_NO_DISK_MOUNT");
 		break;
-	case BK_INIT_ADD_DISK:	// ц╩спс╡ел╧ртз╣╫╠╦╥щд©б╪
+	case BK_INIT_ADD_DISK:	// Ф╡║Ф°┴Г║╛Г⌡≤Ф▄┌Е°╗Е┬╟Е╓┤Д╩╫Г⌡╝Е╫∙
 		LOG(WARNING) << "[brick_id]" << _data->brick_id << "[result]" << "BK_INIT_ADD_DISK";
 		strcpy(perr_msg_data->MSG_SHOW, "BK_INIT_ADD_DISK");
 		break;
-	default:				// н╢ж╙╢МнС
+	default:				// Ф°╙Г÷╔И■≥Х╞╞
 		LOG(WARNING) << "[brick_id]" << _data->brick_id << "[result]" << "INIT UNKNOW ERROR";
 		strcpy(perr_msg_data->MSG_SHOW, "INIT UNKNOW ERROR");
 		break;

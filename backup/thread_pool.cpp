@@ -71,7 +71,7 @@ void thread_pool::process()
 	unsigned int d = 0, dsize = 0, i = 0;
 	for(i = 0; i < m_vthreads.size(); ++i)
 	{
-		if(m_vthreads[i]->isRunning() && m_vthreads[i]->isPaused())   // ¿ÉÔËÐÐ£¬²¢µÈ´ýÈÎÎñµÄ
+		if(m_vthreads[i]->isRunning() && m_vthreads[i]->isPaused())   // å¯è¿è¡Œï¼Œå¹¶ç­‰å¾…ä»»åŠ¡çš„
 		{
 			pDormantThreads[d] = m_vthreads[i];
 			++d;
@@ -87,7 +87,7 @@ void thread_pool::process()
 		{
 			task_t* nextTask = m_qtaskList.front();
 			m_qtaskList.pop();
-			pDormantThreads[i]->Lock();       // ²¼ÖÃÈÎÎñÊÇËø×¡Ïß³Ì
+			pDormantThreads[i]->Lock();       // å¸ƒç½®ä»»åŠ¡æ˜¯é”ä½çº¿ç¨‹
 			pDormantThreads[i]->set_task(nextTask);
 			pDormantThreads[i]->Resume();
 			pDormantThreads[i]->Unlock();

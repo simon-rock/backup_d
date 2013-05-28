@@ -39,7 +39,7 @@ public:
 	void add_dir(const char* src_path, const char* tar_path = NULL);
 	bool init();
 #ifdef SYS_WINDOWS
-//	static int DeleteDir ( const char* pszDir, bool bDelSelf = false );// false Îª²»É¾³ı×Ô¼º//Óësurdoc²»Í¬
+//	static int DeleteDir ( const char* pszDir, bool bDelSelf = false );// false ä¸ºä¸åˆ é™¤è‡ªå·±//ä¸surdocä¸åŒ
 #endif // SYS_WINDOWS
 	int start();
 	int finish();
@@ -47,7 +47,7 @@ public:
 //	__int64 GetSleepTime(){return m_SleepTime;}
 #endif // SYS_WINDOWS
 private:
-	int search_by_folder(string path, string sourcepath); // ´¦ÀíÄ¿±ê ÎÄ¼ş¼Ğ
+	int search_by_folder(string path, string sourcepath); // å¤„ç†ç›®æ ‡ æ–‡ä»¶å¤¹
 
 	typedef struct _pref
 	{
@@ -61,12 +61,12 @@ private:
 	string m_DestinationPath;
 	string strfind;
 	string dis;
-	list<string> col; // ´ı´¦ÀíÎÄ¼ş¼ĞÂ·¾¶¶ÓÁĞ£¬Ïà¶ÔÔ´ÎÄ¼ş¸ùÄ¿Â¼»ò³öÁ¦Ä¿Â¼¸ùÄ¿Â¼
-	int total;			//´¦ÀíµÄÎÄ¼şÊı
-	callback_proc pprocess;		// ´¦ÀíµÄÎÄ¼şº¯Êı
-	callback_filter pflter;		// ¹ıÂËº¯Êı
-	callback_stat pstatistic;	// Í³¼Æº¯Êı
-	callback_show pshow;		// ÏÔÊ¾
+	list<string> col; // å¾…å¤„ç†æ–‡ä»¶å¤¹è·¯å¾„é˜Ÿåˆ—ï¼Œç›¸å¯¹æºæ–‡ä»¶æ ¹ç›®å½•æˆ–å‡ºåŠ›ç›®å½•æ ¹ç›®å½•
+	int total;			//å¤„ç†çš„æ–‡ä»¶æ•°
+	callback_proc pprocess;		// å¤„ç†çš„æ–‡ä»¶å‡½æ•°
+	callback_filter pflter;		// è¿‡æ»¤å‡½æ•°
+	callback_stat pstatistic;	// ç»Ÿè®¡å‡½æ•°
+	callback_show pshow;		// æ˜¾ç¤º
 	void *pdata;
 	time_t startime;	 
 

@@ -95,9 +95,9 @@ int main()
 	else
 	{
 		backup_start();
-		//task_control::Instance()->set_sem(); Í£Ö¹µ¥¶ÀÈÎÎñ
+		//task_control::Instance()->set_sem(); åœæ­¢å•ç‹¬ä»»åŠ¡
 		usleep(1000000*60*2);
-		backup_stop();							// Í£Ö¹
+		backup_stop();							// åœæ­¢
 	}
 	
 #ifdef SYS_WINDOWS
