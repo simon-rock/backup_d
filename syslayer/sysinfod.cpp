@@ -210,60 +210,21 @@ void sysinfod::init_sas_address()
     }
     pclose(stream);
 }
-#ifdef SYS_WINDOWS
-void sysinfod::print()
-{
-	map<string, string>::iterator item;
-	cout << "-----disk_id-----" << endl;
-	for(item = m_disk_id.begin(); item != m_disk_id.end(); ++item)
-	{
-		cout << item->first << " : " << item->second << endl;
-	}
-	cout << "-----Partition_path-----" << endl;
-	for(item = m_path_Partition.begin(); item != m_path_Partition.end(); ++item)
-	{
-		cout << item->first << " : " << item->second << endl;
-	}
-    cout << "-----sas_address_num-----" << endl;
-    for (map<string, int>::iterator item = m_sas_address_num.begin(); item != m_sas_address_num.end(); ++item)
-    {
-        cout << item->first << " : " << item->second << endl;
-    }
-    cout << "-----ctrl_sas_address-----"<< endl;
-    for (item = m_ctrl_sas_address.begin(); item != m_ctrl_sas_address.end() ; ++item)
-    {
-        cout << item->first << " : " << item->second << endl;    
-    }
-    cout << "-----disk_pool-----" << endl;
-    for (vector<shared_ptr<disk_obj> >::iterator item = m_disk_pool.begin();
-         item != m_disk_pool.end(); ++item)
-    {
-        cout << "-------" << (*item)->path << endl;
-        cout << (*item)->id << endl;
-        cout << (*item)->mount_path << endl;
-        cout << (*item)->sas_address << endl;
-        cout << (*item)->physics_index << endl;
-        cout << (*item)->ctrl_sas_address << endl;
-        cout << (*item)->ctrl_physics_index << endl;
-        cout << (*item)->ctrl_start_index << endl;
-        cout << (*item)->asc_or_des << endl;
-        cout << "pos : " << (*item)->get_pos() << endl;
-    }
-
-    cout << "-----jbod_info-----" << endl;
-}
-#endif // SYS_WINDOWS
 // path without last "/"
 string sysinfod::get_diskid(string path, unsigned int pos_num)
 {
-	// ¼ì²âµ±Ç°Î»ÖÃÓ²ÅÌÊÇ·ñ´æÔÚ---Í¨¹ýÁªºÏdisk_ctrl_info ÐÅÏ¢
-	// ÊÇ·ñ¸ñÊ½»¯·ÖÇø
-	// ·ñ=¡·¸ñÊ½»¯·ÖÇø
-	// ÊÇ·ñ¹ÒÔØ
-	// ÊÇ·ñ¹ÒÔØ£¨Ä¿Â¼ÒÑ¹ÒÔÚÔòÐ¶ÔØÔÙ¹ÒÔØ£©
-	// ·µ»Ø disk_id, ·¢ËÍÏûÏ¢ÏÔÊ¾µ±Ç°Ê¹ÓÃµÄÓ²ÅÌ
-    /*
-	string tmp = m_path_Partition[path];
+	// string tmp = m_path_Partition[path];
+	string tmp;
+	map<string, string>::iterator item_partition, item_partition_end;
+	item_partition_end = m_path_Partition.end();
+	for(item_partition = m_path_Partition.begin(); item_partition != item_partition_end; item_partition++)
+	{
+		if(item_partition->second == path)
+		{
+			tmp = item_partition->first;
+		}
+	}
+
 	if (!tmp.empty())
 	{
 		if (tmp[tmp.size() - 1] == '1')
@@ -278,7 +239,9 @@ string sysinfod::get_diskid(string path, unsigned int pos_num)
 	{
 		return "";
 	}
-*/
+
+// del by gaoyu
+/*
     // check disk with pos_num
     // umount path
     // mount disk
@@ -302,6 +265,7 @@ string sysinfod::get_diskid(string path, unsigned int pos_num)
         }
     }
     return "";
+*/
 }
 
 int sysinfod::check_brick_src(string const &_brick_path, string const & _src_path)
@@ -345,7 +309,6 @@ int sysinfod::check_brick_src(string const &_brick_path, string const & _src_pat
 }
 int sysinfod::connect_brick(string const &_brick_path, string const & _src_path)
 {
-	// È·ÈÏ brick_ ÊÇ·ñ nfs µ½±¾µØ yuyu
 	return BK_SUCESS;
 }
 
@@ -389,8 +352,10 @@ void sysinfod::init_disk_info()
     
     init_disk_id();
     init_Partition_path();
-    init_sas_address();
+	// del by gaoyu
+    // init_sas_address();
     // gen disk info
+	/*
     string tmp;
     for(map<string, string>::iterator item = m_disk_id.begin();
         item != m_disk_id.end();
@@ -442,7 +407,7 @@ void sysinfod::init_disk_info()
         }
         bfirst = false;
     }
-    
+    */
     
 }
 
@@ -563,22 +528,18 @@ int udevadm_monitor(struct udev *udev)
 	if (!print_kernel) {
 		print_kernel = 1;
 	}
-    /*
-	if (getuid() != 0 && print_kernel) {
-		fprintf(stderr, "root privileges needed to subscribe to kernel events\n");
-		goto out;
-	}
-    */
-	if (print_kernel) {
+ 	if (print_kernel) {
 		kernel_monitor = udev_monitor_new_from_netlink(udev, "udev");
 		if (kernel_monitor == NULL) {
 			rc = 3;
 			printf("udev_monitor_new_from_netlink() error\n");
-			goto out;
+			udev_monitor_unref(kernel_monitor);
+			return rc;
 		}
 		if (udev_monitor_enable_receiving(kernel_monitor) < 0) {
 			rc = 4;
-			goto out;
+			udev_monitor_unref(kernel_monitor);
+			return rc;
 		}
 		printf("start the kernel uevent monitor\n");
 	}
@@ -604,16 +565,14 @@ int udevadm_monitor(struct udev *udev)
 			udev_device_unref(device);
 		}
  	}
-out:
+
 	udev_monitor_unref(kernel_monitor);
 	return rc;
 }
 
 void sysinfod::stop_monitor()       // stop sys monitor
 {
-    udev_exit = 1;
-    pthread_join(m_thread_monitor, NULL);
+	// del by gaoyu 20130416
+    // udev_exit = 1;
+    // pthread_join(m_thread_monitor, NULL);
 }
-// user id check
-// async update disk info
-// close
