@@ -135,7 +135,7 @@ int backup_worker::_proc ( string SourcePath, string DestinationPath, string pat
 	}
 	else
 	{
-		LOG(INFO) << "[file_path]" << (SourcePath + path).c_str() << "[to]" << path.c_str();
+//		LOG(INFO) << "[file_path]" << (SourcePath + path).c_str() << "[to]" << path.c_str();
 		return p->m_target.copy((SourcePath + path).c_str(), path.c_str());
 	}
 }
@@ -199,7 +199,7 @@ int backup_worker::_filter (struct _finddata_t*  pfileinfo, const char * file_pa
 		if (mtime >= p->m_lastbackup_time 
 			&& mtime < p->m_end_time )
 		{
-			LOG(INFO) << "[file_path]" << file_path << "[FRAME_FILTER_IN]";
+//			LOG(INFO) << "[file_path]" << file_path << "[FRAME_FILTER_IN]";
 			return FRAME_FILTER_IN;
 		}
 	}

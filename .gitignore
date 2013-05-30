@@ -35,9 +35,9 @@ bin/
 #log file
 *.log
 
-# automake
+#automake
 config.status
-
+Makefile
 # MSVC
 *.ncb
 *.suo

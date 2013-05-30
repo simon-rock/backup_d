@@ -6,7 +6,7 @@
 //#include <direct.h> // _rmdir
 #include "file_frame.h"
 //#include <time.h>
-
+#include "systools.h"
 
 using namespace std;
 
@@ -155,42 +155,35 @@ int file_frame::search_by_folder(string path, string sourcepath)
 		if (!strcmp(pDirent->d_name, ".")||!strcmp(pDirent->d_name, ".."))
 			continue;
 //		printf("d_type:%d,d_name: %s\n",pDirent->d_type,pDirent->d_name);
-		if (pDirent->d_type == DT_REG)//普通文件
+       // 文件过滤
+        if (pflter(NULL, (m_src_path + path + dis + pDirent->d_name).c_str(), pdata) == FRAME_FILTER_IN)
 		{
-			// 文件过滤
-			if (pflter(NULL, (m_src_path + path + dis + pDirent->d_name).c_str(), pdata) == FRAME_FILTER_IN)
-			{
-				// 打印处理的文件名
-//				cout << "num "<< total << ": "<< pDirent->d_name << endl;
-				ret = pprocess(m_src_path, m_DestinationPath, path + dis + pDirent->d_name, false, pdata);
-			}
-			else if (pflter(NULL, (m_src_path + path + dis + pDirent->d_name).c_str(), pdata) == FRAME_STOP)
-			{
-				resl = FRAME_STOP;
-				break;
-			}
-			else
-			{
-				continue;
-			}
+			// 打印处理的文件名
+//			cout << "num "<< total << ": "<< pDirent->d_name << endl;
+			ret = pprocess(m_src_path, m_DestinationPath, path + dis + pDirent->d_name, false, pdata);
 		}
-		else if (pDirent->d_type == DT_DIR)
+		else if (pflter(NULL, (m_src_path + path + dis + pDirent->d_name).c_str(), pdata) == FRAME_STOP)
 		{
-			if (pflter(NULL, (m_src_path + path + dis + pDirent->d_name).c_str(), pdata) == FRAME_FILTER_IN)
-			{
-				ret = pprocess(m_src_path, m_DestinationPath, path + dis + pDirent->d_name, true, pdata);
-			}
-			else if (pflter(NULL, (m_src_path + path + dis + pDirent->d_name).c_str(), pdata) == FRAME_STOP)
-			{
-				resl = FRAME_STOP;
-				break;
-			}
-			else
-			{
-				continue;
-			}
-			col.push_back(string(path + dis + pDirent->d_name).c_str());
+			resl = FRAME_STOP;
+			break;
 		}
+		else
+		{
+			continue;
+		}
+
+        // on xfs, can't use readdir  d_type
+        //if (pDirent->d_type == DT_REG)//普通文件
+		//{
+		//}
+		//else if (pDirent->d_type == DT_DIR)
+		//{
+		//  col.push_back(string(path + dis + pDirent->d_name).c_str());
+		//}
+        if(isfolder((m_src_path + path + dis + pDirent->d_name).c_str()))
+        {
+			col.push_back(string(path + dis + pDirent->d_name).c_str());            
+        }
 		pstatistic(ret, pdata);
 		total ++;
 
@@ -329,7 +322,6 @@ int file_frame::start()
 		list<string>::iterator item = col.begin();
 		while(col.size() != list <int>::size_type(0))
 		{
-			// 栈顶中获取 弹出目录
 			list<string>::iterator item = col.begin();
 			
 			m_DestinationPath = (*pref_item).m_tar_path; // for other fun
@@ -343,7 +335,6 @@ int file_frame::start()
 			{
 				return FRAME_STOP;
 			}
-			// 栈顶中弹出目录
 			col.pop_front();
 		}
 

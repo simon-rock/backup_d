@@ -1,6 +1,5 @@
 #ifndef _LOCK_T_H_
 #define _LOCK_T_H_
-// #define WINDOWS_LEAN_AND_MEAN
 #include "com_inc.h"
 class lock_t
 {

@@ -28,17 +28,9 @@ BackupMain::BackupMain()
     m_ScrolledWindow.add(m_VBox);
 
 // init backupd
-    // start change by gaoyu 20130428
-    // add config file
-	//const char* db = "backup";
-	//const char* ip = "127.0.0.1";
-	//const char* user = "root";
-	//const char* psw = "root";
-	//if (backup_init(db, ip, user, psw) != 0)
     string db, ip, user, psw;
     get_dbconfig(db, ip, user, psw);
     if (backup_init(db.c_str(), ip.c_str(), user.c_str(), psw.c_str()) != 0)
-    // end change by gaoyu 20130428
 	{
 		cout << "init backupd error "<< endl;
         exit(-1);

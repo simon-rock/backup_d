@@ -40,13 +40,9 @@ int main (int argc, char *argv[])
 		default : internal_error( "uncaught option" );
 		}
 	}
-    // start change by gaoyu 20130428
-    // add config file
     string db, ip, user, psw;
     get_dbconfig(db, ip, user, psw);
-    //if(db_config::init("backup", "127.0.0.1", "root", "root") != BK_DB_SUCESS)
     if(db_config::init(db.c_str(), ip.c_str(), user.c_str(), psw.c_str()) != BK_DB_SUCESS)
-    // end change by gaoyu 20130428 
     {
         std::cout << "can't connect config" << std::endl;
         return -1;
