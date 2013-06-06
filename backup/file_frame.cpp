@@ -150,19 +150,21 @@ int file_frame::search_by_folder(string path, string sourcepath)
 	}
 	struct dirent *pDirent;
 	int ret = 0;
+    string relativepath;
 	while((pDirent = readdir(pDir)) != NULL)
 	{
+        relativepath = path + dis + pDirent->d_name;
 		if (!strcmp(pDirent->d_name, ".")||!strcmp(pDirent->d_name, ".."))
 			continue;
 //		printf("d_type:%d,d_name: %s\n",pDirent->d_type,pDirent->d_name);
        // 文件过滤
-        if (pflter(NULL, (m_src_path + path + dis + pDirent->d_name).c_str(), pdata) == FRAME_FILTER_IN)
+        if (pflter(NULL, (m_src_path + relativepath).c_str(), pdata) == FRAME_FILTER_IN)
 		{
 			// 打印处理的文件名
 //			cout << "num "<< total << ": "<< pDirent->d_name << endl;
-			ret = pprocess(m_src_path, m_DestinationPath, path + dis + pDirent->d_name, false, pdata);
+			ret = pprocess(m_src_path, m_DestinationPath, relativepath, isfolder((m_src_path + relativepath).c_str()), pdata);
 		}
-		else if (pflter(NULL, (m_src_path + path + dis + pDirent->d_name).c_str(), pdata) == FRAME_STOP)
+		else if (pflter(NULL, (m_src_path + relativepath).c_str(), pdata) == FRAME_STOP)
 		{
 			resl = FRAME_STOP;
 			break;
@@ -180,9 +182,9 @@ int file_frame::search_by_folder(string path, string sourcepath)
 		//{
 		//  col.push_back(string(path + dis + pDirent->d_name).c_str());
 		//}
-        if(isfolder((m_src_path + path + dis + pDirent->d_name).c_str()))
+        if(isfolder((m_src_path + relativepath).c_str()))
         {
-			col.push_back(string(path + dis + pDirent->d_name).c_str());            
+			col.push_back(relativepath);            
         }
 		pstatistic(ret, pdata);
 		total ++;

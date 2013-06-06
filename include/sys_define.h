@@ -37,7 +37,7 @@
 #define  NOGDI
 #endif //SYS_WINDOWS
 
-#define VERSION "1.2"
+#define VERSION "1.3"
 #define FIFOVIEW "/tmp/backupview"
 #define FIFOCONTROL "/tmp/backupcontrol"
 #define CONFIGFILE "backup_config"        // backup config file
