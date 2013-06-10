@@ -103,6 +103,7 @@ int _filter (struct _finddata_t*  pfileinfo, const char * file_path, void* pdata
 				string(pfileinfo->name) != "lib" &&
 				string(pfileinfo->name) != "log" &&
 				string(pfileinfo->name) != "obj" &&
+                string(pfileinfo->name) != "syslayer_ori" &&
 				string(pfileinfo->name) != "bin")
 			{
 				return FRAME_FILTER_IN;
@@ -165,6 +166,7 @@ int _filter (struct _finddata_t*  pfileinfo, const char * file_path, void* pdata
 				filename != "log" &&
 				filename != "obj" &&
 				filename != "bin" &&
+                filename != "syslayer_ori" &&
                 filename != ".deps")
 			{
 				return FRAME_FILTER_IN;
@@ -298,7 +300,10 @@ int _filter2 (struct _finddata_t*  pfileinfo, const char * file_path, void* pdat
 			string(pfileinfo->name) != ".gitignore" &&
 			string(pfileinfo->name) != "cmd" &&
 			string(pfileinfo->name) != "Makefile" &&
-			string(pfileinfo->name) != "README" &&
+			string(pfileinfo->name) != "README.md" &&
+            string(pfileinfo->name) != "missing_ori" &&
+            string(pfileinfo->name) != "depcomp_ori" &&
+            string(pfileinfo->name) != "install-sh_ori" &&
 			string(ext) != ".cpp" &&
 			string(ext) != ".h" &&
 			string(ext) != ".suo" &&
@@ -370,7 +375,10 @@ int _filter2 (struct _finddata_t*  pfileinfo, const char * file_path, void* pdat
 			filename != "cmd" &&
 			filename != "Makefile" &&
 			filename != "test_syslayer" &&
-			filename != "README" &&
+			filename != "README.md" &&
+            filename != "missing_ori" &&
+            filename != "depcomp_ori" &&
+            filename != "install-sh_ori" &&
 			ext != ".cpp" &&
 			ext != ".h" &&
 			ext != ".suo" &&
