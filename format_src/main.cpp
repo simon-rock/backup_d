@@ -7,7 +7,7 @@ using namespace std;
 
 #include "file_frame.h"
 #include "systools.h"
-//////////////////////makefile 处理--del SYS_WINDOWS////////////////////////////////////////////////////
+//////////////////////src 处理--del SYS_WINDOWS////////////////////////////////////////////////////
 int _proc(string SourcePath, string DestinationPath, string path, bool folder, void* pdata)
 {
 	string src_path = (SourcePath + path).c_str();
@@ -193,7 +193,7 @@ int _filter (struct _finddata_t*  pfileinfo, const char * file_path, void* pdata
 	return FRAME_FILTER_E;
 }
 
-//////////////////////makefile 处理--copy////////////////////////////////////////////////////
+//////////////////////删除makefile和其他工程文件和测试文件 处理--copy////////////////////////////////////////////////////
 int _proc2(string SourcePath, string DestinationPath, string path, bool folder, void* pdata)
 {
 	string src_path = (SourcePath + path).c_str();
@@ -275,6 +275,7 @@ int _filter2 (struct _finddata_t*  pfileinfo, const char * file_path, void* pdat
 				string(pfileinfo->name) != "lib" &&
 				string(pfileinfo->name) != "log" &&
 				string(pfileinfo->name) != "obj" &&
+				string(pfileinfo->name) != "syslayer_ori" && // 原来的syslayer 可以处理jbod 信息处理硬盘位置，现在不使用
 				string(pfileinfo->name) != "bin" )
 			{
 				return FRAME_FILTER_IN;
@@ -297,6 +298,7 @@ int _filter2 (struct _finddata_t*  pfileinfo, const char * file_path, void* pdat
 			string(pfileinfo->name) != ".gitignore" &&
 			string(pfileinfo->name) != "cmd" &&
 			string(pfileinfo->name) != "Makefile" &&
+			string(pfileinfo->name) != "README" &&
 			string(ext) != ".cpp" &&
 			string(ext) != ".h" &&
 			string(ext) != ".suo" &&
@@ -349,6 +351,7 @@ int _filter2 (struct _finddata_t*  pfileinfo, const char * file_path, void* pdat
 				filename != "log" &&
 				filename != "obj" &&
 				filename != "bin" &&
+				filename != "syslayer_ori" &&	// 原来的syslayer 可以处理jbod 信息处理硬盘位置，现在不使用
                 filename != ".deps")
 			{
 				return FRAME_FILTER_IN;
@@ -366,7 +369,8 @@ int _filter2 (struct _finddata_t*  pfileinfo, const char * file_path, void* pdat
 			filename != ".gitignore" &&
 			filename != "cmd" &&
 			filename != "Makefile" &&
-			filename != "test_syslayer" &&            
+			filename != "test_syslayer" &&
+			filename != "README" &&
 			ext != ".cpp" &&
 			ext != ".h" &&
 			ext != ".suo" &&
@@ -480,6 +484,7 @@ int main(int argc, char ** argv)
 		}
 	}
     cout << "-----first-----" << endl;
+	// 删除源码中关于windows 的处理通过判断宏 SYS_WINDOWS
 	file_frame ins("1");
 	ins.set_opt( file_frame::process, _proc);
 	ins.set_opt( file_frame::filter, _filter);
@@ -489,6 +494,7 @@ int main(int argc, char ** argv)
 	ins.add_dir(src_path.c_str(), tar_path.c_str());
 	ins.start();
     cout << "-----second-----" << endl;
+	// 拷贝需要文件， 删除makefile， 相关工程文件，测试文件，无用目录bin，debug，release等
 	file_frame ins2("1");
 	ins2.set_opt( file_frame::process, _proc2);
 	ins2.set_opt( file_frame::filter, _filter2);
@@ -498,6 +504,7 @@ int main(int argc, char ** argv)
 	ins2.add_dir(src_path.c_str(), rel_path.c_str());
 	ins2.start();
     cout << "-----third-----" << endl;
+	// 删除源码中 宏SYS_LINUX
 	file_frame ins3("1");
 	ins3.set_opt( file_frame::process, _proc3);
 	ins3.set_opt( file_frame::filter, _filter);
