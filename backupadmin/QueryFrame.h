@@ -1,4 +1,4 @@
-#ifndef _QUERYFRAME_H_
+﻿#ifndef _QUERYFRAME_H_
 #define _QUERYFRAME_H_
 #include <gtkmm.h>
 #include <gtkmm/button.h>

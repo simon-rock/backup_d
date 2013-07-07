@@ -1,4 +1,4 @@
-#include "sys_thread.h"
+﻿#include "sys_thread.h"
 sys_thread::sys_thread():
 #ifdef SYS_WINDOWS
 m_hthread(NULL),

@@ -1,4 +1,4 @@
-#include "backup_status.h"
+﻿#include "backup_status.h"
 
 void backup_status::control_by_brick(ctr_type _t, string _brick_id, const char* msg)
 {

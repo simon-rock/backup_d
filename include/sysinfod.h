@@ -1,4 +1,4 @@
-#ifndef _SYSINFOD_H_
+﻿#ifndef _SYSINFOD_H_
 #define _SYSINFOD_H_
 #include "com_inc.h"
 #include <map>

@@ -1,4 +1,4 @@
-#ifndef _DEAMON_H_
+﻿#ifndef _DEAMON_H_
 #define _DEAMON_H_
 
 #define MAXFILE 65535

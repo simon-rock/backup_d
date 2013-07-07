@@ -1,4 +1,4 @@
-#include "db_exec.h"
+﻿#include "db_exec.h"
 
 string db_exec::m_db_name = "";
 string db_exec::m_ip	= "";

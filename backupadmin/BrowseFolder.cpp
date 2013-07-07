@@ -1,4 +1,4 @@
-#include "BrowseFolder.h"
+﻿#include "BrowseFolder.h"
 
 BrowseFolder::BrowseFolder(Gtk::Frame& parent)
 	: Gtk::Dialog("Interactive Dialog", NULL, true),

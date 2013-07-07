@@ -1,4 +1,4 @@
-#ifndef _BACKUP_MAIN_H_
+﻿#ifndef _BACKUP_MAIN_H_
 #define _BACKUP_MAIN_H_
 #include <gtkmm.h>
 //

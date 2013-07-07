@@ -1,4 +1,4 @@
-#include "brick_group.h"
+﻿#include "brick_group.h"
 ExampleButtonBox::ExampleButtonBox(bool horizontal,
                                    const Glib::ustring& title,
                                    gint spacing,
@@ -12,7 +12,7 @@ ExampleButtonBox::ExampleButtonBox(bool horizontal,
 {
     Gtk::ButtonBox* bbox = 0;
 
-    // ˮƽ �� ��ֱ
+    // 水平 或 竖直
     if(horizontal)
         bbox = Gtk::manage( new Gtk::HButtonBox() );
     else

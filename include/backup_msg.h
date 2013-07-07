@@ -1,4 +1,4 @@
-// backup_msg.h
+﻿// backup_msg.h
 #ifndef _BACKUP_MSG_H_
 #define _BACKUP_MSG_H_
 #define MSG(X) WM_MSG_##X

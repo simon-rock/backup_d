@@ -1,4 +1,4 @@
-#ifndef _MASTERWIN_H_
+﻿#ifndef _MASTERWIN_H_
 #define _MASTERWIN_H_
 
 #include <gtkmm.h>

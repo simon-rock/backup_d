@@ -1,4 +1,4 @@
-#include "masterwin.h"
+﻿#include "masterwin.h"
 
 
 MasterWin::MasterWin():

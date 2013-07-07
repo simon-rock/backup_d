@@ -1,4 +1,4 @@
-#ifndef _BACKUP_MASTER_H_
+﻿#ifndef _BACKUP_MASTER_H_
 #define  _BACKUP_MASTER_H_
 #include "com_inc.h"
 #include "sys_config.h"

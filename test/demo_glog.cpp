@@ -1,4 +1,4 @@
-#include <glog/logging.h>
+﻿#include <glog/logging.h>
 #include <list>
 using std::list;
 using google::INFO;

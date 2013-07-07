@@ -1,4 +1,4 @@
-#ifndef _BACKUP_TASK_H_
+﻿#ifndef _BACKUP_TASK_H_
 #define _BACKUP_TASK_H_
 #include "com_inc.h"
 #include "task_t.h"

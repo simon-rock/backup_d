@@ -1,4 +1,4 @@
-#ifndef  _DB_EXEC_H_
+﻿#ifndef  _DB_EXEC_H_
 #define  _DB_EXEC_H_
 #include "com_inc.h"
 #include "mysqlplus.h"

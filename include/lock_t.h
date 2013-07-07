@@ -1,4 +1,4 @@
-#ifndef _LOCK_T_H_
+﻿#ifndef _LOCK_T_H_
 #define _LOCK_T_H_
 #include "com_inc.h"
 class lock_t

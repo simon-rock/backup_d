@@ -1,4 +1,4 @@
-// SVG_MSGQueue.cpp
+﻿// SVG_MSGQueue.cpp
 #include "msg_queue.h"
 //#include "SVG_MSG.h"
 

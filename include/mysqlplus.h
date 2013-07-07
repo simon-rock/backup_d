@@ -1,4 +1,4 @@
-// mysqlplus.h
+﻿// mysqlplus.h
 
 #ifndef __MYSQLPLUS_H__
 #define __MYSQLPLUS_H__

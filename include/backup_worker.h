@@ -1,4 +1,4 @@
-#ifndef _BACKUP_WORKER_H_
+﻿#ifndef _BACKUP_WORKER_H_
 #define _BACKUP_WORKER_H_
 #include "com_inc.h"
 #include "disk_container.h"

@@ -1,4 +1,4 @@
-#ifndef _DISK_CONTAINER_H_
+﻿#ifndef _DISK_CONTAINER_H_
 #define _DISK_CONTAINER_H_
 #include "com_inc.h"
 #include "systools.h"

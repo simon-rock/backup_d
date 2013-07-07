@@ -1,4 +1,4 @@
-#ifndef _BRICK_GROUP_H
+﻿#ifndef _BRICK_GROUP_H
 #define _BRICK_GROUP_H
 #include <gtkmm.h>
 #include <gtkmm/button.h>

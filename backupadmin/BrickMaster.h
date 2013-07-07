@@ -1,4 +1,4 @@
-#ifndef _BRICKMASTER_H_
+﻿#ifndef _BRICKMASTER_H_
 #define _BRICKMASTER_H_
 #include <gtkmm.h>
 #include <gtkmm/button.h>

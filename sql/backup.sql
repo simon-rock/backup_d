@@ -66,8 +66,8 @@ CREATE TABLE NAS_MASTER (
 
 -- JBOD 描述信息
  CREATE TABLE JBOD_MASTER(
-   SAS_ADDR char(100) NOT NULL,
-   START_NUM int NOT NULL,
+   SAS_ADDR char(100) NOT NULL,     -- jbod 地址信息
+   START_NUM int NOT NULL,          -- 第一块硬盘位置
    JBOD_ORDER int NOT NULL,			-- 1:ASC 0:DES
    PRIMARY KEY  (SAS_ADDR)
  ) ENGINE=InnoDB ;

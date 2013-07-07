@@ -1,4 +1,4 @@
-// mysqlplus.cpp
+﻿// mysqlplus.cpp
 #include "mysqlplus.h"
 
 #include <stdio.h>

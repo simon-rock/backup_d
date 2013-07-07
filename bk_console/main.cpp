@@ -1,4 +1,4 @@
-#include "com_inc.h"
+﻿#include "com_inc.h"
 #include "backup.h"
 #include "msg_queue.h"
 #include <cstdlib>

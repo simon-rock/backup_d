@@ -1,4 +1,4 @@
-#include "systools.h"
+﻿#include "systools.h"
 #include "com_inc.h"
 
 #ifdef SYS_LINUX

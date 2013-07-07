@@ -1,4 +1,4 @@
-#ifndef _LOCK_H__ 
+﻿#ifndef _LOCK_H__ 
 #define _LOCK_H__ 
 
 #include "com_inc.h"

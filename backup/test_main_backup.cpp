@@ -1,4 +1,4 @@
-#include "com_inc.h"
+﻿#include "com_inc.h"
 #include "backup_worker.h"
 
 int main(int argc, char **argv)

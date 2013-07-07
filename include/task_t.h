@@ -1,4 +1,4 @@
-#ifndef _TASK_T_H_
+﻿#ifndef _TASK_T_H_
 #define _TASK_T_H_
 #include <cstddef>
 //Class Interfaces

@@ -1,4 +1,4 @@
-void itoa (   unsigned   long   val,   char   *buf,   unsigned   radix   )   
+﻿void itoa (   unsigned   long   val,   char   *buf,   unsigned   radix   )   
 {   
                 char   *p;                                 /*   pointer   to   traverse   string   */   
                 char   *firstdig;                   /*   pointer   to   first   digit   */   

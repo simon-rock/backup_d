@@ -1,4 +1,4 @@
-#include "db_config.h"
+﻿#include "db_config.h"
 
 string db_config::m_db_name = "";
 string db_config::m_ip	= "";

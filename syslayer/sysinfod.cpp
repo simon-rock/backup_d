@@ -1,4 +1,4 @@
-#include "sysinfod.h"
+﻿#include "sysinfod.h"
 #include <cstdlib>
 #include <cstdio>
 #include <sys/mount.h> // mount fun

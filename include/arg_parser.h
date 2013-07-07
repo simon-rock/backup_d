@@ -1,4 +1,4 @@
-class Arg_parser
+﻿class Arg_parser
   {
 public:
   enum Has_arg { no, yes, maybe };

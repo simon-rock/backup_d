@@ -1,4 +1,4 @@
-#ifndef _COM_INC_H_
+﻿#ifndef _COM_INC_H_
 #define _COM_INC_H_
 
 #include "sys_define.h"

@@ -1,4 +1,4 @@
-#ifndef _SYS_TOOLS_H_
+﻿#ifndef _SYS_TOOLS_H_
 #define _SYS_TOOLS_H_
 
 #include "com_inc.h"

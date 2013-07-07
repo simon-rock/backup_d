@@ -1,2 +1,2 @@
-#include "QueryFrame.h"
+﻿#include "QueryFrame.h"
 

@@ -1,4 +1,4 @@
-#include "brick_group.h"
+﻿#include "brick_group.h"
 #include "backup.h"
 Brick_Ctrl::Brick_Ctrl(bool horizontal,
                        const Glib::ustring& title,

@@ -1,4 +1,4 @@
-//	msg_queue.h
+﻿//	msg_queue.h
 #ifndef _MSG_QUEUE_H
 #define _MSG_QUEUE_H
 #include "com_inc.h"

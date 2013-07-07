@@ -1,4 +1,4 @@
-#ifndef _THREAD_H_
+﻿#ifndef _THREAD_H_
 #define _THREAD_H_
 
 // #define WINDOWS_LEAN_AND_MEAN

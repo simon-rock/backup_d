@@ -1,4 +1,4 @@
-#pragma once
+﻿#pragma once
 
 #include "com_inc.h"
 #include <stdarg.h>

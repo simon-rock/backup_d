@@ -1,4 +1,4 @@
-#ifndef _BROWSEFOLDER_H_
+﻿#ifndef _BROWSEFOLDER_H_
 #define _BROWSEFOLDER_H_
 #include <gtkmm.h>
 #include <gtkmm/button.h>

@@ -1,4 +1,4 @@
-#include "BrickMaster.h"
+﻿#include "BrickMaster.h"
 #include "masterwin.h"
 #include "BrowseFolder.h"
 #include <iostream>

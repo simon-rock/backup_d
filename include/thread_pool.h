@@ -1,4 +1,4 @@
-#ifndef _THREADPOOL_H_
+﻿#ifndef _THREADPOOL_H_
 #define _THREADPOOL_H_
 
 // #define WINDOWS_LEAN_AND_MEAN

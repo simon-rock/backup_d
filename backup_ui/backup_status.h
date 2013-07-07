@@ -1,4 +1,4 @@
-#ifndef _BACKUP_STATUS_H_
+﻿#ifndef _BACKUP_STATUS_H_
 #define _BACKUP_STATUS_H_
 #include <map>
 #include <string>
